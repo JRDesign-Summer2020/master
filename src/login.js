@@ -17,6 +17,7 @@ import { withStyles } from '@material-ui/core/styles';
 import color from "@material-ui/core/colors/red";
 import Image from 'material-ui-image';
 import logo from '../src/img/georgia-tech-excel-logo.png';
+import {yellow} from "@material-ui/core/colors";
 
 
 
@@ -50,8 +51,12 @@ const styles = theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-    backgroundColor: '#AC9A58'
+    backgroundColor: '#AC9A58',
+    '&:hover': {
+      background: "#335161",
+    }
   },
+
   logo: {
     margin: theme.spacing(1),
     height: '80%',
@@ -104,7 +109,6 @@ render() {
             type="submit"
             fullWidth
             variant="contained"
-            color= '#003057'
             className={classes.submit}
           >
             Sign In
