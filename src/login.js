@@ -1,5 +1,7 @@
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
+import CardMedia from "@material-ui/core/CardMedia";
+import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -13,13 +15,17 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { withStyles } from '@material-ui/core/styles';
 import color from "@material-ui/core/colors/red";
+import Image from 'material-ui-image';
+import logo from '../src/img/georgia-tech-excel-logo.png';
+
+
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Barack Obama
+        Georgia Institute of Technology
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -45,8 +51,14 @@ const styles = theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
     backgroundColor: '#AC9A58'
+  },
+  logo: {
+    margin: theme.spacing(1),
+    height: '80%',
+    width: '80%'
   }
 });
+
 
 class login extends React.Component {
 
@@ -57,9 +69,7 @@ render() {
     <Container component="main" maxWidth="xs">
       <CssBaseline/>
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon/>
-        </Avatar>
+        <img src= { logo } alt="Logo" className={classes.logo} />
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
