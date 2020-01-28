@@ -10,9 +10,9 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { withStyles } from '@material-ui/core/styles';
+import color from "@material-ui/core/colors/red";
 
 function Copyright() {
   return (
@@ -36,7 +36,7 @@ const styles = theme => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: color.A100,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -44,7 +44,8 @@ const styles = theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-  },
+    backgroundColor: '#AC9A58'
+  }
 });
 
 class login extends React.Component {
@@ -93,7 +94,7 @@ render() {
             type="submit"
             fullWidth
             variant="contained"
-            color="primary"
+            color= '#003057'
             className={classes.submit}
           >
             Sign In
