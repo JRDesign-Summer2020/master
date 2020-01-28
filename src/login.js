@@ -34,6 +34,9 @@ function Copyright() {
   );
 }
 
+function sayHello() {
+  alert('Login Successful!');
+}
 const styles = theme => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -110,6 +113,7 @@ render() {
             fullWidth
             variant="contained"
             className={classes.submit}
+            onClick={sayHello}
           >
             Sign In
           </Button>
@@ -127,7 +131,7 @@ render() {
           </Grid>
         </form>
       </div>
-      <Box mt={8}>
+      <Box mt={8}>l
         <Copyright/>
       </Box>
     </Container>
