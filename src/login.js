@@ -18,6 +18,7 @@ import color from "@material-ui/core/colors/red";
 import Image from 'material-ui-image';
 import logo from '../src/img/georgia-tech-excel-logo.png';
 import {yellow} from "@material-ui/core/colors";
+import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 
 
 

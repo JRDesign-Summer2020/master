@@ -6,10 +6,11 @@ import {  Route } from 'react-router'
 import { BrowserRouter } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 import login from './login';
+import homescreen from './homescreen';
 
 ReactDOM.render((
     <BrowserRouter>
-    <Route path = "/" component = {login}/>
+    <Route path = "/" component = {homescreen}/>
     </BrowserRouter>
     ), document.getElementById('root'));
 
