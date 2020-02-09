@@ -131,7 +131,7 @@ render() {
           </Grid>
         </form>
       </div>
-      <Box mt={8}>l
+      <Box mt={8}>
         <Copyright/>
       </Box>
     </Container>
