@@ -34,9 +34,9 @@ function onClick(e, item) {
 
 
 const items = [
-  { name: "home", 
-  label: "Home", 
-  Icon: HomeIcon 
+  { name: "home",
+  label: "Home",
+  Icon: HomeIcon
   },
   "divider",
   {
@@ -45,14 +45,14 @@ const items = [
     Icon: Dashboard
   },
   "divider",
-  { name: "students", 
-  label: "Students", 
+  { name: "students",
+  label: "Students",
   Icon: PeopleIcon},
   "divider",
-  { name: "competencies", 
-  label: "Competencies", 
+  { name: "competencies",
+  label: "Competencies",
   Icon: CheckBoxIcon,
-    
+
     items: [
       "divider",
       { name: "addcompetency", label: "Add Competency", onClick },
@@ -79,11 +79,11 @@ render() {
     //   <CssBaseline/>
     //   <div className={classes.paper}>
     //     <img src= { logo } alt="Logo" className={classes.logo} />
-        
+
     //     <Typography component="h1" variant="h5">
     //       Welcome, Admin User!
     //     </Typography>
-        
+
     //   </div>
     //   <Box mt={8}>
     //     <Copyright/>
