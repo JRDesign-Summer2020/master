@@ -19,6 +19,7 @@ import Image from 'material-ui-image';
 import logo from '../src/img/georgia-tech-excel-logo.png';
 import {yellow} from "@material-ui/core/colors";
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
+import { Redirect } from 'react-router-dom'
 
 
 
@@ -35,9 +36,6 @@ function Copyright() {
   );
 }
 
-function sayHello() {
-  alert('Login Successful!');
-}
 const styles = theme => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -70,6 +68,12 @@ const styles = theme => ({
 
 
 class login extends React.Component {
+
+sayHello = () => {
+    alert('Login Successful!');
+    this.props.history.push('/homescreen');
+    //return (<Redirect to='/homescreen' />);
+}
 
 render() {
   const { classes } = this.props;
@@ -114,7 +118,7 @@ render() {
             fullWidth
             variant="contained"
             className={classes.submit}
-            onClick={sayHello}
+            onClick={this.sayHello}
           >
             Sign In
           </Button>
