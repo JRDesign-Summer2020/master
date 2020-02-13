@@ -1,16 +1,23 @@
-import React from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-import {  Route } from 'react-router'
-import { BrowserRouter } from 'react-router-dom';
+
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 import login from './login';
+import homescreen from './homescreen';
+import Navigation from './Navigation';
+
 ReactDOM.render((
     <BrowserRouter>
-    <Route path = "/" component = {login}/>
+                <Switch>
+                    <Route exact path = "/" component = {login}/>  
+                    <Route exact path = "/homescreen" component = {homescreen}/>
+                    <Route exact path = "/nav" component = {Navigation}/>
+                </Switch>
+        
     </BrowserRouter>
-
     ), document.getElementById('root'));
 
 

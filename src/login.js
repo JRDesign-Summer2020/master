@@ -19,9 +19,8 @@ import Image from 'material-ui-image';
 import logo from '../src/img/georgia-tech-excel-logo.png';
 import {yellow} from "@material-ui/core/colors";
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
-import { MemoryRouter as Router } from 'react-router';
-import {BrowserRouter, Link as RouterLink} from 'react-router-dom';
-import homescreen from "./homescreen";
+import { Redirect } from 'react-router-dom'
+
 
 
 function Copyright() {
@@ -36,7 +35,6 @@ function Copyright() {
     </Typography>
   );
 }
-
 
 const styles = theme => ({
   paper: {
@@ -68,16 +66,15 @@ const styles = theme => ({
   }
 });
 
-const LinkBehavior = React.forwardRef((props, ref) => (
-  <RouterLink ref={ref} to="./homescreen" {...props} />
-));
 
 class login extends React.Component {
-  sayHello() {
-   // alert('Login Successful!');
 
-    ////return  <Redirect  to="/homescreen" />
-  }
+sayHello = () => {
+    alert('Login Successful!');
+    this.props.history.push('/homescreen');
+    //return (<Redirect to='/homescreen' />);
+}
+
 render() {
   const { classes } = this.props;
 
@@ -121,7 +118,7 @@ render() {
             fullWidth
             variant="contained"
             className={classes.submit}
-            component={homescreen} to="/"
+            onClick={this.sayHello}
           >
             Sign In
           </Button>
@@ -146,4 +143,5 @@ render() {
   );
 }
 }
+
 export default withStyles(styles)(login);
