@@ -1,18 +1,16 @@
 import React, { Component } from "react";
 import { Datatable } from "@o2xp/react-datatable";
+import { chunk } from "lodash";
 
-const legend = {
-
-}
 const options = {
-  title: "Excel Competencies",
+  title: "Excel Competencies, evaluated by: ",
   dimensions: {
     datatable: {
       width: "100%",
-      height: "0%"
+      height: "40%"
     },
     row: {
-      height: "10px"
+      height: "60px"
     }
   },
   keyColumn: "Competency",
@@ -22,96 +20,73 @@ const options = {
       {
         id: "Competency",
         label: "Competency",
-        colSize: "150px",
+        colSize: "350px",
         editable: false
       },
       {
-        id: "Importance Level",
+        id: "ImportanceLevel",
         label: "Importance Level",
-        colSize: "100px",
+        colSize: "80px",
         editable: true,
-        dataType: "text",
-        inputType: "input"
+        inputType: "select",
+        values: ["High", "Medium", "Low"]
       },
       {
         id: "Level",
         label: "Level",
-        colSize: "80px",
+        colSize: "20px",
         editable: true,
-        dataType: "number",
-        valueVerification: val => {
-          let error = val > 100 ? true : false;
-          let message = val > 100 ? "Value is too big" : "";
-          return {
-            error: error,
-            message: message
-          };
-        }
-      },
-      {
-        id: "Active",
-        label: "Active",
-        colSize: "50px",
-        editable: true,
-        dataType: "boolean",
-        inputType: "checkbox"
+        inputType: "select",
+        values: ["B", "I", "A", "E"]
       },
       {
         id: "TrackedBy",
         label: "Tracked By",
-        colSize: "120px",
+        colSize: "80px",
         editable: true,
-        dataType: "date",
-        inputType: "datePicker",
-        dateFormat: "YYYY-MM-DDTHH:MM:ss"
+        inputType: "input",
       },
       {
         id: "TrackText",
         label: "Text Response in Tracking System",
         colSize: "100px",
         editable: true,
-        inputType: "select",
-        values: ["green", "blue", "brown"]
+        inputType: "input",
       },
       {
         id: "FreqOfTrack" ,
         label: "Frequency of Tracking",
-        colSize: "150px",
+        colSize: "80px",
         editable: true,
-        inputType: "input",
-        mask: [
-          /\d/,
-          /\d/,
-          /\d/,
-          /\d/,
-          " ",
-          /\d/,
-          /\d/,
-          /\d/,
-          /\d/,
-          " ",
-          /\d/,
-          /\d/,
-          /\d/,
-          /\d/,
-          " ",
-          /\d/,
-          /\d/,
-          /\d/,
-          /\d/
-        ]
+        inputType: "select",
+        values: ["Year", "Semester", "Month"]
       }
     ],
     rows: [
       {
-        Competency: "",
-        Level: "",
-        Importance : "",
-        adult: true,
-        TrackedBy: "",
+        Competency: "12. Understands and demonstrates safe street crossing and other pedestrian laws",
+        Level: "B",
+        ImportanceLevel : "High",
+        TrackedBy: "Social Team",
         TrackText: "",
-        FreqOfTr: ""
-      }
+        FreqOfTrack: "Semester"
+      },
+      {
+        Competency: "13. Understands and demonstrates when and where it is safe or unsafe to travel at night",
+        Level: "B",
+        ImportanceLevel : "Medium",
+        TrackedBy: "Social Team",
+        TrackText: "",
+        FreqOfTrack: "Semester"
+      },
+      {
+        Competency: "14. Able to get to class and other familiar locations",
+        Level: "B",
+        ImportanceLevel : "High",
+        TrackedBy: "Social Team",
+        TrackText: "",
+        FreqOfTrack: "Semester"
+      },
     ]
   },
   features: {
@@ -125,7 +100,7 @@ const options = {
     canSelectRow: true,
     canSaveUserConfiguration: true,
     userConfiguration: {
-      columnsOrder: ["Competency", "Importance Level", "Level", "TrackedBy", "FreqOfTrack", "TrackText"],
+      columnsOrder: ["Competency", "ImportanceLevel", "Level", "TrackedBy", "FreqOfTrack", "TrackText"],
       copyToClipboard: true
     },
     rowsPerPage: {
@@ -146,6 +121,14 @@ class App extends Component {
     const randomRows = Math.floor(Math.random() * rows.length) + 1;
     const randomTime = Math.floor(Math.random() * 4000) + 1000;
     const randomResolve = Math.floor(Math.random() * 10) + 1;
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (randomResolve > 3) {
+          resolve(chunk(rows, randomRows)[0]);
+        }
+        reject(new Error("err"));
+      }, randomTime);
+    });
   };
 
   render() {
