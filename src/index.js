@@ -15,6 +15,7 @@ ReactDOM.render((
                   <Route exact path = "/" component = {login}/>
                   <Route exact path = "/homescreen" component = {homescreen}/>
                   <Route exact path = "/nav" component = {Navigation}/>
+                  <Route exact path = "/competency" component = {Competency}/>
                 </Switch>
 
     </BrowserRouter>

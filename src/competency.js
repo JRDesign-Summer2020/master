@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Datatable } from "@o2xp/react-datatable";
 import { chunk } from "lodash";
+import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
 
 const options = {
   title: "Excel Competencies, evaluated by: ",
@@ -115,6 +117,9 @@ class App extends Component {
     console.log(type);
     console.log(payload);
   };
+  returnToDash = () => {
+    this.props.history.push('/homescreen');
+  }
 
   refreshRows = () => {
     const { rows } = options.data;
@@ -133,11 +138,19 @@ class App extends Component {
 
   render() {
     return (
+      <Container>
+      <Button 
+        onClick={this.returnToDash}
+      > 
+      Back 
+      </Button>
+      
       <Datatable
         options={options}
         refreshRows={this.refreshRows}
         actions={this.actionsRow}
       />
+      </Container>
     );
   }
 }

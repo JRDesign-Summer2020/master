@@ -28,48 +28,52 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import { StepIcon } from '@material-ui/core';
 
 
-function onClick(e, item) {
-  window.alert(JSON.stringify(item, null, 2));
-}
-
-
-const items = [
-  { level: "home",
-  label: "Home",
-  Icon: HomeIcon
-  },
-  "divider",
-  {
-    level: "dashboard",
-    label: "Dashboard",
-    Icon: Dashboard
-  },
-  "divider",
-  { level: "Competencys",
-  label: "Competencys",
-  Icon: PeopleIcon},
-  "divider",
-  { level: "competencies",
-  label: "Competencies",
-  Icon: CheckBoxIcon,
-
-    items: [
-      "divider",
-      { level: "addcompetency", label: "Add Competency", onClick },
-      "divider",
-      { level: "managecompetencies", label: "Manage Competencies", onClick }]
-    },
-  "divider",
-  {
-    level: "settings",
-    label: "Settings",
-    Icon: SettingsIcon
-  }
-];
-
 
 
 class homescreen extends React.Component {
+
+  onClick  = (e, item) => {
+    window.alert(JSON.stringify(item, null, 2));
+  }
+  
+  goToCompetencies = (e, item) => {
+    this.props.history.push('/competency')
+  }
+  
+  
+  items = [
+    { level: "home",
+    label: "Home",
+    Icon: HomeIcon
+    },
+    "divider",
+    {
+      level: "dashboard",
+      label: "Dashboard",
+      Icon: Dashboard
+    },
+    "divider",
+    { level: "students",
+    label: "Students",
+    Icon: PeopleIcon},
+    "divider",
+    { level: "competencies",
+    label: "Competencies",
+    Icon: CheckBoxIcon,
+  
+      items: [
+        "divider",
+        { level: "addcompetency", label: "Add Competency", onClick : this.onClick},
+        "divider",
+        { level: "managecompetencies", label: "Manage Competencies", onClick: this.goToCompetencies }]
+      },
+    "divider",
+    {
+      level: "settings",
+      label: "Settings",
+      Icon: SettingsIcon
+    }
+  ];
 
 render() {
   // const { classes } = this.props;
@@ -91,7 +95,7 @@ render() {
     <Container>
     {/* <img src= { logo } alt="Logo"/> */}
       <div>
-      <Sidebar items={items}/>
+      <Sidebar items={this.items}/>
       </div>
     </Container>
   );

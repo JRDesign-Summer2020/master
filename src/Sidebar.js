@@ -13,10 +13,15 @@ import DesktopWindowsIcon from "@material-ui/icons/DesktopWindows";
 import SettingsIcon from "@material-ui/icons/Settings";
 import { StepIcon } from '@material-ui/core';
 import Dashboard from '@material-ui/icons/Dashboard';
+import { Redirect } from 'react-router-dom'
+import { withRouter } from "react-router";
 
 
 function onClick(e, item) {
   window.alert(JSON.stringify(item, null, 2));
+}
+function onCompClick(){
+  window.alert('competency pressed');
 }
 
 const items = [
@@ -43,7 +48,7 @@ const items = [
       "divider",
       { name: "addcompetency", label: "Add Competency", onClick },
       "divider",
-      { name: "managecompetencies", label: "Manage Competencies", onClick }]
+      { name: "managecompetencies", label: "Manage Competencies", onCompClick }]
     },
   "divider",
   {
@@ -68,7 +73,18 @@ function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
     if (onClickProp) {
       onClickProp(e, item);
     }
+    return (<Redirect to='/competency' />);
   }
+
+  function getSideBarItem(subItem) {
+    // alert(subItem);
+    return(<SidebarItem
+                    depth={depth + 1}
+                    depthStep={depthStep}
+                    item={subItem}
+                  />)
+    }
+
 
   let expandIcon;
 
@@ -110,11 +126,7 @@ function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
                 {subItem === "divider" ? (
                   <Divider style={{ margin: "6px 0" }} />
                 ) : (
-                  <SidebarItem
-                    depth={depth + 1}
-                    depthStep={depthStep}
-                    item={subItem}
-                  />
+                  getSideBarItem(subItem)
                 )}
               </React.Fragment>
             ))}
@@ -148,4 +160,4 @@ function Sidebar({ items, depthStep, depth, expanded }) {
   );
 }
 
-export default Sidebar;
+export default withRouter(Sidebar);
