@@ -8,15 +8,15 @@ import * as serviceWorker from './serviceWorker';
 import login from './login';
 import homescreen from './homescreen';
 import Navigation from './Navigation';
-
+import Competency from './competency';
 ReactDOM.render((
     <BrowserRouter>
                 <Switch>
-                    <Route exact path = "/" component = {login}/>  
-                    <Route exact path = "/homescreen" component = {homescreen}/>
-                    <Route exact path = "/nav" component = {Navigation}/>
+                  <Route exact path = "/" component = {login}/>
+                  <Route exact path = "/homescreen" component = {homescreen}/>
+                  <Route exact path = "/nav" component = {Navigation}/>
                 </Switch>
-        
+
     </BrowserRouter>
     ), document.getElementById('root'));
 

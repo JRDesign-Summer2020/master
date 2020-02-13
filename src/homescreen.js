@@ -34,34 +34,34 @@ function onClick(e, item) {
 
 
 const items = [
-  { name: "home",
+  { level: "home",
   label: "Home",
   Icon: HomeIcon
   },
   "divider",
   {
-    name: "dashboard",
+    level: "dashboard",
     label: "Dashboard",
     Icon: Dashboard
   },
   "divider",
-  { name: "students",
-  label: "Students",
+  { level: "Competencys",
+  label: "Competencys",
   Icon: PeopleIcon},
   "divider",
-  { name: "competencies",
+  { level: "competencies",
   label: "Competencies",
   Icon: CheckBoxIcon,
 
     items: [
       "divider",
-      { name: "addcompetency", label: "Add Competency", onClick },
+      { level: "addcompetency", label: "Add Competency", onClick },
       "divider",
-      { name: "managecompetencies", label: "Manage Competencies", onClick }]
+      { level: "managecompetencies", label: "Manage Competencies", onClick }]
     },
   "divider",
   {
-    name: "settings",
+    level: "settings",
     label: "Settings",
     Icon: SettingsIcon
   }
@@ -77,8 +77,8 @@ render() {
   return (
     // <Container component="main" maxWidth="xs">
     //   <CssBaseline/>
-    //   <div className={classes.paper}>
-    //     <img src= { logo } alt="Logo" className={classes.logo} />
+    //   <div classImportance Level={classes.paper}>
+    //     <img src= { logo } alt="Logo" classImportance Level={classes.logo} />
 
     //     <Typography component="h1" variant="h5">
     //       Welcome, Admin User!
@@ -100,3 +100,4 @@ render() {
 
 
 export default (homescreen);
+
