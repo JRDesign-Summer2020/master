@@ -28,48 +28,52 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import { StepIcon } from '@material-ui/core';
 
 
-function onClick(e, item) {
-  window.alert(JSON.stringify(item, null, 2));
-}
-
-
-const items = [
-  { name: "home", 
-  label: "Home", 
-  Icon: HomeIcon 
-  },
-  "divider",
-  {
-    name: "dashboard",
-    label: "Dashboard",
-    Icon: Dashboard
-  },
-  "divider",
-  { name: "students", 
-  label: "Students", 
-  Icon: PeopleIcon},
-  "divider",
-  { name: "competencies", 
-  label: "Competencies", 
-  Icon: CheckBoxIcon,
-    
-    items: [
-      "divider",
-      { name: "addcompetency", label: "Add Competency", onClick },
-      "divider",
-      { name: "managecompetencies", label: "Manage Competencies", onClick }]
-    },
-  "divider",
-  {
-    name: "settings",
-    label: "Settings",
-    Icon: SettingsIcon
-  }
-];
-
 
 
 class homescreen extends React.Component {
+
+  onClick  = (e, item) => {
+    window.alert(JSON.stringify(item, null, 2));
+  }
+  
+  goToCompetencies = (e, item) => {
+    this.props.history.push('/competency')
+  }
+  
+  
+  items = [
+    { level: "home",
+    label: "Home",
+    Icon: HomeIcon
+    },
+    "divider",
+    {
+      level: "dashboard",
+      label: "Dashboard",
+      Icon: Dashboard
+    },
+    "divider",
+    { level: "students",
+    label: "Students",
+    Icon: PeopleIcon},
+    "divider",
+    { level: "competencies",
+    label: "Competencies",
+    Icon: CheckBoxIcon,
+  
+      items: [
+        "divider",
+        { level: "addcompetency", label: "Add Competency", onClick : this.onClick},
+        "divider",
+        { level: "managecompetencies", label: "Manage Competencies", onClick: this.goToCompetencies }]
+      },
+    "divider",
+    {
+      level: "settings",
+      label: "Settings",
+      Icon: SettingsIcon
+    }
+  ];
 
 render() {
   // const { classes } = this.props;
@@ -77,13 +81,13 @@ render() {
   return (
     // <Container component="main" maxWidth="xs">
     //   <CssBaseline/>
-    //   <div className={classes.paper}>
-    //     <img src= { logo } alt="Logo" className={classes.logo} />
-        
+    //   <div classImportance Level={classes.paper}>
+    //     <img src= { logo } alt="Logo" classImportance Level={classes.logo} />
+
     //     <Typography component="h1" variant="h5">
     //       Welcome, Admin User!
     //     </Typography>
-        
+
     //   </div>
     //   <Box mt={8}>
     //     <Copyright/>
@@ -91,7 +95,7 @@ render() {
     <Container>
     {/* <img src= { logo } alt="Logo"/> */}
       <div>
-      <Sidebar items={items}/>
+      <Sidebar items={this.items}/>
       </div>
     </Container>
   );
@@ -100,3 +104,5 @@ render() {
 
 
 export default (homescreen);
+
+
