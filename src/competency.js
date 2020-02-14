@@ -3,6 +3,16 @@ import { Datatable } from "@o2xp/react-datatable";
 import { chunk } from "lodash";
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
+import Sidebar from "./Sidebar";
+import HomeIcon from "@material-ui/icons/Home";
+import Dashboard from "@material-ui/icons/Dashboard";
+import PeopleIcon from "@material-ui/icons/People";
+import CheckBoxIcon from "@material-ui/icons/CheckBox";
+import SettingsIcon from "@material-ui/icons/Settings";
+import color from "@material-ui/core/colors/red";
+import {withStyles} from "@material-ui/core/styles";
+
+
 
 const options = {
   title: "Excel Competencies, evaluated by: ",
@@ -112,6 +122,30 @@ const options = {
   }
 };
 
+const styles = theme => ({
+  side: {
+    margin: 0,
+    padding: 0,
+    width: '200px',
+    backgroundColor : '#f1f1f1',
+    position: 'fixed',
+    height: '100%',
+    overflow: 'auto',
+  },
+  content: {
+  marginLeft: '200px',
+  padding: '1px 16px',
+  height: '1000px',
+}
+});
+
+// const styles = theme => ({
+//   sideB: {
+//     float: left,
+//   },
+// });
+
+
 class App extends Component {
   actionsRow = ({ type, payload }) => {
     console.log(type);
@@ -136,23 +170,79 @@ class App extends Component {
     });
   };
 
+  onClick2  = (e, item) => {
+    window.alert(JSON.stringify(item, null, 2));
+  }
+
+  goToCompetencies = (e, item) => {
+    this.props.history.push('/competency')
+  }
+
+
+  items = [
+    { level: "home",
+      label: "Home",
+      Icon: HomeIcon
+    },
+    "divider",
+    {
+      level: "dashboard",
+      label: "Dashboard",
+      Icon: Dashboard
+    },
+    "divider",
+    { level: "students",
+      label: "Students",
+      Icon: PeopleIcon},
+    "divider",
+    { level: "competencies",
+      label: "Competencies",
+      Icon: CheckBoxIcon,
+
+      items: [
+        "divider",
+        { level: "addcompetency", label: "Add Competency", onClick2 : this.onClick2},
+        "divider",
+        { level: "managecompetencies", label: "Manage Competencies", onClick2: this.goToCompetencies }]
+    },
+    "divider",
+    {
+      level: "settings",
+      label: "Settings",
+      Icon: SettingsIcon
+    }
+  ];
+
   render() {
+    const { classes } = this.props;
+
     return (
       <Container>
-      <Button 
+      <Button style={{float : 'left'}}
         onClick={this.returnToDash}
-      > 
-      Back 
+      >
+      Back
       </Button>
-      
-      <Datatable
-        options={options}
-        refreshRows={this.refreshRows}
-        actions={this.actionsRow}
-      />
+        <div className={classes.side}>
+          <Sidebar items={this.items} ></Sidebar>
+        </div>
+        <div className={classes.content}>
+          <Datatable
+                     options={options}
+                     refreshRows={this.refreshRows}
+                     actions={this.actionsRow}
+          />
+        </div>
+
+
+
+
+
+
+
       </Container>
     );
   }
 }
 
-export default App;
+export default withStyles(styles)(App);
