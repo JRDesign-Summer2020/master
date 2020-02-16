@@ -178,11 +178,18 @@ class App extends Component {
     this.props.history.push('/competency')
   }
 
+  goHome = (e, item) => {
+    this.props.history.push('/homescreen')
+  }
+
+
+
 
   items = [
     { level: "home",
       label: "Home",
-      Icon: HomeIcon
+      Icon: HomeIcon,
+      onClick: this.goHome
     },
     "divider",
     {
