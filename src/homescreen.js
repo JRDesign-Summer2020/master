@@ -39,6 +39,10 @@ class homescreen extends React.Component {
   goToCompetencies = (e, item) => {
     this.props.history.push('/competency')
   }
+
+  goToUsers = (e, item) => {
+    this.props.history.push('/users')
+  }
   
   
   items = [
@@ -57,6 +61,21 @@ class homescreen extends React.Component {
     label: "Students",
     Icon: PeopleIcon},
     "divider",
+    { level: "users",
+    label: "Users",
+    Icon: PeopleIcon,
+  /*
+  implement routing for different pages here
+  */
+      items: [
+        "divider",
+        { level: "students", label: "Students", onClick : this.goToUsers},
+        "divider",
+        { level: "facultystaff", label: "Faculty & Staff", onClick : this.goToUsers},
+        "divider",
+        { level: "peermentors", label: "Peer Mentors", onClick: this.goToUsers }]
+      },
+    "divider",
     { level: "competencies",
     label: "Competencies",
     Icon: CheckBoxIcon,
@@ -66,6 +85,17 @@ class homescreen extends React.Component {
         { level: "addcompetency", label: "Add Competency", onClick : this.onClick},
         "divider",
         { level: "managecompetencies", label: "Manage Competencies", onClick: this.goToCompetencies }]
+      },
+    "divider",
+    { level: "locations",
+    label: "Locations",
+    Icon: CheckBoxIcon,
+  
+      items: [
+        "divider",
+        { level: "addlocation", label: "Add Location", onClick : this.onClick},
+        "divider",
+        { level: "managelocations", label: "Manage Locations", onClick: this.goToCompetencies }]
       },
     "divider",
     {

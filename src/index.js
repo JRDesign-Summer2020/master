@@ -9,6 +9,7 @@ import login from './login';
 import homescreen from './homescreen';
 import Navigation from './Navigation';
 import Competency from './competency';
+import User from './user';
 ReactDOM.render((
     <BrowserRouter>
                 <Switch>
@@ -16,6 +17,7 @@ ReactDOM.render((
                   <Route exact path = "/homescreen" component = {homescreen}/>
                   <Route exact path = "/nav" component = {Navigation}/>
                   <Route exact path = "/competency" component = {Competency}/>
+                  <Route exact path = "/users" component = {User}/>
                 </Switch>
 
     </BrowserRouter>

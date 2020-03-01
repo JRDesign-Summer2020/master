@@ -51,6 +51,17 @@ const items = [
       { name: "managecompetencies", label: "Manage Competencies", onCompClick }]
     },
   "divider",
+  { name: "locations", 
+  label: "Locations", 
+  Icon: CheckBoxIcon,
+    
+    items: [
+      "divider",
+      { name: "addlocation", label: "Add Location", onClick },
+      "divider",
+      { name: "managelocations", label: "Manage Locations", onCompClick }]
+    },
+  "divider",
   {
     name: "settings",
     label: "Settings",
