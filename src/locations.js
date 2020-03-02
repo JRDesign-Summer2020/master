@@ -15,7 +15,7 @@ import {withStyles} from "@material-ui/core/styles";
 
 
 const options = {
-  title: "Excel Competencies, evaluated by: ",
+  title: "Locations",
   dimensions: {
     datatable: {
       width: "100%",
@@ -25,85 +25,58 @@ const options = {
       height: "60px"
     }
   },
-  keyColumn: "Competency",
+  keyColumn: "LocationName",
   font: "Arial",
   data: {
     columns: [
       {
-        id: "Competency",
-        label: "Competency",
-        colSize: "350px",
+        id: "LocationName",
+        label: "Location Name",
+        colSize: "150px",
         editable: false
       },
       {
-        id: "ImportanceLevel",
-        label: "Importance Level",
-        colSize: "80px",
-        editable: true,
-        inputType: "select",
-        values: ["High", "Medium", "Low"]
+        id: "PhysicalLocation",
+        label: "Location on Campus",
+        colSize: "200px",
+        editable: false,
       },
       {
-        id: "Level",
-        label: "Level",
-        colSize: "20px",
-        editable: true,
-        inputType: "select",
-        values: ["B", "I", "A", "E"]
+        id: "MeetingTime",
+        label: "Meeting Time",
+        colSize: "150px",
+        editable: false,
       },
       {
-        id: "TrackedBy",
-        label: "Tracked By",
-        colSize: "80px",
-        editable: true,
-        inputType: "input",
-      },
-      {
-        id: "TrackText",
-        label: "Text Response in Tracking System",
-        colSize: "100px",
-        editable: true,
-        inputType: "input",
-      },
-      {
-        id: "FreqOfTrack" ,
-        label: "Frequency of Tracking",
-        colSize: "80px",
-        editable: true,
-        inputType: "select",
-        values: ["Year", "Semester", "Month"]
+        id: "Faculty",
+        label: "Faculty",
+        colSize: "150px",
       }
     ],
     rows: [
       {
-        Competency: "12. Understands and demonstrates safe street crossing and other pedestrian laws",
-        Level: "B",
-        ImportanceLevel : "High",
-        TrackedBy: "Social Team",
-        TrackText: "",
-        FreqOfTrack: "Semester"
+        LocationName: "Career Success II",
+        PhysicalLocation: "College of Business 4321",
+        MeetingTime : "12:30pm - 1:15pm",
+        Faculty: "Dr. John Doe",
       },
       {
-        Competency: "13. Understands and demonstrates when and where it is safe or unsafe to travel at night",
-        Level: "B",
-        ImportanceLevel : "Medium",
-        TrackedBy: "Social Team",
-        TrackText: "",
-        FreqOfTrack: "Semester"
+        LocationName: "Career Success I",
+        PhysicalLocation: "College of Business 3317",
+        MeetingTime : "2:30pm - 3:45pm",
+        Faculty: "Prof. Nathan Heald",
       },
       {
-        Competency: "14. Able to get to class and other familiar locations",
-        Level: "B",
-        ImportanceLevel : "High",
-        TrackedBy: "Social Team",
-        TrackText: "",
-        FreqOfTrack: "Semester"
-      },
+        LocationName: "Taxes and Accounting I",
+        PhysicalLocation: "College of Business 2321",
+        MeetingTime : "10:00am - 11:151m",
+        Faculty: "Dr. John Doe",
+      }
     ]
   },
   features: {
-    canEdit: true,
-    canDelete: true,
+    canEdit: false,
+    canDelete: false,
     canPrint: true,
     canDownload: true,
     canSearch: true,
@@ -112,7 +85,7 @@ const options = {
     canSelectRow: true,
     canSaveUserConfiguration: true,
     userConfiguration: {
-      columnsOrder: ["Competency", "ImportanceLevel", "Level", "TrackedBy", "FreqOfTrack", "TrackText"],
+      columnsOrder: ["LocationName", "PhysicalLocation", "MeetingTime", "Faculty"],
       copyToClipboard: true
     },
     rowsPerPage: {
@@ -146,7 +119,7 @@ const styles = theme => ({
 // });
 
 
-class App extends Component {
+class Locations extends Component {
   actionsRow = ({ type, payload }) => {
     console.log(type);
     console.log(payload);
@@ -177,11 +150,6 @@ class App extends Component {
 
     return (
       <Container>
-      <Button style={{float : 'left'}}
-        onClick={this.returnToDash}
-      >
-      Back
-      </Button>
         <div className={classes.side}>
           <Sidebar ></Sidebar>
         </div>
@@ -204,4 +172,4 @@ class App extends Component {
   }
 }
 
-export default withStyles(styles)(App);
+export default withStyles(styles)(Locations);

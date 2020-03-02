@@ -10,6 +10,7 @@ import homescreen from './homescreen';
 import Navigation from './Navigation';
 import Competency from './competency';
 import User from './user';
+import Locations from './locations';
 ReactDOM.render((
     <BrowserRouter>
                 <Switch>
@@ -18,6 +19,7 @@ ReactDOM.render((
                   <Route exact path = "/nav" component = {Navigation}/>
                   <Route exact path = "/competency" component = {Competency}/>
                   <Route exact path = "/users" component = {User}/>
+                  <Route exact path = "/alllocations" component = {Locations}/>
                 </Switch>
 
     </BrowserRouter>
