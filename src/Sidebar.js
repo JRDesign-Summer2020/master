@@ -24,50 +24,6 @@ function onCompClick(){
   window.alert('competency pressed');
 }
 
-const items = [
-  { name: "home", 
-  label: "Home", 
-  Icon: HomeIcon 
-  },
-  "divider",
-  {
-    name: "dashboard",
-    label: "Dashboard",
-    Icon: Dashboard
-  },
-  "divider",
-  { name: "students", 
-  label: "Students", 
-  Icon: PeopleIcon},
-  "divider",
-  { name: "competencies", 
-  label: "Competencies", 
-  Icon: CheckBoxIcon,
-    
-    items: [
-      "divider",
-      { name: "addcompetency", label: "Add Competency", onClick },
-      "divider",
-      { name: "managecompetencies", label: "Manage Competencies", onCompClick }]
-    },
-  "divider",
-  { name: "locations", 
-  label: "Locations", 
-  Icon: CheckBoxIcon,
-    
-    items: [
-      "divider",
-      { name: "addlocation", label: "Add Location", onClick },
-      "divider",
-      { name: "managelocations", label: "Manage Locations", onCompClick }]
-    },
-  "divider",
-  {
-    name: "settings",
-    label: "Settings",
-    Icon: SettingsIcon
-  }
-];
 
 function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
   const [collapsed, setCollapsed] = React.useState(true);
@@ -148,27 +104,106 @@ function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
   );
 }
 
-function Sidebar({ items, depthStep, depth, expanded }) {
-  return (
-    <div className="sidebar">
-      <List disablePadding dense>
-        {items.map((sidebarItem, index) => (
-          <React.Fragment key={`${sidebarItem.name}${index}`}>
-            {sidebarItem === "divider" ? (
-              <Divider style={{ margin: "6px 0" }} />
-            ) : (
-              <SidebarItem
-                depthStep={depthStep}
-                depth={depth}
-                expanded={expanded}
-                item={sidebarItem}
-              />
-            )}
-          </React.Fragment>
-        ))}
-      </List>
-    </div>
-  );
+class Sidebar extends React.Component {
+  depthStep = 10;
+  depth = 0;
+  expanded = false;
+  goToCompetencies = (e, item) => {
+    this.props.history.push('/competency')
+  }
+
+  goToUsers = (e, item) => {
+    this.props.history.push('/users')
+  }
+
+  goToHome = (e, item) => {
+    this.props.history.push('/homescreen')
+  }
+  
+  
+  items = [
+    { level: "home",
+    label: "Home",
+    Icon: HomeIcon,
+    onClick : this.goToHome
+    },
+    "divider",
+    {
+      level: "dashboard",
+      label: "Dashboard",
+      Icon: Dashboard
+    },
+    "divider",
+    { level: "students",
+    label: "Students",
+    Icon: PeopleIcon},
+    "divider",
+    { level: "users",
+    label: "Users",
+    Icon: PeopleIcon,
+  /*
+  implement routing for different pages here
+  */
+      items: [
+        "divider",
+        { level: "students", label: "Students", onClick : this.goToUsers},
+        "divider",
+        { level: "facultystaff", label: "Faculty & Staff", onClick : this.goToUsers},
+        "divider",
+        { level: "peermentors", label: "Peer Mentors", onClick: this.goToUsers }]
+      },
+    "divider",
+    { level: "competencies",
+    label: "Competencies",
+    Icon: CheckBoxIcon,
+  
+      items: [
+        "divider",
+        { level: "addcompetency", label: "Add Competency", onClick : this.onClick},
+        "divider",
+        { level: "managecompetencies", label: "Manage Competencies", onClick: this.goToCompetencies }]
+      },
+    "divider",
+    { level: "locations",
+    label: "Locations",
+    Icon: CheckBoxIcon,
+  
+      items: [
+        "divider",
+        { level: "addlocation", label: "Add Location", onClick : this.onClick},
+        "divider",
+        { level: "managelocations", label: "Manage Locations", onClick: this.goToCompetencies }]
+      },
+    "divider",
+    {
+      level: "settings",
+      label: "Settings",
+      Icon: SettingsIcon
+    }
+  ];
+
+  render() {
+    return (
+      <div className="sidebar">
+        <List disablePadding dense>
+          {this.items.map((sidebarItem, index) => (
+            <React.Fragment key={`${sidebarItem.name}${index}`}>
+              {sidebarItem === "divider" ? (
+                <Divider style={{ margin: "6px 0" }} />
+              ) : (
+                <SidebarItem
+                  depthStep={this.depthStep}
+                  depth={this.depth}
+                  expanded={this.expanded}
+                  item={sidebarItem}
+                />
+              )}
+            </React.Fragment>
+          ))}
+        </List>
+      </div>
+    );
+  }
 }
 
 export default withRouter(Sidebar);
