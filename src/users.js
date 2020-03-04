@@ -8,7 +8,7 @@ import {withStyles} from "@material-ui/core/styles";
 
 
 const options = {
-  title: "Locations",
+  title: "Users",
   dimensions: {
     datatable: {
       width: "100%",
@@ -18,52 +18,60 @@ const options = {
       height: "60px"
     }
   },
-  keyColumn: "LocationName",
+  keyColumn: "??",
   font: "Arial",
   data: {
     columns: [
       {
-        id: "LocationName",
-        label: "Location Name",
+        id: "UserID",
+        label: "Username",
         colSize: "150px",
         editable: false
       },
       {
-        id: "PhysicalLocation",
-        label: "Location on Campus",
+        id: "UserInfo",
+        label: "Full Name",
         colSize: "200px",
         editable: false,
       },
       {
-        id: "MeetingTime",
-        label: "Meeting Time",
+        id: "Role",
+        label: "Role",
         colSize: "150px",
         editable: false,
       },
       {
-        id: "Faculty",
-        label: "Faculty",
+        id: "Cohort",
+        label: "Cohort",
+        colSize: "150px",
+      },
+      {
+        id: "GTID",
+        label: "GTID",
         colSize: "150px",
       }
     ],
     rows: [
       {
-        LocationName: "Career Success II",
-        PhysicalLocation: "College of Business 4321",
-        MeetingTime : "12:30pm - 1:15pm",
-        Faculty: "Dr. John Doe",
+        UserID: "jdoe3",
+        UserInfo: "John Doe",
+        Role: "Student (current)",
+        Cohort: "1",
+        GTID: "903000000"
       },
       {
-        LocationName: "Career Success I",
-        PhysicalLocation: "College of Business 3317",
-        MeetingTime : "2:30pm - 3:45pm",
-        Faculty: "Prof. Nathan Heald",
+        UserID: "lsmith5",
+        UserInfo: "Lane Smith",
+        Role: "Coach",
+        Cohort: "2",
+        GTID: "903000001"
       },
       {
-        LocationName: "Taxes and Accounting I",
-        PhysicalLocation: "College of Business 2321",
-        MeetingTime : "10:00am - 11:151m",
-        Faculty: "Dr. John Doe",
+        UserID: "troberts7",
+        UserInfo: "Ty Roberts",
+        Role: "Faculty/Staff",
+        Cohort: "3",
+        GTID: "903000002"
       }
     ]
   },
@@ -78,7 +86,7 @@ const options = {
     canSelectRow: true,
     canSaveUserConfiguration: true,
     userConfiguration: {
-      columnsOrder: ["LocationName", "PhysicalLocation", "MeetingTime", "Faculty"],
+      columnsOrder: ["UserID", "UserInfo", "Role", "Cohort", "GTID"],
       copyToClipboard: true
     },
     rowsPerPage: {
@@ -105,14 +113,8 @@ const styles = theme => ({
 }
 });
 
-// const styles = theme => ({
-//   sideB: {
-//     float: left,
-//   },
-// });
 
-
-class Locations extends Component {
+class Users extends Component {
   actionsRow = ({ type, payload }) => {
     console.log(type);
     console.log(payload);
@@ -165,4 +167,4 @@ class Locations extends Component {
   }
 }
 
-export default withStyles(styles)(Locations);
+export default withStyles(styles)(Users);

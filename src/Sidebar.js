@@ -138,13 +138,10 @@ class Sidebar extends React.Component {
       Icon: Dashboard
     },
     "divider",
-    { level: "students",
-    label: "Students",
-    Icon: PeopleIcon},
-    "divider",
     { level: "users",
     label: "Users",
     Icon: PeopleIcon,
+    onClick : this.goToUsers,
   /*
   implement routing for different pages here
   */
