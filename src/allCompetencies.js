@@ -18,13 +18,13 @@ const options = {
       height: "60px"
     }
   },
-  keyColumn: "allCompetencies",
+  keyColumn: "LocationName",
   font: "Arial",
   data: {
     columns: [
       {
-        id: "allCompetencies",
-        label: "All Competencies",
+        id: "LocationName",
+        label: "Location Name",
         colSize: "150px",
         editable: false
       },
