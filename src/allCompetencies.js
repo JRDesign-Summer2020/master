@@ -8,7 +8,7 @@ import {withStyles} from "@material-ui/core/styles";
 
 
 const options = {
-  title: "Locations",
+  title: "allCompetencies",
   dimensions: {
     datatable: {
       width: "100%",
@@ -18,13 +18,13 @@ const options = {
       height: "60px"
     }
   },
-  keyColumn: "LocationName",
+  keyColumn: "allCompetencies",
   font: "Arial",
   data: {
     columns: [
       {
-        id: "LocationName",
-        label: "Location Name",
+        id: "allCompetencies",
+        label: "All Competencies",
         colSize: "150px",
         editable: false
       },
