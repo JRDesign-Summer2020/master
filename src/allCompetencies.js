@@ -8,7 +8,7 @@ import {withStyles} from "@material-ui/core/styles";
 
 
 const options = {
-  title: "allCompetencies",
+  title: "All Competencies",
   dimensions: {
     datatable: {
       width: "100%",
@@ -18,13 +18,13 @@ const options = {
       height: "60px"
     }
   },
-  keyColumn: "LocationName",
+  keyColumn: "allCompetencies",
   font: "Arial",
   data: {
     columns: [
       {
-        id: "LocationName",
-        label: "Location Name",
+        id: "allCompetencies",
+        label: "Competencies",
         colSize: "150px",
         editable: false
       },
@@ -48,19 +48,19 @@ const options = {
     ],
     rows: [
       {
-        LocationName: "Career Success II",
+        allCompetencies: "Career Success II",
         PhysicalLocation: "College of Business 4321",
         MeetingTime : "12:30pm - 1:15pm",
         Faculty: "Dr. John Doe",
       },
       {
-        LocationName: "Career Success I",
+        allCompetencies: "Career Success I",
         PhysicalLocation: "College of Business 3317",
         MeetingTime : "2:30pm - 3:45pm",
         Faculty: "Prof. Nathan Heald",
       },
       {
-        LocationName: "Taxes and Accounting I",
+        allCompetencies: "Taxes and Accounting I",
         PhysicalLocation: "College of Business 2321",
         MeetingTime : "10:00am - 11:151m",
         Faculty: "Dr. John Doe",
@@ -78,7 +78,7 @@ const options = {
     canSelectRow: true,
     canSaveUserConfiguration: true,
     userConfiguration: {
-      columnsOrder: ["LocationName", "PhysicalLocation", "MeetingTime", "Faculty"],
+      columnsOrder: ["allCompetencies", "PhysicalLocation", "MeetingTime", "Faculty"],
       copyToClipboard: true
     },
     rowsPerPage: {
