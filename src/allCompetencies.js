@@ -165,4 +165,4 @@ class Locations extends Component {
   }
 }
 
-export default withStyles(styles)(Locations);
+export default withStyles(styles)(allCompetencies);

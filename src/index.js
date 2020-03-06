@@ -12,6 +12,7 @@ import Competency from './competency';
 import Users from './users';
 import Locations from './locations';
 import allCompetencies from './allCompetencies';
+
 ReactDOM.render((
     <BrowserRouter>
                 <Switch>
