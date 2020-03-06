@@ -48,22 +48,22 @@ const options = {
     ],
     rows: [
       {
-        allCompetencies: "Career Success II",
-        PhysicalLocation: "College of Business 4321",
-        MeetingTime : "12:30pm - 1:15pm",
-        Faculty: "Dr. John Doe",
+        allCompetencies: "Understands and demonstrates safe street crossing and other pedestrian laws",
+        //PhysicalLocation: "College of Business 4321",
+        //MeetingTime : "12:30pm - 1:15pm",
+        //Faculty: "Dr. John Doe",
       },
       {
-        allCompetencies: "Career Success I",
-        PhysicalLocation: "College of Business 3317",
-        MeetingTime : "2:30pm - 3:45pm",
-        Faculty: "Prof. Nathan Heald",
+        allCompetencies: "Understands and demonstrates when and where it is safe or unsafe to travel at night",
+        //PhysicalLocation: "College of Business 3317",
+        //MeetingTime : "2:30pm - 3:45pm",
+        //Faculty: "Prof. Nathan Heald",
       },
       {
-        allCompetencies: "Taxes and Accounting I",
-        PhysicalLocation: "College of Business 2321",
-        MeetingTime : "10:00am - 11:151m",
-        Faculty: "Dr. John Doe",
+        allCompetencies: "Able to get to class and other familiar locations",
+        //PhysicalLocation: "College of Business 2321",
+        //MeetingTime : "10:00am - 11:151m",
+        //Faculty: "Dr. John Doe",
       }
     ]
   },
@@ -78,7 +78,7 @@ const options = {
     canSelectRow: true,
     canSaveUserConfiguration: true,
     userConfiguration: {
-      columnsOrder: ["allCompetencies", "PhysicalLocation", "MeetingTime", "Faculty"],
+      columnsOrder: ["allCompetencies"], //"PhysicalLocation", "MeetingTime", "Faculty"],
       copyToClipboard: true
     },
     rowsPerPage: {
