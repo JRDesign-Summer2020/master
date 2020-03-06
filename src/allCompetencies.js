@@ -112,7 +112,7 @@ const styles = theme => ({
 // });
 
 
-class Locations extends Component {
+class allCompetencies extends Component {
   actionsRow = ({ type, payload }) => {
     console.log(type);
     console.log(payload);
