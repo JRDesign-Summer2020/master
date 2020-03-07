@@ -122,9 +122,11 @@ class Sidebar extends React.Component {
 
   goToAllLocations = (e, item) => {
     this.props.history.push('/alllocations')
-  } 
-  
-  
+  }
+
+  goToLocationDetails = (e, item) => {
+    this.props.history.push('/locationDetails')
+  }
   items = [
     { level: "home",
     label: "Home",
@@ -157,7 +159,7 @@ class Sidebar extends React.Component {
     { level: "competencies",
     label: "Competencies",
     Icon: CheckBoxIcon,
-  
+
       items: [
         "divider",
         { level: "addcompetency", label: "Add Competency", onClick : this.onClick},
@@ -168,7 +170,12 @@ class Sidebar extends React.Component {
     { level: "locations",
     label: "Locations",
     Icon: CheckBoxIcon,
-    onClick: this.goToAllLocations
+      items: [
+        "divider",
+        { level: "alllocations", label: "Locations", onClick : this.goToAllLocations},
+        "divider",
+        { level: "locationDetails", label: "Location Details", onClick: this.goToLocationDetails }]
+    //onClick: this.goToAllLocations
     },
     "divider",
     {
