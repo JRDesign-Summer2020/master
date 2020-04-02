@@ -116,6 +116,10 @@ class Sidebar extends React.Component {
     this.props.history.push('/users')
   }
 
+  goToAddUser = (e, item) => {
+    this.props.history.push('/adduser')
+  }
+
   goToHome = (e, item) => {
     this.props.history.push('/homescreen')
   }
@@ -149,11 +153,10 @@ class Sidebar extends React.Component {
   */
       items: [
         "divider",
-        { level: "students", label: "Students", onClick : this.goToUsers},
+        { level: "viewUsers", label: "View Users", onClick : this.goToUsers},
         "divider",
-        { level: "facultystaff", label: "Faculty & Staff", onClick : this.goToUsers},
-        "divider",
-        { level: "peermentors", label: "Peer Mentors", onClick: this.goToUsers }]
+        { level: "addUser", label: "Add User", onClick : this.goToAddUser}
+      ]
       },
     "divider",
     { level: "competencies",

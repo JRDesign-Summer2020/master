@@ -13,6 +13,7 @@ import Users from './users';
 import Locations from './locations';
 import allCompetencies from './allCompetencies';
 import locationDetails from './locationDetails';
+import addUserForm from './addUserForm';
 
 ReactDOM.render((
     <BrowserRouter>
@@ -25,6 +26,7 @@ ReactDOM.render((
                   <Route exact path = "/alllocations" component = {Locations}/>
                   <Route exact path = "/allCompetencies" component = {allCompetencies}/>
                   <Route exact path = "/locationDetails" component = {locationDetails} />
+                  <Route exact path = "/adduser" component = {addUserForm} />
                 </Switch>
 
     </BrowserRouter>
