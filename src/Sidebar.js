@@ -109,7 +109,7 @@ class Sidebar extends React.Component {
   depth = 0;
   expanded = false;
   goToCompetencies = (e, item) => {
-    this.props.history.push('/competency')
+    this.props.history.push('/allCompetencies')
   }
 
   goToUsers = (e, item) => {

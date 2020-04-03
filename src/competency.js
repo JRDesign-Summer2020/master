@@ -177,11 +177,6 @@ class App extends Component {
 
     return (
       <Container>
-      <Button style={{float : 'left'}}
-        onClick={this.returnToDash}
-      >
-      Back
-      </Button>
         <div className={classes.side}>
           <Sidebar ></Sidebar>
         </div>
