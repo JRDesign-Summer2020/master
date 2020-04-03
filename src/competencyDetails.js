@@ -68,11 +68,11 @@ const details = {
 };
 
 const markup = {
-    domain: 'Domain',
-    subcategory: 'Subcategory',
-    importance: 'Importance',
-    difficulty: 'Difficulty',
-    eval_freq: 'Evaluation Frequency'
+    domain: <b>Domain</b>,
+    subcategory: <b>Subcategory</b>,
+    importance: <b>Importance</b>,
+    difficulty: <b>Difficulty</b>,
+    eval_freq: <b>Evaluation Frequency</b>
 }
 
 
