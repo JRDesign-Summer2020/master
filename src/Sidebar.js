@@ -8,23 +8,15 @@ import Collapse from "@material-ui/core/Collapse";
 import HomeIcon from "@material-ui/icons/Home";
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import PeopleIcon from '@material-ui/icons/People';
-import NotificationsIcon from "@material-ui/icons/Notifications";
-import DesktopWindowsIcon from "@material-ui/icons/DesktopWindows";
 import SettingsIcon from "@material-ui/icons/Settings";
-import { StepIcon } from '@material-ui/core';
 import Dashboard from '@material-ui/icons/Dashboard';
-import { Redirect } from 'react-router-dom'
-import { withRouter } from "react-router";
+import {Redirect} from 'react-router-dom'
+import {withRouter} from "react-router";
 
 
 function onClick(e, item) {
   window.alert(JSON.stringify(item, null, 2));
 }
-function onCompClick(){
-  window.alert('competency pressed');
-}
-
-
 function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
   const [collapsed, setCollapsed] = React.useState(true);
   const { label, items, Icon, onClick: onClickProp } = item;
@@ -108,25 +100,28 @@ class Sidebar extends React.Component {
   depthStep = 10;
   depth = 0;
   expanded = false;
-  goToCompetencies = (e, item) => {
+  goToCompetencies = () => {
     this.props.history.push('/allCompetencies')
-  }
+  };
 
-  goToUsers = (e, item) => {
+  goToUsers = () => {
     this.props.history.push('/users')
-  }
+  };
 
-  goToHome = (e, item) => {
+  goToHome = () => {
     this.props.history.push('/homescreen')
-  }
+  };
 
-  goToAllLocations = (e, item) => {
+  goToAllLocations = () => {
     this.props.history.push('/alllocations')
-  }
+  };
 
-  goToLocationDetails = (e, item) => {
+  goToLocationDetails = () => {
     this.props.history.push('/locationDetails')
-  }
+  };
+  goToStudents = () => {
+    this.props.history.push('/students')
+  };
   items = [
     { level: "home",
     label: "Home",
@@ -149,7 +144,7 @@ class Sidebar extends React.Component {
   */
       items: [
         "divider",
-        { level: "students", label: "Students", onClick : this.goToUsers},
+        { level: "students", label: "Students", onClick : this.goToStudents},
         "divider",
         { level: "facultystaff", label: "Faculty & Staff", onClick : this.goToUsers},
         "divider",

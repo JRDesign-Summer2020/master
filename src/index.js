@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
@@ -14,6 +14,8 @@ import Locations from './locations';
 import allCompetencies from './allCompetencies';
 import locationDetails from './locationDetails';
 import competencyDetails from './competencyDetails';
+import students from './students';
+import studentDetails from "./studentDetails";
 
 ReactDOM.render((
     <BrowserRouter>
@@ -27,6 +29,8 @@ ReactDOM.render((
                   <Route exact path = "/allCompetencies" component = {allCompetencies}/>
                   <Route exact path = "/locationDetails" component = {locationDetails} />
                   <Route exact path = "/compDetails" component = {competencyDetails} />
+                  <Route exact path ="/students" component={students} />
+                  <Route exact path ="/studentDetails" component={studentDetails} />
                 </Switch>
 
     </BrowserRouter>
