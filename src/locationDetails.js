@@ -84,7 +84,6 @@ const options = {
     canSearch: true,
     canRefreshRows: true,
     canOrderColumns: true,
-    canSelectRow: true,
     canSaveUserConfiguration: true,
     userConfiguration: {
       columnsOrder: ["ClassName","MeetingTime", "Faculty", "Students"],
@@ -105,7 +104,6 @@ const styles = theme => ({
     backgroundColor : '#f1f1f1',
     position: 'fixed',
     height: '100%',
-    overflow: 'auto',
   },
   content: {
     marginLeft: '200px',
