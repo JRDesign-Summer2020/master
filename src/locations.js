@@ -7,87 +7,6 @@ import {withStyles} from "@material-ui/core/styles";
 
 
 
-const options = {
-  title: "Locations",
-  dimensions: {
-    datatable: {
-      width: "100%",
-      height: "80%"
-    },
-    row: {
-      height: "60px"
-    }
-  },
-  keyColumn: "LocationName",
-  font: "Arial",
-  data: {
-    columns: [
-      {
-        id: "LocationName",
-        label: "Location Name",
-        colSize: "150px",
-        editable: false
-      },
-      {
-        id: "PhysicalLocation",
-        label: "Location on Campus",
-        colSize: "200px",
-        editable: false,
-      },
-      {
-        id: "MeetingTime",
-        label: "Meeting Time",
-        colSize: "150px",
-        editable: false,
-      },
-      {
-        id: "Faculty",
-        label: "Faculty",
-        colSize: "150px",
-      }
-    ],
-    rows: [
-      {
-        LocationName: "Career Success II",
-        PhysicalLocation: "College of Business 4321",
-        MeetingTime : "12:30pm - 1:15pm",
-        Faculty: "Dr. John Doe",
-      },
-      {
-        LocationName: "Career Success I",
-        PhysicalLocation: "College of Business 3317",
-        MeetingTime : "2:30pm - 3:45pm",
-        Faculty: "Prof. Nathan Heald",
-      },
-      {
-        LocationName: "Taxes and Accounting I",
-        PhysicalLocation: "College of Business 2321",
-        MeetingTime : "10:00am - 11:151m",
-        Faculty: "Dr. John Doe",
-      }
-    ]
-  },
-  features: {
-    canEdit: false,
-    canDelete: false,
-    canPrint: true,
-    canDownload: true,
-    canSearch: true,
-    canRefreshRows: true,
-    canOrderColumns: true,
-    canSelectRow: true,
-    canSaveUserConfiguration: true,
-    userConfiguration: {
-      columnsOrder: ["LocationName", "PhysicalLocation", "MeetingTime", "Faculty"],
-      copyToClipboard: true
-    },
-    rowsPerPage: {
-      available: [10, 25, 50, 100],
-      selected: 50
-    },
-  }
-};
-
 const styles = theme => ({
   side: {
     margin: 0,
@@ -96,7 +15,6 @@ const styles = theme => ({
     backgroundColor : '#f1f1f1',
     position: 'fixed',
     height: '100%',
-    overflow: 'auto',
   },
   content: {
   marginLeft: '200px',
@@ -113,13 +31,109 @@ const styles = theme => ({
 
 
 class Locations extends Component {
+  toClass(id) {
+    this.props.history.push(
+      {
+        pathname: '/classDetails',
+        data: {id}
+      }
+    );
+  }
+  options = {
+    title: "Locations",
+    dimensions: {
+      datatable: {
+        width: "100%",
+        height: "80%"
+      },
+      row: {
+        height: "60px"
+      }
+    },
+    keyColumn: "LocationName",
+    font: "Arial",
+    data: {
+      columns: [
+        {
+          id: "LocationName",
+          label: "Location Name",
+          colSize: "150px",
+          editable: false
+        },
+        {
+          id: "PhysicalLocation",
+          label: "Location on Campus",
+          colSize: "200px",
+          editable: false,
+        },
+        {
+          id: "MeetingTime",
+          label: "Meeting Time",
+          colSize: "120px",
+          editable: false,
+        },
+        {
+          id: "Faculty",
+          label: "Faculty",
+          colSize: "120px",
+        },
+        {
+          id: "clickButton",
+          label: "View",
+          colSize: "20px",
+          editable: false
+        }
+      ],
+      rows: [
+        {
+          LocationName: "Career Success II",
+          PhysicalLocation: "College of Business 4321",
+          MeetingTime : "12:30pm - 1:15pm",
+          Faculty: "Dr. John Doe",
+          id: '1283',
+          clickButton: <button onClick={() => this.toClass('13')}>View</button>,
+        },
+        {
+          LocationName: "Career Success I",
+          PhysicalLocation: "College of Business 3317",
+          MeetingTime : "2:30pm - 3:45pm",
+          Faculty: "Prof. Nathan Heald",
+        },
+        {
+          LocationName: "Taxes and Accounting I",
+          PhysicalLocation: "College of Business 2321",
+          MeetingTime : "10:00am - 11:151m",
+          Faculty: "Dr. John Doe",
+        }
+      ]
+    },
+    features: {
+      canEdit: false,
+      canDelete: false,
+      canPrint: true,
+      canDownload: true,
+      canSearch: true,
+      canRefreshRows: true,
+      canOrderColumns: true,
+      canSaveUserConfiguration: true,
+      userConfiguration: {
+        columnsOrder: ["LocationName", "PhysicalLocation", "MeetingTime", "Faculty", "clickButton"],
+        copyToClipboard: true
+      },
+      rowsPerPage: {
+        available: [10, 25, 50, 100],
+        selected: 50
+      },
+    }
+  };
+  
   actionsRow = ({ type, payload }) => {
     console.log(type);
     console.log(payload);
   };
 
   refreshRows = () => {
-    const { rows } = options.data;
+    const { rows } = this.options.data;
     const randomRows = Math.floor(Math.random() * rows.length) + 1;
     const randomTime = Math.floor(Math.random() * 4000) + 1000;
     const randomResolve = Math.floor(Math.random() * 10) + 1;
@@ -148,7 +162,7 @@ class Locations extends Component {
         </div>
         <div className={classes.content}>
           <Datatable
-                     options={options}
+                     options={this.options}
                      refreshRows={this.refreshRows}
                      actions={this.actionsRow}
           />
