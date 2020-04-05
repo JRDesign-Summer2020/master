@@ -14,6 +14,7 @@ import Locations from './locations';
 import allCompetencies from './allCompetencies';
 import locationDetails from './locationDetails';
 import competencyDetails from './competencyDetails';
+import classDetails from './classDetails';
 
 ReactDOM.render((
     <BrowserRouter>
@@ -27,6 +28,7 @@ ReactDOM.render((
                   <Route exact path = "/allCompetencies" component = {allCompetencies}/>
                   <Route exact path = "/locationDetails" component = {locationDetails} />
                   <Route exact path = "/compDetails" component = {competencyDetails} />
+                  <Route exact path = "/classDetails" component = {classDetails}/>
                 </Switch>
 
     </BrowserRouter>
