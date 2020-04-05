@@ -72,6 +72,11 @@ class allCompetencies extends Component {
           id: '1283',
           clickButton: <button onClick={() => this.toCompetency('1283')}>View</button>,
         },
+        {
+          allCompetencies: "Ability to call an Uber without any guidance.",
+          id: '837',
+          clickButton: <button onClick={() => this.toCompetency('837')}>View</button>,
+        },
       ]
     },
     features: {
@@ -82,7 +87,6 @@ class allCompetencies extends Component {
       canSearch: true,
       canRefreshRows: true,
       canOrderColumns: true,
-      canSelectRow: true,
       canSaveUserConfiguration: true,
       userConfiguration: {
         columnsOrder: ["allCompetencies", "clickButton"], //"PhysicalLocation", "MeetingTime", "Faculty"],

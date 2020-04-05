@@ -56,8 +56,8 @@ const details = {
     {
         name: 'Transportation 1',
         competencies:[
-            (1283, 'Crossing street without guidance.'),
-            (1928, 'Calling an Uber without guidance.' ),
+            [1283, 'Crossing street without guidance.'],
+            [837, 'Calling an Uber without guidance.' ],
         ]
         ,
         profs: [
@@ -110,8 +110,8 @@ class ClassDetails extends Component {
     const passed = this.props.location.data;
     const id = passed ? passed.id : null;
     const comp_name = id ? details[id].name : '';
-    const list_of_competencies = id ? details[id].competencies.map((sub_id, comp) =>
-        <LocationItem name={comp} sub_id={sub_id} endpoint = '/compDetails' history={this.props.history} location={this.props.location}/>
+    const list_of_competencies = id ? details[id].competencies.map((comp) =>
+        <LocationItem name={comp[1]} sub_id={comp[0]} endpoint = '/compDetails' history={this.props.history} location={this.props.location}/>
     ): <ListItem></ListItem>;
 
     const list_of_profs = id ? details[id].profs.map((prof) =>

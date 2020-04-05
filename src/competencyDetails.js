@@ -49,22 +49,41 @@ comp_text: {
   },
 });
 
-const locations = [
-    "Taxes and Accounting II",
-    "Professionalism I"
-];
-
 const details = {
-    name:'Crossing street without guidance.',
-    id: '1283',
-    sub_details: 
+    1283:
     {
+        name:'Crossing street without guidance.',
+        id: '1283',
+        locations : [
+            ['13', "Transportation I"],
+            ['12', "Career Skills II"],
+        ],
+        sub_details: 
+        {
             domain: 'Transportation',
             subcategory: 'Pedestrian Travel',
             importance: 'High',
             difficulty: 'Basic',
             eval_freq: 'Year'
         }
+    },
+    837:
+    {
+        name:'Calling an uber with no guidance.',
+        id: '837',
+        locations : [
+            ['13', "Transportation I"],
+            ['12', "Professionalism II"],
+        ],
+        sub_details: 
+        {
+            domain: 'Transportation',
+            subcategory: 'Pedestrian Travel',
+            importance: 'High',
+            difficulty: 'Intermediate',
+            eval_freq: 'Year'
+        }
+    },
 };
 
 const markup = {
@@ -98,9 +117,17 @@ class LocationItem extends Component {
         width: '300px',
       };
     bringToLocation = () => {
-        const goTo = '/compDetails/' + this.props.name;
+        console.log('name: ' + this.props.name);
+        console.log('sub: ' + this.props.sub_id)
+        const goTo = this.props.endpoint;
+        const id = this.props.sub_id;
         console.log(this.props.location.pathname);
-        this.props.history.push(goTo);
+        this.props.history.push(
+            {
+              pathname: goTo,
+              data: {id}
+            }
+          );
     }
     render(){
         return(
@@ -114,15 +141,18 @@ class LocationItem extends Component {
 class CompetencyDetails extends Component {
   render() {
     const { classes } = this.props;
-    const list_of_locations = this.props.location.data ? locations.map((loc) =>
-        <LocationItem name={loc} history={this.props.history} location={this.props.location}/>
+    const data_id = this.props.location.data ? this.props.location.data.id : null;
+    const comp_dict = data_id ? details[data_id] : null;
+    console.log(comp_dict);
+    const list_of_locations = data_id ? comp_dict.locations.map((loc) =>
+        <LocationItem name={loc[1]} endpoint='/classDetails' sub_id={loc[0]} history={this.props.history} location={this.props.location}/>
     ): <ListItem></ListItem>;
-    console.log(Object.keys(details));
-    const list_of_details = (this.props.location.data && (this.props.location.data.id == details.id)) ? Object.keys(details.sub_details).map((key) => {
+    //console.log(Object.keys(details[data_id]));
+    const list_of_details = comp_dict ? Object.keys(comp_dict.sub_details).map((key) => {
         return(
             <ListItem>
                 <ListItemText>
-                    {markup[key]} : {details.sub_details[key]}
+                    {markup[key]} : {comp_dict.sub_details[key]}
                 </ListItemText>
             </ListItem>
         )
