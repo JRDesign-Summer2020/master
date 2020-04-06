@@ -86,7 +86,7 @@ class Locations extends Component {
       ],
       rows: [
         {
-          LocationName: "Career Success II",
+          LocationName: "Transportation I",
           PhysicalLocation: "College of Business 4321",
           MeetingTime : "12:30pm - 1:15pm",
           Faculty: "Dr. John Doe",

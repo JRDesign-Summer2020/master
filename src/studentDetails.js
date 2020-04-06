@@ -37,22 +37,28 @@ const styles = () => ({
   },
 });
 
-const locations = [
-  "Taxes and Accounting II",
-  "Professionalism I"
-];
-
 const details = {
-  name:'John Doe',
-  id: 'jdoe3',
-  sub_details:
+  5:
     {
-      user: 'jdoe3',
-      role: 'Student (current)',
-      cohort: '1',
-      gtid: "903000000",
-      email: "jdoe3@gatech.edu",
-    }
+        name:'John Doe',
+        id: 'jdoe3',
+        locations : [
+          ['13', "Transportation I"],
+          ['12', "Career Skills II"],
+      ],
+      competencies:[
+        [1283, 'Crossing street without guidance.'],
+        [837, 'Calling an Uber without guidance.' ],
+    ],
+        sub_details: 
+        {
+          user: 'jdoe3',
+          role: 'Student (current)',
+          cohort: '1',
+          gtid: "903000000",
+          email: "jdoe3@gatech.edu",
+        }
+    },
 };
 
 const markup = {
@@ -86,10 +92,18 @@ class LocationItem extends Component {
     width: '300px',
   };
   bringToLocation = () => {
-    const goTo = '/studentDetails/' + this.props.name;
+    console.log('name: ' + this.props.name);
+    console.log('sub: ' + this.props.sub_id)
+    const goTo = this.props.endpoint;
+    const id = this.props.sub_id;
     console.log(this.props.location.pathname);
-    this.props.history.push(goTo);
-  };
+    this.props.history.push(
+        {
+          pathname: goTo,
+          data: {id}
+        }
+      );
+}
   render(){
     return(
       <ListItem button onClick={this.bringToLocation} style={this.listbutton}>
@@ -102,27 +116,34 @@ class LocationItem extends Component {
 class StudentDetails extends Component {
   render() {
     const { classes } = this.props;
-    const list_of_locations = this.props.location.data ? locations.map((loc) =>
-      <LocationItem name={loc} history={this.props.history} location={this.props.location}/>
-    ): <ListItem/>;
-    console.log(Object.keys(details));
-    const list_of_details = (this.props.location.data && (this.props.location.data.id === details.id)) ? Object.keys(details.sub_details).map((key) => {
+    const data_id = this.props.location.data ? this.props.location.data.id : null;
+    const comp_dict = data_id ? details[data_id] : null;
+    console.log(comp_dict);
+
+    const list_of_competencies = data_id ? comp_dict.competencies.map((comp) =>
+        <LocationItem name={comp[1]} sub_id={comp[0]} endpoint = '/compDetails' history={this.props.history} location={this.props.location}/>
+    ): <ListItem></ListItem>;
+
+    const list_of_locations = data_id ? comp_dict.locations.map((loc) =>
+        <LocationItem name={loc[1]} endpoint='/classDetails' sub_id={loc[0]} history={this.props.history} location={this.props.location}/>
+    ): <ListItem></ListItem>;
+    const list_of_details = comp_dict ? Object.keys(comp_dict.sub_details).map((key) => {
         return(
-          <ListItem>
-            <ListItemText>
-              {markup[key]} : {details.sub_details[key]}
-            </ListItemText>
-          </ListItem>
+            <ListItem>
+                <ListItemText>
+                    {markup[key]} : {comp_dict.sub_details[key]}
+                </ListItemText>
+            </ListItem>
         )
-      }
-    ) : <ListItem/>;
+    } 
+    ) : <ListItem></ListItem>;
     return (
       <Container>
         <div className={classes.side}>
           <Sidebar />
         </div>
         <div className={classes.comp_text}>
-          <StudentName name={details.name} exist={this.props.location.data == null}/>
+          <StudentName name={comp_dict.name} exist={this.props.location.data == null}/>
           <div className={classes.content}>
             <div className={classes.column_view}>
               <h2>Student Details</h2>
@@ -134,6 +155,12 @@ class StudentDetails extends Component {
               <h2> Classes </h2>
               <List>
                 {list_of_locations}
+              </List>
+            </div>
+            <div className={classes.column_view}>
+              <h2> Competencies </h2>
+              <List>
+                {list_of_competencies}
               </List>
             </div>
 

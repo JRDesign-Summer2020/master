@@ -70,7 +70,7 @@ class Students extends Component {
         {
           allStudents: "John Doe",
           id: 'jdoe3',
-          clickButton: <button onClick={() => this.toStudent('jdoe3')}>View</button>,
+          clickButton: <button onClick={() => this.toStudent(5)}>View</button>,
         },
       ]
     },
@@ -82,7 +82,6 @@ class Students extends Component {
       canSearch: true,
       canRefreshRows: true,
       canOrderColumns: true,
-      canSelectRow: false,
       canSaveUserConfiguration: true,
       userConfiguration: {
         columnsOrder: ["allStudents", "clickButton"],

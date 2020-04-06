@@ -164,7 +164,7 @@ class CompetencyDetails extends Component {
           <Sidebar ></Sidebar>
         </div>
         <div className={classes.comp_text}>
-            <CompetencyName name={details.name} exist={this.props.location.data == null}></CompetencyName>
+            <CompetencyName name={comp_dict.name} exist={this.props.location.data == null}></CompetencyName>
             <div className={classes.content}>
                 <div className={classes.column_view}>
                     <h2>Details</h2>

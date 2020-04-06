@@ -63,6 +63,10 @@ const details = {
         profs: [
             'Dr. John Doe',
             'Prof. Nathan Heald'
+        ],
+        students: [
+          [5, 'John Doe'],
+          [928, 'Bobby Bobberson'],
         ]
     }
 };
@@ -114,6 +118,10 @@ class ClassDetails extends Component {
         <LocationItem name={comp[1]} sub_id={comp[0]} endpoint = '/compDetails' history={this.props.history} location={this.props.location}/>
     ): <ListItem></ListItem>;
 
+    const list_of_students = id ? details[id].students.map((comp) => 
+        <LocationItem name={comp[1]} sub_id={comp[0]} endpoint = '/studentDetails' history={this.props.history} location={this.props.location}/>
+    ): <ListItem></ListItem>;
+
     const list_of_profs = id ? details[id].profs.map((prof) =>
         <LocationItem name={prof} history={this.props.history} location={this.props.location}/>
     ): <ListItem></ListItem>;
@@ -136,6 +144,12 @@ class ClassDetails extends Component {
                     <h2> Professors</h2>
                     <List>
                     {list_of_profs}
+                    </List>
+                </div>
+                <div className={classes.column_view}>
+                    <h2> Students</h2>
+                    <List>
+                    {list_of_students}
                     </List>
                 </div>
 
