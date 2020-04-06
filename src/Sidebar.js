@@ -190,7 +190,7 @@ class Sidebar extends React.Component {
     },
     "divider",
     {
-      level: "settings",
+      level: "sign out",
       label: "Sign out",
       Icon: ExitToAppIcon,
       onClick : this.goToLogin,
