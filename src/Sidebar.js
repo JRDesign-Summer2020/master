@@ -15,6 +15,7 @@ import { StepIcon } from '@material-ui/core';
 import Dashboard from '@material-ui/icons/Dashboard';
 import { Redirect } from 'react-router-dom'
 import { withRouter } from "react-router";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 
 function onClick(e, item) {
@@ -127,6 +128,10 @@ class Sidebar extends React.Component {
   goToLocationDetails = (e, item) => {
     this.props.history.push('/locationDetails')
   }
+
+  goToLogin = (e, item) => {
+      this.props.history.push('/')
+    }
   items = [
     { level: "home",
     label: "Home",
@@ -182,7 +187,14 @@ class Sidebar extends React.Component {
       level: "settings",
       label: "Settings",
       Icon: SettingsIcon
-    }
+    },
+    "divider",
+    {
+      level: "settings",
+      label: "Sign out",
+      Icon: ExitToAppIcon,
+      onClick : this.goToLogin,
+     }
   ];
 
   render() {
