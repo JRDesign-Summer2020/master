@@ -124,11 +124,10 @@ class Sidebar extends React.Component {
   goToStudents = () => {
     this.props.history.push('/students')
   };
-  }
 
   goToLogin = (e, item) => {
       this.props.history.push('/')
-    }
+  }
   items = [
     { level: "home",
     label: "Home",
@@ -194,27 +193,27 @@ class Sidebar extends React.Component {
      }
   ];
 
-  render() {
-    return (
-      <div className="sidebar">
-        <List disablePadding dense>
-          {this.items.map((sidebarItem, index) => (
-            <React.Fragment key={`${sidebarItem.name}${index}`}>
-              {sidebarItem === "divider" ? (
-                <Divider style={{ margin: "6px 0" }} />
-              ) : (
-                <SidebarItem
-                  depthStep={this.depthStep}
-                  depth={this.depth}
-                  expanded={this.expanded}
-                  item={sidebarItem}
-                />
-              )}
-            </React.Fragment>
-          ))}
-        </List>
-      </div>
-    );
+render() {
+  return (
+    <div className="sidebar">
+      <List disablePadding dense>
+        {this.items.map((sidebarItem, index) => (
+          <React.Fragment key={`${sidebarItem.name}${index}`}>
+            {sidebarItem === "divider" ? (
+              <Divider style={{margin: "6px 0"}}/>
+            ) : (
+              <SidebarItem
+                depthStep={this.depthStep}
+                depth={this.depth}
+                expanded={this.expanded}
+                item={sidebarItem}
+              />
+            )}
+          </React.Fragment>
+        ))}
+      </List>
+    </div>
+  );
   }
 }
 
