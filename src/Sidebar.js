@@ -13,6 +13,8 @@ import Dashboard from '@material-ui/icons/Dashboard';
 import {Redirect} from 'react-router-dom'
 import {withRouter} from "react-router";
 
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
 
 function onClick(e, item) {
   window.alert(JSON.stringify(item, null, 2));
@@ -122,6 +124,11 @@ class Sidebar extends React.Component {
   goToStudents = () => {
     this.props.history.push('/students')
   };
+  }
+
+  goToLogin = (e, item) => {
+      this.props.history.push('/')
+    }
   items = [
     { level: "home",
     label: "Home",
@@ -177,7 +184,14 @@ class Sidebar extends React.Component {
       level: "settings",
       label: "Settings",
       Icon: SettingsIcon
-    }
+    },
+    "divider",
+    {
+      level: "sign out",
+      label: "Sign out",
+      Icon: ExitToAppIcon,
+      onClick : this.goToLogin,
+     }
   ];
 
   render() {

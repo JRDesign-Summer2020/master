@@ -49,64 +49,30 @@ comp_text: {
   },
 });
 
+ 
+//gonna have to make API call to get comp ID then another to get comp name
 const details = {
-    1283:
+    '13': 
     {
-        name:'Crossing street without guidance.',
-        id: '1283',
-        locations : [
-            ['13', "Transportation I"],
-            ['12', "Career Skills II"],
-        ],
-        sub_details: 
-        {
-            domain: 'Transportation',
-            subcategory: 'Pedestrian Travel',
-            importance: 'High',
-            difficulty: 'Basic',
-            eval_freq: 'Year'
-        }
-    },
-    837:
-    {
-        name:'Calling an uber with no guidance.',
-        id: '837',
-        locations : [
-            ['13', "Transportation I"],
-            ['12', "Professionalism II"],
-        ],
-        sub_details: 
-        {
-            domain: 'Transportation',
-            subcategory: 'Pedestrian Travel',
-            importance: 'High',
-            difficulty: 'Intermediate',
-            eval_freq: 'Year'
-        }
-    },
+        name: 'Transportation 1',
+        competencies:[
+            [1283, 'Crossing street without guidance.'],
+            [837, 'Calling an Uber without guidance.' ],
+        ]
+        ,
+        profs: [
+            'Dr. John Doe',
+            'Prof. Nathan Heald'
+        ]
+    }
 };
 
-const markup = {
-    domain: <b>Domain</b>,
-    subcategory: <b>Subcategory</b>,
-    importance: <b>Importance</b>,
-    difficulty: <b>Difficulty</b>,
-    eval_freq: <b>Evaluation Frequency</b>
-}
 
-
-
-// const styles = theme => ({
-//   sideB: {
-//     float: left,
-//   },
-// });
-
-function CompetencyName(props){
+function LocationName(props){
     console.log(props.exist);
     return(!props.exist ?
             <Typography variant="h3">
-                Competency: {props.name}
+                Class: {props.name}
             </Typography> : <Typography></Typography>
     )
 }
@@ -138,44 +104,38 @@ class LocationItem extends Component {
     }
 }
 
-class CompetencyDetails extends Component {
+class ClassDetails extends Component {
   render() {
     const { classes } = this.props;
-    const data_id = this.props.location.data ? this.props.location.data.id : null;
-    const comp_dict = data_id ? details[data_id] : null;
-    console.log(comp_dict);
-    const list_of_locations = data_id ? comp_dict.locations.map((loc) =>
-        <LocationItem name={loc[1]} endpoint='/classDetails' sub_id={loc[0]} history={this.props.history} location={this.props.location}/>
+    const passed = this.props.location.data;
+    const id = passed ? passed.id : null;
+    const comp_name = id ? details[id].name : '';
+    const list_of_competencies = id ? details[id].competencies.map((comp) =>
+        <LocationItem name={comp[1]} sub_id={comp[0]} endpoint = '/compDetails' history={this.props.history} location={this.props.location}/>
     ): <ListItem></ListItem>;
-    //console.log(Object.keys(details[data_id]));
-    const list_of_details = comp_dict ? Object.keys(comp_dict.sub_details).map((key) => {
-        return(
-            <ListItem>
-                <ListItemText>
-                    {markup[key]} : {comp_dict.sub_details[key]}
-                </ListItemText>
-            </ListItem>
-        )
-    } 
-    ) : <ListItem></ListItem>;
+
+    const list_of_profs = id ? details[id].profs.map((prof) =>
+        <LocationItem name={prof} history={this.props.history} location={this.props.location}/>
+    ): <ListItem></ListItem>;
+   
     return (
       <Container>
         <div className={classes.side}>
           <Sidebar ></Sidebar>
         </div>
         <div className={classes.comp_text}>
-            <CompetencyName name={details.name} exist={this.props.location.data == null}></CompetencyName>
+            <LocationName name={comp_name} exist={id == null}></LocationName>
             <div className={classes.content}>
                 <div className={classes.column_view}>
-                    <h2>Details</h2>
+                    <h2>Competencies Tracked</h2>
                     <List>
-                    {list_of_details}
+                    {list_of_competencies}
                     </List>
                 </div>
                 <div className={classes.column_view}>
-                    <h2> Evaluated by Locations</h2>
+                    <h2> Professors</h2>
                     <List>
-                    {list_of_locations}
+                    {list_of_profs}
                     </List>
                 </div>
 
@@ -187,4 +147,4 @@ class CompetencyDetails extends Component {
   }
 }
 
-export default withStyles(styles)(CompetencyDetails);
+export default withStyles(styles)(ClassDetails);
