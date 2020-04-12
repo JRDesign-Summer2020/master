@@ -56,22 +56,19 @@ const options = {
         UserID: "jdoe3",
         UserInfo: "John Doe",
         Role: "Student (current)",
-        Cohort: "1",
-        GTID: "903000000"
+        Cohort: "1"
       },
       {
         UserID: "lsmith5",
         UserInfo: "Lane Smith",
         Role: "Coach",
-        Cohort: "2",
-        GTID: "903000001"
+        Cohort: "2"
       },
       {
         UserID: "troberts7",
         UserInfo: "Ty Roberts",
         Role: "Faculty/Staff",
-        Cohort: "3",
-        GTID: "903000002"
+        Cohort: "3"
       }
     ]
   },
@@ -85,7 +82,7 @@ const options = {
     canOrderColumns: true,
     canSaveUserConfiguration: true,
     userConfiguration: {
-      columnsOrder: ["UserID", "UserInfo", "Role", "Cohort", "GTID"],
+      columnsOrder: ["UserID", "UserInfo", "Role", "Cohort"],
       copyToClipboard: true
     },
     rowsPerPage: {
