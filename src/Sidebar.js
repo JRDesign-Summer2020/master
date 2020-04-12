@@ -6,10 +6,11 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import Collapse from "@material-ui/core/Collapse";
 import HomeIcon from "@material-ui/icons/Home";
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import PeopleIcon from '@material-ui/icons/People';
 import SettingsIcon from "@material-ui/icons/Settings";
 import Dashboard from '@material-ui/icons/Dashboard';
+import Location from '@material-ui/icons/Place';
+import CompetencyIcon from '@material-ui/icons/Notes';
 import {Redirect} from 'react-router-dom'
 import {withRouter} from "react-router";
 
@@ -125,9 +126,9 @@ class Sidebar extends React.Component {
     this.props.history.push('/students')
   };
 
-  goToLogin = (e, item) => {
+  goToLogin = () => {
       this.props.history.push('/')
-  }
+  };
   items = [
     { level: "home",
     label: "Home",
@@ -150,7 +151,7 @@ class Sidebar extends React.Component {
   */
       items: [
         "divider",
-        { level: "students", label: "Students", onClick : this.goToStudents},
+        { level: "students", label: "Students", onClick:this.goToStudents},
         "divider",
         { level: "facultystaff", label: "Faculty & Staff", onClick : this.goToUsers},
         "divider",
@@ -159,7 +160,7 @@ class Sidebar extends React.Component {
     "divider",
     { level: "competencies",
     label: "Competencies",
-    Icon: CheckBoxIcon,
+    Icon: CompetencyIcon,
 
       items: [
         "divider",
@@ -170,7 +171,7 @@ class Sidebar extends React.Component {
     "divider",
     { level: "locations",
     label: "Locations",
-    Icon: CheckBoxIcon,
+    Icon: Location,
       items: [
         "divider",
         { level: "alllocations", label: "Locations", onClick : this.goToAllLocations},
