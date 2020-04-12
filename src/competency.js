@@ -105,14 +105,6 @@ const options = {
         editable: false
       },
       {
-        id: "ImportanceLevel",
-        label: "Importance Level",
-        colSize: "80px",
-        editable: true,
-        inputType: "select",
-        values: ["High", "Medium", "Low"]
-      },
-      {
         id: "Difficulty",
         label: "Difficulty",
         colSize: "50px",
@@ -156,7 +148,6 @@ const options = {
         Competency: "12. Understands and demonstrates safe street crossing and other pedestrian laws",
         Difficulty: "B",
         Domain: "Technology",
-        ImportanceLevel : "High",
         Evaluation: "N",
         TrackedBy: "Social Team",
         Comments: "",
@@ -166,7 +157,6 @@ const options = {
         Competency: "13. Understands and demonstrates when and where it is safe or unsafe to travel at night",
         Difficulty: "B",
         Domain: "Housing",
-        ImportanceLevel: "Medium",
         Evaluation: "N",
         TrackedBy: "Social Team",
         Comments: "",
@@ -176,7 +166,6 @@ const options = {
         Competency: "14. Able to get to class and other familiar locations",
         Difficulty: "B",
         Domain: "Health and Wellness",
-        ImportanceLevel : "High",
         Evaluation: "N",
         TrackedBy: "Social Team",
         Comments: "",
@@ -194,7 +183,7 @@ const options = {
     canOrderColumns: true,
     canSaveUserConfiguration: true,
     userConfiguration: {
-      columnsOrder: ["Competency", "Domain", "ImportanceLevel", "Difficulty", "Evaluation", "TrackedBy", "FreqOfTrack", "Comments"],
+      columnsOrder: ["Competency", "Domain", "Difficulty", "Evaluation", "TrackedBy", "FreqOfTrack", "Comments"],
       copyToClipboard: true
     },
     pagination: false,
