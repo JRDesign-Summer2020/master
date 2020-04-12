@@ -5,6 +5,9 @@ import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Sidebar from "./Sidebar";
 import {withStyles} from "@material-ui/core/styles";
+import getEvaluations from "./getEvaluations";
+
+const evaluationsFromApi = getEvaluations();
 
 const evalU  = {
   title: "Evaluation Scale",
