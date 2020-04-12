@@ -15,6 +15,7 @@ import allCompetencies from './allCompetencies';
 import locationDetails from './locationDetails';
 import competencyDetails from './competencyDetails';
 import students from './students';
+import studentComp from "./studentComp";
 import studentDetails from "./studentDetails";
 import classDetails from './classDetails';
 
@@ -31,7 +32,7 @@ ReactDOM.render((
                   <Route exact path = "/locationDetails" component = {locationDetails} />
                   <Route exact path = "/compDetails" component = {competencyDetails} />
                   <Route exact path ="/students" component={students} />
-                  <Route exact path ="/studentDetails" component={studentDetails} />
+                  <Route exact path ="/studentComp" component={studentComp} />
                   <Route exact path = "/classDetails" component = {classDetails}/>
                 </Switch>
 
