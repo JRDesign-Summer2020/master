@@ -58,7 +58,7 @@ const details = {
             ['13', "Transportation I"],
             ['12', "Career Skills II"],
         ],
-        sub_details: 
+        sub_details:
         {
             domain: 'Transportation',
             subcategory: 'Pedestrian Travel',
@@ -75,7 +75,7 @@ const details = {
             ['13', "Transportation I"],
             ['12', "Professionalism II"],
         ],
-        sub_details: 
+        sub_details:
         {
             domain: 'Transportation',
             subcategory: 'Pedestrian Travel',
@@ -156,7 +156,7 @@ class CompetencyDetails extends Component {
                 </ListItemText>
             </ListItem>
         )
-    } 
+    }
     ) : <ListItem></ListItem>;
     return (
       <Container>

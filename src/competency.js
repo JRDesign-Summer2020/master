@@ -10,7 +10,7 @@ const evalU  = {
   title: "Evaluation Scale",
   keyColumn: 'id',
   data: {
-      columns: [ 
+      columns: [
           {
               id: "score",
               label: "Score",
@@ -49,13 +49,13 @@ const evalU  = {
             score: "2",
             perfcompl: "Can do, but not well",
             frequency: "1/4 of the time",
-            supportprompt: "needs partial support to complete", 
+            supportprompt: "needs partial support to complete",
           },
           {
             score: "1",
             perfcompl: "Unable or cannot do",
             frequency: "Almost never",
-            supportprompt: "full support required", 
+            supportprompt: "full support required",
           },
           {
             score: "0",
@@ -67,7 +67,7 @@ const evalU  = {
             perfcompl: "Not evaluated by observation or not applicable"
           },
       ],
-  }, 
+  },
   features: {
     userConfiguration: {
       copyToClipboard: true,
@@ -197,10 +197,11 @@ const options = {
       columnsOrder: ["Competency", "Domain", "ImportanceLevel", "Difficulty", "Evaluation", "TrackedBy", "FreqOfTrack", "Comments"],
       copyToClipboard: true
     },
-    rowsPerPage: {
-      available: [10, 25, 50, 100],
-      selected: 50
-    },
+    pagination: false,
+    // rowsPerPage: {
+    //   available: [10, 25, 50, 100],
+    //   selected: 50
+    // },
   }
 };
 
@@ -208,7 +209,7 @@ const styles = theme => ({
   side: {
     margin: 0,
     padding: 0,
-    width: '190px',
+    width: '200px',
     backgroundColor : '#f1f1f1',
     position: 'fixed',
     height: '100%',
@@ -263,7 +264,7 @@ class App extends Component {
           />
           <Datatable options={evalU}/>
         </div>
-        
+
 
 
       </Container>
