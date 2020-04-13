@@ -150,7 +150,6 @@ const markup = {
   user: <b> Username</b>,
   role: <b>Role</b>,
   cohort: <b>Cohort</b>,
-  gtid: <b> GTID</b>,
   email: <b> Email</b>
 };
 
@@ -172,7 +171,14 @@ function StudentName(props){
 
 class LocationItem extends Component {
   listbutton = {
-    border: '1px solid black',
+    border: '2px',
+    background: '#CFCFCF',
+    transition: "#efefef",
+    color: 'solid black',
+    textAlign: 'center',
+    borderRadius: '5px',
+    height: '30px',
+    margin: '0 0 3px 0',
     width: '300px',
   };
   bringToLocation = () => {
@@ -239,7 +245,6 @@ class StudentComp extends Component {
                 user: 'jdoe3',
                 role: 'Student (current)',
                 cohort: '1',
-                gtid: "903000000",
                 email: "jdoe3@gatech.edu",
               }
           },

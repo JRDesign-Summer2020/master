@@ -29,8 +29,7 @@ const styles = theme => ({
     height: '100%',
   },
   content: {
-  marginLeft: '200px',
-  padding: '1px 16px',
+  padding: '1px 5px',
   height: '1000px',
   display: 'flex',
   flexDirection: 'row',
@@ -43,7 +42,7 @@ comp_text: {
     flexDirection: 'column',
   },
   column_view: {
-      padding: '15px 15px',
+      padding: '0px 15px',
       display: 'flex',
       flexDirection: 'column',
   },
@@ -75,7 +74,7 @@ const details = {
 function LocationName(props){
     console.log(props.exist);
     return(!props.exist ?
-            <Typography variant="h3">
+            <Typography variant="h5">
                 Class: {props.name}
             </Typography> : <Typography></Typography>
     )
@@ -83,7 +82,14 @@ function LocationName(props){
 
 class LocationItem extends Component {
     listbutton = {
-        border: '1px solid black',
+        border: '2px',
+        background: '#CFCFCF',
+        transition: "#efefef",
+        color: 'solid black',
+        textAlign: 'center',
+        borderRadius: '5px',
+        height: '30px',
+        margin: '0 0 3px 0',
         width: '300px',
       };
     bringToLocation = () => {
@@ -135,19 +141,19 @@ class ClassDetails extends Component {
             <LocationName name={comp_name} exist={id == null}></LocationName>
             <div className={classes.content}>
                 <div className={classes.column_view}>
-                    <h2>Competencies Tracked</h2>
+                    <h4>Competencies Tracked</h4>
                     <List>
                     {list_of_competencies}
                     </List>
                 </div>
                 <div className={classes.column_view}>
-                    <h2> Professors</h2>
+                    <h4> Professors</h4>
                     <List>
                     {list_of_profs}
                     </List>
                 </div>
                 <div className={classes.column_view}>
-                    <h2> Students</h2>
+                    <h4> Students</h4>
                     <List>
                     {list_of_students}
                     </List>
