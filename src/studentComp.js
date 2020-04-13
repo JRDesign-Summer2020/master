@@ -8,6 +8,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { chunk } from "lodash";
 import { Datatable } from "@o2xp/react-datatable";
+import _ from "lodash";
 
 const styles = () => ({
   side: {
@@ -45,11 +46,11 @@ const styles = () => ({
 
 
 let datatable_frame = {
-    title: "Competencies Evaluation for:",
+    title: "Competencies that need evaluating:",
     dimensions: {
       datatable: {
         width: "100%",
-        height: "80%"
+        height: "100%"
       },
       row: {
         height: "60px"
@@ -112,7 +113,7 @@ let datatable_frame = {
         {
             id: "clickButton",
             label: "Submit",
-            colSize: "20px",
+            colSize: "70px",
             editable: false
           }
       ],
@@ -125,20 +126,18 @@ let datatable_frame = {
       canPrint: true,
       canDownload: true,
       canSearch: true,
-      canRefreshRows: true,
       canOrderColumns: true,
       canSaveUserConfiguration: true,
-      isUpdatingRows: true,
       userConfiguration: {
         columnsOrder: ["Competency", "Domain", "Difficulty", "Evaluation", "TrackedBy", "FreqOfTrack", "Comments", "clickButton"],
         copyToClipboard: true
       },
-      pagination: false,
       // rowsPerPage: {
       //   available: [10, 25, 50, 100],
       //   selected: 50
       // },
-    }
+    },
+
   };
 
 
@@ -213,7 +212,7 @@ class StudentComp extends Component {
                       TrackedBy: "Social Team",
                       Comments: "",
                       FreqOfTrack: "Semester",
-                      clickButton: <button onClick={() => this.performEval(1283)}>View</button>,
+                      clickButton: <button onClick={() => this.performEval(1283)}>Submit</button>,
                     }
               ],
               [837, 
@@ -225,7 +224,7 @@ class StudentComp extends Component {
                       TrackedBy: "Social Team",
                       Comments: "",
                       FreqOfTrack: "Semester",
-                      clickButton: <button onClick={() => this.performEval(837)}>View</button>,
+                      clickButton: <button onClick={() => this.performEval(837)}>Submit</button>,
                 }
               ],
           ],
@@ -243,18 +242,18 @@ class StudentComp extends Component {
 
     data_id = this.props.location.data ? this.props.location.data.id : null;
     comp_dict = this.data_id ? this.details[this.data_id] : null;
-    comp_info = Object.assign({}, datatable_frame);
 
     actionsRow = ({ type, payload }) => {
         console.log(type);
         console.log(payload);
       };
     
-      refreshRows = () => {
-        const { rows } = this.comp_info.data;
+    refreshRows = (information) => {
+        const { rows } = information.data;
         const randomRows = Math.floor(Math.random() * rows.length) + 1;
         const randomTime = Math.floor(Math.random() * 4000) + 1000;
         const randomResolve = Math.floor(Math.random() * 10) + 1;
+        console.log('refresh rows');
         return new Promise((resolve, reject) => {
           setTimeout(() => {
             if (randomResolve > 3) {
@@ -263,73 +262,93 @@ class StudentComp extends Component {
             reject(new Error("err"));
           }, randomTime);
         });
-      };
+    };
     
-      onClick2  = (e, item) => {
+    onClick2  = (e, item) => {
         window.alert(JSON.stringify(item, null, 2));
-      }
-
-      state = {
-        data_table_current : <Datatable options={this.comp_info} refreshRows={this.refreshRows} actions={this.actionsRow} forceRerender={true}/>
     }
 
-performEval(id) {
-    console.log(this.comp_dict.competencies.filter(item => item[0] == id))
-    let filtered = this.comp_dict.competencies.filter(item => item[0] == id)
-    let comp_data = filtered ? filtered[0][1] : null;
-    let rest = comp_data ? this.comp_dict.competencies.filter(item => item[0] != id) : this.comp_dict.competencies;
-    console.log(comp_data);
-    console.log(rest);
-    this.comp_info.data.rows = (rest ? rest.map((comp) => comp[1]) : null);
-    this.setState({data_table_current:  <Datatable options={this.comp_info} refreshRows={this.refreshRows} actions={this.actionsRow} forceRerender={true}/>});
-}
+    state = {
+       comp_info: _.cloneDeep(datatable_frame),
+       comp_history_info: _.cloneDeep(datatable_frame)
+    }
 
-  render() {
-    const { classes } = this.props;
-    this.comp_info.data.rows = (this.data_id ? this.comp_dict.competencies.map((comp) => comp[1]) : null);
-    const list_of_locations = this.data_id ? this.comp_dict.locations.map((loc) =>
-        <LocationItem name={loc[1]} endpoint='/classDetails' sub_id={loc[0]} history={this.props.history} location={this.props.location}/>
-    ): <ListItem></ListItem>;
-    const list_of_details = this.comp_dict ? Object.keys(this.comp_dict.sub_details).map((key) => {
-        return(
-            <ListItem>
-                <ListItemText>
-                    {markup[key]} : {this.comp_dict.sub_details[key]}
-                </ListItemText>
-            </ListItem>
-        )
-    } 
-    ) : <ListItem></ListItem>;
+    performEval(id) {
+        console.log(this.comp_dict.competencies.filter(item => item[0] == id))
+        let filtered = this.comp_dict.competencies.filter(item => item[0] == id)
+        let inter = filtered[0];
+        let comp_data = filtered ? (inter ? filtered[0][1] : inter) : null;
+        let rest = comp_data ? this.comp_dict.competencies.filter(item => item[0] != id) : this.comp_dict.competencies;
+        console.log(comp_data);
+        console.log(rest);
+        this.state.comp_info.data.rows = (rest ? rest.map((comp) => comp[1]) : null);
+        this.comp_dict.historic_competencies.push(inter);
+        console.log(this.comp_dict.historic_competencies);
+        this.state.comp_history_info.data.rows = this.comp_dict.historic_competencies.map((comp) => comp[1])
+        console.log(this.state.comp_history_info.data.rows);
+        this.forceUpdate();
+        // this.setState({data_table_current:  <Datatable options={this.state.comp_info} refreshRows={this.refreshRows} actions={this.actionsRow} forceRerender={true}/>});
+    }
 
-    return (
-      <Container>
-        <div className={classes.side}>
-          <Sidebar />
-        </div>
-        <div className={classes.comp_text}>
-          <StudentName name={(this.comp_dict ? this.comp_dict.name : null)} exist={this.props.location.data == null}/>
-          <div className={classes.content}>
-            <div className={classes.column_view}>
-              <h2>Student Details</h2>
-              <List>
-              {list_of_details}
-              </List>
+    componentDidMount() {
+        this.state.comp_info.data.rows = (this.data_id ? this.comp_dict.competencies.map((comp) => comp[1]) : null);
+        this.state.comp_history_info.data.rows = (this.data_id ? this.comp_dict.historic_competencies.map((comp) => comp[1]) : null);
+        this.state.comp_history_info.title = "Previously evaluated competencies: ";
+        this.state.comp_history_info.features.userConfiguration.columnsOrder.pop();
+        this.state.comp_history_info.data.columns.pop();
+        console.log(this.state.comp_info.data.rows);
+        console.log(this.state.comp_history_info.data.columns);
+        this.forceUpdate();
+    }
+
+    render() {
+        console.log('yes');
+        const { classes } = this.props;
+        const list_of_locations = this.data_id ? this.comp_dict.locations.map((loc) =>
+            <LocationItem name={loc[1]} endpoint='/classDetails' sub_id={loc[0]} history={this.props.history} location={this.props.location}/>
+        ): <ListItem></ListItem>;
+        const list_of_details = this.comp_dict ? Object.keys(this.comp_dict.sub_details).map((key) => {
+            return(
+                <ListItem>
+                    <ListItemText>
+                        {markup[key]} : {this.comp_dict.sub_details[key]}
+                    </ListItemText>
+                </ListItem>
+            )
+        } 
+        ) : <ListItem></ListItem>;
+        return (
+        <Container>
+            <div className={classes.side}>
+            <Sidebar />
             </div>
-            <div className={classes.column_view}>
-              <h2> Classes </h2>
-              <List>
-                {list_of_locations}
-              </List>
+            <div className={classes.comp_text}>
+            <StudentName name={(this.comp_dict ? this.comp_dict.name : null)} exist={this.props.location.data == null}/>
+            <div className={classes.content}>
+                <div className={classes.column_view}>
+                <h2>Student Details</h2>
+                <List>
+                {list_of_details}
+                </List>
+                </div>
+                <div className={classes.column_view}>
+                <h2> Classes </h2>
+                <List>
+                    {list_of_locations}
+                </List>
+                </div>
             </div>
-          </div>
-          <div className={classes.content_displays}>
-            {this.state.data_table_current}
-          </div>
-        </div>
+            <div className={classes.content_displays}>
+                <Datatable options={this.state.comp_info} refreshRows={() => this.refreshRows(this.state.comp_info)} actions={this.actionsRow}/>
+            </div>
+            <div className={classes.content_displays}>
+                <Datatable options={this.state.comp_history_info} refreshRows={() => this.refreshRows(this.state.comp_history_info)} actions={this.actionsRow}/>
+            </div>
+            </div>
 
-      </Container>
-    );
-  }
+        </Container>
+        );
+    }
 }
 
 export default withStyles(styles)(StudentComp);
