@@ -21,26 +21,31 @@ const styles = () => ({
   },
   content: {
     padding: '1px 16px',
-    height: '1000px',
-    display: 'flex',
-    flexDirection: 'row',
+    height: '300px',
+    display: 'fixed',
+    marginBottom: 'inherit',
+    // flexDirection: 'row',
   },
   comp_text: {
-    marginLeft: '200px',
-    padding: '1px 16px',
-    height: '1000px',
-    display: 'flex',
-    flexDirection: 'column',
+    marginLeft: '210px',
+    marginBottom: '20px',
+    padding: '1px 5px',
+    height: '300px',
+    display: 'fixed',
+    // flexDirection: 'column',
   },
   column_view: {
-    padding: '15px 15px',
-    display: 'flex',
-    flexDirection: 'column',
+    padding: '8px 8px',
+    display: 'inline-block',
+    // flexDirection: 'column',
   },
   content_displays: {
     padding: '1px 16px',
-    height: '1400px',
-    display: 'flex',
+    height: '300px',
+    display: 'fixed',
+  },
+  body: {
+    // marginTop: "5px",
   },
 });
 
@@ -159,7 +164,7 @@ const markup = {
 
 function StudentName(props){
   return(!props.exist ?
-      <Typography variant="h3">
+      <Typography variant="h5">
         Student: {props.name}
       </Typography> : <Typography/>
   )
@@ -323,16 +328,16 @@ class StudentComp extends Component {
             <Sidebar />
             </div>
             <div className={classes.comp_text}>
-            <StudentName name={(this.comp_dict ? this.comp_dict.name : null)} exist={this.props.location.data == null}/>
+            <StudentName name={(this.comp_dict ? this.comp_dict.name : null)} exist={this.props.location.data == null} />
             <div className={classes.content}>
                 <div className={classes.column_view}>
-                <h2>Student Details</h2>
+                {/* <h2>Student Details</h2> */}
                 <List>
                 {list_of_details}
                 </List>
                 </div>
                 <div className={classes.column_view}>
-                <h2> Classes </h2>
+                <ListItemText> <b>Classes</b> :</ListItemText>
                 <List>
                     {list_of_locations}
                 </List>
