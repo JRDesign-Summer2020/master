@@ -136,12 +136,6 @@ class Sidebar extends React.Component {
     onClick : this.goToHome
     },
     "divider",
-    {
-      level: "dashboard",
-      label: "Dashboard",
-      Icon: Dashboard
-    },
-    "divider",
     { level: "users",
     label: "Users",
     Icon: PeopleIcon,
@@ -164,27 +158,29 @@ class Sidebar extends React.Component {
 
       items: [
         "divider",
-        { level: "addcompetency", label: "Add Competency", onClick : this.onClick},
+        { level: "managecompetencies", label: "Evaluate & Review", onClick: this.goToCompetencies },
         "divider",
-        { level: "managecompetencies", label: "Manage Competencies", onClick: this.goToCompetencies }]
+      ]
       },
     "divider",
-    { level: "locations",
-    label: "Locations",
-    Icon: Location,
-      items: [
-        "divider",
-        { level: "alllocations", label: "Locations", onClick : this.goToAllLocations},
-        "divider",
-        { level: "locationDetails", label: "Location Details", onClick: this.goToLocationDetails }]
-    //onClick: this.goToAllLocations
+    {
+      level: "classandadvising",
+      label: "Class & Advising",
+      Icon: Location,
+      onClick: this.goToAllLocations,
     },
     "divider",
-    {
-      level: "settings",
-      label: "Settings",
-      Icon: SettingsIcon
-    },
+    { level: "adminsettings",
+    label: "Admin Settings",
+    Icon: PeopleIcon,
+      items: [
+        "divider",
+        { level: "manageusers", label: "Edit Users", onClick:this.goToUsers},
+        "divider",
+        { level: "managecompetencies", label: "Edit Competencies", onClick : this.goToCompetencies},
+        "divider",
+        { level: "manageclassesadvising", label: "Edit Class & Advising", onClick: this.goToAllLocations }]
+      },
     "divider",
     {
       level: "sign out",

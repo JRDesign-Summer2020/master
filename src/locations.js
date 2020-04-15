@@ -40,7 +40,7 @@ class Locations extends Component {
     );
   }
   options = {
-    title: "Locations",
+    title: "Classes and Advising",
     dimensions: {
       datatable: {
         width: "100%",
@@ -56,26 +56,26 @@ class Locations extends Component {
       columns: [
         {
           id: "LocationName",
-          label: "Location Name",
-          colSize: "150px",
+          label: "Class or Advising",
+          colSize: "90px",
           editable: false
         },
         {
           id: "PhysicalLocation",
           label: "Location on Campus",
-          colSize: "200px",
+          colSize: "100px",
           editable: false,
         },
         {
           id: "MeetingTime",
           label: "Meeting Time",
-          colSize: "120px",
+          colSize: "70px",
           editable: false,
         },
         {
           id: "Faculty",
           label: "Faculty",
-          colSize: "120px",
+          colSize: "70px",
         },
         {
           id: "clickButton",
@@ -102,7 +102,7 @@ class Locations extends Component {
         {
           LocationName: "Taxes and Accounting I",
           PhysicalLocation: "College of Business 2321",
-          MeetingTime : "10:00am - 11:151m",
+          MeetingTime : "10:00am - 11:15am",
           Faculty: "Dr. John Doe",
         }
       ]
