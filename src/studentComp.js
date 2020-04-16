@@ -69,19 +69,19 @@ let datatable_frame = {
           id: "Competency",
           label: "Competency",
           colSize: "350px",
-          editable: false
+          editable: true
         },
         {
           id: "Domain",
           label: "Domain",
           colSize: "150px",
-          editable: false
+          editable: true
         },
         {
           id: "Difficulty",
           label: "Difficulty",
           colSize: "50px",
-          editable: false,
+          editable: true,
           inputType: "select",
           values: ["B", "I", "A", "E"]
         },
@@ -97,7 +97,7 @@ let datatable_frame = {
           id: "TrackedBy",
           label: "Tracked By",
           colSize: "80px",
-          editable: false,
+          editable: true,
           inputType: "input",
         },
         {
@@ -111,7 +111,7 @@ let datatable_frame = {
           id: "FreqOfTrack" ,
           label: "Tracking Frequency",
           colSize: "80px",
-          editable: false,
+          editable: true,
           inputType: "select",
           values: ["Year", "Semester", "Month"]
         },
@@ -134,7 +134,7 @@ let datatable_frame = {
       canOrderColumns: true,
       canSaveUserConfiguration: true,
       userConfiguration: {
-        columnsOrder: ["Competency", "Domain", "Difficulty", "Evaluation", "TrackedBy", "FreqOfTrack", "Comments", "clickButton"],
+        columnsOrder: ["Competency", "Domain", "Difficulty", "Evaluation", "TrackedBy", "FreqOfTrack", "Comments"],
         copyToClipboard: true
       },
       // rowsPerPage: {
@@ -183,7 +183,7 @@ class LocationItem extends Component {
   };
   bringToLocation = () => {
     console.log('name: ' + this.props.name);
-    console.log('sub: ' + this.props.sub_id)
+    console.log('sub: ' + this.props.sub_id);
     const goTo = this.props.endpoint;
     const id = this.props.sub_id;
     console.log(this.props.location.pathname);
@@ -193,7 +193,7 @@ class LocationItem extends Component {
           data: {id}
         }
       );
-}
+};
   render(){
     return(
       <ListItem button onClick={this.bringToLocation} style={this.listbutton}>
@@ -214,7 +214,7 @@ class StudentComp extends Component {
                 ['12', "Career Skills II"],
             ],
             competencies:[
-              [1283, 
+              [1283,
                   {
                       Competency: "12. Understands and demonstrates safe street crossing and other pedestrian laws",
                       Difficulty: "B",
@@ -223,10 +223,10 @@ class StudentComp extends Component {
                       TrackedBy: "Social Team",
                       Comments: "",
                       FreqOfTrack: "Semester",
-                      clickButton: <button onClick={() => this.performEval(1283)}>Submit</button>,
+                      //clickButton: <button onClick={() => this.performEval(1283)}>Submit</button>,
                     }
               ],
-              [837, 
+              [837,
                   {
                       Competency: "13. Understands and demonstrates safe Uber and taxi usage.",
                       Difficulty: "B",
@@ -235,12 +235,12 @@ class StudentComp extends Component {
                       TrackedBy: "Social Team",
                       Comments: "",
                       FreqOfTrack: "Semester",
-                      clickButton: <button onClick={() => this.performEval(837)}>Submit</button>,
+                      //clickButton: <button onClick={() => this.performEval(837)}>Submit</button>,
                 }
               ],
           ],
           historic_competencies: [],
-              sub_details: 
+              sub_details:
               {
                 user: 'jdoe3',
                 role: 'Student (current)',
@@ -257,7 +257,7 @@ class StudentComp extends Component {
         console.log(type);
         console.log(payload);
       };
-    
+
     refreshRows = (information) => {
         const { rows } = information.data;
         const randomRows = Math.floor(Math.random() * rows.length) + 1;
@@ -273,10 +273,10 @@ class StudentComp extends Component {
           }, randomTime);
         });
     };
-    
+
     onClick2  = (e, item) => {
         window.alert(JSON.stringify(item, null, 2));
-    }
+    };
 
     state = {
        comp_info: _.cloneDeep(datatable_frame),
@@ -325,7 +325,7 @@ class StudentComp extends Component {
                     </ListItemText>
                 </ListItem>
             )
-        } 
+        }
         ) : <ListItem></ListItem>;
         return (
         <Container>
