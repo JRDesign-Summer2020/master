@@ -70,7 +70,7 @@ class Students extends Component {
         {
           allStudents: "John Doe",
           id: 'jdoe3',
-          clickButton: <button onClick={() => this.toStudent(5)}>View</button>,
+          clickButton: <button onClick={() => this.toStudent(5)}>Evaluate</button>,
         },
       ]
     },
