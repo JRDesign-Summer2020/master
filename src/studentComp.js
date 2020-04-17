@@ -69,21 +69,7 @@ let datatable_frame = {
           id: "Competency",
           label: "Competency",
           colSize: "350px",
-          editable: true
-        },
-        {
-          id: "Domain",
-          label: "Domain",
-          colSize: "150px",
-          editable: true
-        },
-        {
-          id: "Difficulty",
-          label: "Difficulty",
-          colSize: "50px",
-          editable: true,
-          inputType: "select",
-          values: ["B", "I", "A", "E"]
+          editable: false
         },
         {
           id: "Evaluation",
@@ -92,13 +78,6 @@ let datatable_frame = {
           editable: true,
           inputType: "select",
           values: ["N", "0", "1", "2", "3", "4"]
-        },
-        {
-          id: "TrackedBy",
-          label: "Tracked By",
-          colSize: "80px",
-          editable: true,
-          inputType: "input",
         },
         {
           id: "Comments",
@@ -111,7 +90,7 @@ let datatable_frame = {
           id: "FreqOfTrack" ,
           label: "Tracking Frequency",
           colSize: "80px",
-          editable: true,
+          editable: false,
           inputType: "select",
           values: ["Year", "Semester", "Month"]
         },
@@ -133,9 +112,9 @@ let datatable_frame = {
       canSearch: true,
       canOrderColumns: true,
       canSaveUserConfiguration: true,
+      isUpdatingRows: true,
       userConfiguration: {
-        columnsOrder: ["Competency", "Domain", "Difficulty", "Evaluation", "TrackedBy", "FreqOfTrack", "Comments"],
-        copyToClipboard: true
+        columnsOrder: ["Competency", "Evaluation", "FreqOfTrack", "Comments", "clickButton"],
       },
       // rowsPerPage: {
       //   available: [10, 25, 50, 100],
@@ -217,25 +196,19 @@ class StudentComp extends Component {
               [1283,
                   {
                       Competency: "12. Understands and demonstrates safe street crossing and other pedestrian laws",
-                      Difficulty: "B",
-                      Domain: "Technology",
                       Evaluation: "N",
-                      TrackedBy: "Social Team",
                       Comments: "",
                       FreqOfTrack: "Semester",
-                      //clickButton: <button onClick={() => this.performEval(1283)}>Submit</button>,
+                      clickButton: <button onClick={() => this.performEval(1283)}>Submit</button>,
                     }
               ],
               [837,
                   {
                       Competency: "13. Understands and demonstrates safe Uber and taxi usage.",
-                      Difficulty: "B",
-                      Domain: "Technology",
                       Evaluation: "N",
-                      TrackedBy: "Social Team",
                       Comments: "",
                       FreqOfTrack: "Semester",
-                      //clickButton: <button onClick={() => this.performEval(837)}>Submit</button>,
+                      clickButton: <button onClick={() => this.performEval(837)}>Submit</button>,
                 }
               ],
           ],
@@ -289,6 +262,7 @@ class StudentComp extends Component {
         let inter = filtered[0];
         let comp_data = filtered ? (inter ? filtered[0][1] : inter) : null;
         let rest = comp_data ? this.comp_dict.competencies.filter(item => item[0] != id) : this.comp_dict.competencies;
+        this.comp_dict.competencies = rest;
         console.log(comp_data);
         console.log(rest);
         this.state.comp_info.data.rows = (rest ? rest.map((comp) => comp[1]) : null);

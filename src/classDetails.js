@@ -125,7 +125,7 @@ class ClassDetails extends Component {
     ): <ListItem></ListItem>;
 
     const list_of_students = id ? details[id].students.map((comp) => 
-        <LocationItem name={comp[1]} sub_id={comp[0]} endpoint = '/studentDetails' history={this.props.history} location={this.props.location}/>
+        <LocationItem name={comp[1]} sub_id={comp[0]} endpoint = '/studentComp' history={this.props.history} location={this.props.location}/>
     ): <ListItem></ListItem>;
 
     const list_of_profs = id ? details[id].profs.map((prof) =>
