@@ -1,5 +1,6 @@
 # Excel Competency Tracker.
-This project was developed for the Georgia Tech Excel Program in Junior Design. The goal of this project was to help the excel program transfer the programs workflow from paper to a digital format.  
+This project was developed for the Georgia Tech Excel Program.
+The goal of this project was to help the excel program transfer the programs workflow from paper to a digital format.  
 
 
 ## Built With
@@ -26,8 +27,9 @@ First, if you do not have an IDE or text editor we would reccomend [WebStorm](ht
 ### Prerequisites
 You will need:
 
-nodeJS
-yarn
+* nodeJS
+* git
+* yarn
 
 #### Mac
 
@@ -35,16 +37,40 @@ Open up a terminal window and copy and paste this:
 ```console
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 ```
-This will install [homebrew](https://brew.sh/), a package manager.
 
+Then type this into the terminal window:
+```console
+brew install git
+```
 
+Next, type this into the terminal window:
+```console
+brew install node
+```
 
+Finally, type this into the terminal window:
+```console
+brew install yarn
+```
 
 ### Windows
 
+Go to [npm's website](https://www.npmjs.com/get-npm) and follow the download link.
 
+Then, navigate to [git's website](https://git-scm.com/download/win) and download the appropriate Windows version.
 
+Finally, go to [yarns website](https://classic.yarnpkg.com/en/docs/install/#windows-stable) and download the latest version of yarn.
 
+### Installation
+
+1. Find a suitable location for the files and then clone the repo using git.
+```sh
+git clone https://github.com/Excel-Competency-Tracker/master.git
+```
+
+2. Open preferred text editor and open the cloned files as a project folder
+
+3. 
 
 ## Available Scripts
 
