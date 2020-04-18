@@ -1,4 +1,50 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Excel Competency Tracker.
+This project was developed for the Georgia Tech Excel Program in Junior Design. The goal of this project was to help the excel program transfer the programs workflow from paper to a digital format.  
+
+
+## Built With
+
+* [Create React App](https://github.com/facebook/create-react-app) - The web framework used
+* [MaterialUI](https://material-ui.com/) - React components for faster and easier web development.
+
+## Table of Contents
+* [About the Project](#about-the-project)
+  * [Built With](#built-with)
+* [Getting Started](#getting-started)
+  * [Prerequisites](#prerequisites)
+  * [Installation](#installation)
+
+## About the Project
+### Built With
+
+* [Create React App](https://github.com/facebook/create-react-app) - The web framework used
+* [MaterialUI](https://material-ui.com/) - React components for faster and easier web development.
+
+## Getting Started
+First, if you do not have an IDE or text editor we would reccomend [WebStorm](https://www.jetbrains.com/webstorm/), which is free using your Georgia Tech email, or [Visual Studio Code](https://code.visualstudio.com/).
+
+### Prerequisites
+You will need:
+
+nodeJS
+yarn
+
+#### Mac
+
+Open up a terminal window and copy and paste this:
+```console
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+```
+This will install [homebrew](https://brew.sh/), a package manager.
+
+
+
+
+### Windows
+
+
+
+
 
 ## Available Scripts
 
