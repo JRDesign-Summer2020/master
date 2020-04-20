@@ -26,6 +26,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import DesktopWindowsIcon from "@material-ui/icons/DesktopWindows";
 import SettingsIcon from "@material-ui/icons/Settings";
 import { StepIcon } from '@material-ui/core';
+import {BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,} from 'recharts';
 
 
 const styles = theme => ({
@@ -38,11 +39,12 @@ const styles = theme => ({
     height: '100%',
   },
   logo: {
-      margin: 0,
-      height: '0%',
-      width: '0%'
+      marginLeft: '400px',
+      height: '100%',
+      width: '100%',
     }
 });
+
 
 class homescreen extends React.Component {
   onClick  = (e, item) => {
@@ -52,17 +54,48 @@ class homescreen extends React.Component {
 
 
 render() {
-  // const { classes } = this.props;
+  const data = [
+    {
+      name: 'Completed', Competencies: 10, amt: 10,
+    },
+    {
+      name: 'To complete', Competencies: 20, amt: 20,
+    }
+  ];
   const { classes } = this.props;
   return (
      <Container>
      <div className={classes.side}>
              <Sidebar ></Sidebar>
-      </div>
-       <div className={classes.content}>
-       //  <img src= { logo } alt="Logo" classImportance Level={classes.logo} />
-       </div>
-       </Container>
+     </div>
+     <div className={classes.logo}>
+            <img src= { logo } alt="Logo" classImportance Level={classes.logo} />
+     </div>
+     <div className={classes.options}>
+        <BarChart
+                width={900}
+                height={300}
+                data={data}
+                margin={{
+                  top: 5, right: 0, left: 400, bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="Competencies" fill="#000080" />
+              </BarChart>
+     </div>
+     </Container>
+
+
+
+
+    //<Typography component="h1" variant="h5" align = "center">
+       //        Welcome Admin!
+         //    </Typography>
     //   <Box mt={8}>
     //     <Copyright/>
     //   </Box>
