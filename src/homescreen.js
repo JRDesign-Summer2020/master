@@ -56,10 +56,10 @@ class homescreen extends React.Component {
 render() {
   const data = [
     {
-      name: 'Completed', Competencies: 10, amt: 10,
+      name: 'Evaluated', Competencies: 10, amt: 10,
     },
     {
-      name: 'To complete', Competencies: 20, amt: 20,
+      name: 'Needs evaluation', Competencies: 20, amt: 20,
     }
   ];
   const { classes } = this.props;
