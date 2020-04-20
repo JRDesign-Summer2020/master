@@ -22,6 +22,7 @@
     "react-scripts": "3.4.0",
     "react-virtualized-tree": "^2.0.0-beta2",
     "semantic-ui-react": "^0.88.2",
+    "recharts": "^1.8.5",
     "styled-components": "^5.0.1",
     "yarn": "^1.22.0"
   },

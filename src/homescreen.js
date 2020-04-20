@@ -26,6 +26,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import DesktopWindowsIcon from "@material-ui/icons/DesktopWindows";
 import SettingsIcon from "@material-ui/icons/Settings";
 import { StepIcon } from '@material-ui/core';
+import {BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,} from 'recharts';
 
 
 const styles = theme => ({
@@ -36,11 +37,16 @@ const styles = theme => ({
     backgroundColor : '#f1f1f1',
     position: 'fixed',
     height: '100%',
-  }
+  },
+  logo: {
+      marginLeft: '400px',
+      height: '100%',
+      width: '100%',
+    }
 });
 
-class homescreen extends React.Component {
 
+class homescreen extends React.Component {
   onClick  = (e, item) => {
     window.alert(JSON.stringify(item, null, 2));
   }
@@ -48,27 +54,54 @@ class homescreen extends React.Component {
 
 
 render() {
-  // const { classes } = this.props;
+  const data = [
+    {
+      name: 'Completed', Competencies: 10, amt: 10,
+    },
+    {
+      name: 'To complete', Competencies: 20, amt: 20,
+    }
+  ];
   const { classes } = this.props;
   return (
-    // <Container component="main" maxWidth="xs">
-    //   <CssBaseline/>
-    //   <div classImportance Level={classes.paper}>
-    //     <img src= { logo } alt="Logo" classImportance Level={classes.logo} />
+     <Container>
+     <div className={classes.side}>
+             <Sidebar ></Sidebar>
+     </div>
+     <div className={classes.logo}>
+            <img src= { logo } alt="Logo" classImportance Level={classes.logo} />
+     </div>
+     <div className={classes.options}>
+        <BarChart
+                width={900}
+                height={300}
+                data={data}
+                margin={{
+                  top: 5, right: 0, left: 400, bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="Competencies" fill="#000080" />
+              </BarChart>
+     </div>
+     </Container>
 
-    //     <Typography component="h1" variant="h5">
-    //       Welcome, Admin User!
-    //     </Typography>
 
-    //   </div>
+
+
+    //<Typography component="h1" variant="h5" align = "center">
+       //        Welcome Admin!
+         //    </Typography>
     //   <Box mt={8}>
     //     <Copyright/>
     //   </Box>
-    <Container>
-      <div className={classes.side}>
-        <Sidebar ></Sidebar>
-      </div>
-    </Container>
+    //<Container>
+
+    //</Container>
   );
 }
 }
