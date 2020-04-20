@@ -12,7 +12,7 @@ The goal of this project was to help the Excel Program transfer the program's co
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
-  * [Debugging] (#debugging)
+  * [Troubleshooting](#troubleshooting)
 
 ## About the Project
 ### Built With
@@ -101,6 +101,15 @@ yarn start
 
 Now the application should be up and running!
 
-### Debugging
+### Troubleshooting
 
-There are few commands that you can run to 
+Generally, the command window will tell you what command needs to be entered in order to fix the error. Simply copy the command from the error message, and paste it into the terminal window and run the command.
+
+The most common errors we encountered when deplying this on a new machine were sporadic dependency errors. Usually this is a quick fix. We reccomend looking at the terminal output window, and reading the error, for example, it might say "missing material-ui". To fix this you can type this into the terminal window:\
+`yarn add material-ui
+`\
+\
+If that does not work, try `npm add material-ui`\
+\
+If the terminal says command/package not found, try searching with google: `npm _________`\
+and the name of the dependency that is not working, usually this will give you the correctly formatted command to input.  
