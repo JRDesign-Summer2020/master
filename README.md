@@ -1,4 +1,5 @@
 # Excel Competency Tracker Web Application
+![logo](https://github.com/Excel-Competency-Tracker/master/blob/master/src/img/georgia-tech-excel-logo.png)\
 This project was developed for the Georgia Tech Excel Program.
 The goal of this project was to help the Excel Program transfer the program's compentency tracking from paper to a digital format.
 
