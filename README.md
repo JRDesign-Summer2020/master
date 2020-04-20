@@ -2,7 +2,24 @@
 This project was developed for the Georgia Tech Excel Program.
 The goal of this project was to help the Excel Program transfer the program's compentency tracking from paper to a digital format.
 
-## Release Notes for beta version of Excel Competency Tracker App (1.0)
+## Table of Contents
+* [About the Project](#about-the-project)
+  * [Built With](#built-with)
+* [Release Notes for Beta Version of Excel Competency Tracker App (1.0)](#release-notes)
+  * [Current Features](#current-features)
+  * [Bug Fixes](#bug-fixes)
+  * [Known Bugs](#known-bugs)
+* [Getting Started](#getting-started)
+  * [Prerequisites](#prerequisites)
+  * [Installation](#installation)
+
+## About the Project
+### Built With
+
+* [Create React App](https://github.com/facebook/create-react-app) - The web framework used
+* [MaterialUI](https://material-ui.com/) - React components for faster and easier web development.
+
+## Release Notes
 #### Current Features
   Website pages for: Login, Home, Competency Evaluation for an individual student, Management of Users/Comptencies/Classes&Advising under Admin Settings, Sidebar for page navigation
 
@@ -14,24 +31,6 @@ The goal of this project was to help the Excel Program transfer the program's co
 #### Known Bugs
   * Dummy data is used throughout website, there is a need for API calls and connection to backend implementation
   * Due to use of dummy data, data does not always persist when pressing forward or back button in web browser
-
-## Built With
-
-* [Create React App](https://github.com/facebook/create-react-app) - The web framework used
-* [MaterialUI](https://material-ui.com/) - React components for faster and easier web development.
-
-## Table of Contents
-* [About the Project](#about-the-project)
-  * [Built With](#built-with)
-* [Getting Started](#getting-started)
-  * [Prerequisites](#prerequisites)
-  * [Installation](#installation)
-
-## About the Project
-### Built With
-
-* [Create React App](https://github.com/facebook/create-react-app) - The web framework used
-* [MaterialUI](https://material-ui.com/) - React components for faster and easier web development.
 
 ## Getting Started
 First, if you do not have an IDE or text editor we would reccomend [WebStorm](https://www.jetbrains.com/webstorm/), which is free using your Georgia Tech email, or [Visual Studio Code](https://code.visualstudio.com/).
