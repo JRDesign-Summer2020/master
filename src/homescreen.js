@@ -28,7 +28,6 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import { StepIcon } from '@material-ui/core';
 
 
-
 const styles = theme => ({
   side: {
     margin: 0,
@@ -37,11 +36,11 @@ const styles = theme => ({
     backgroundColor : '#f1f1f1',
     position: 'fixed',
     height: '100%',
-  }
+  },
   logo: {
-      margin: theme.spacing(1),
-      height: '80%',
-      width: '80%'
+      margin: 0,
+      height: '0%',
+      width: '0%'
     }
 });
 
@@ -56,24 +55,20 @@ render() {
   // const { classes } = this.props;
   const { classes } = this.props;
   return (
-     <Container component="main" maxWidth="xs">
-       <CssBaseline/>
-       <div classImportance Level={classes.paper}>
-         <img src= { logo } alt="Logo" classImportance Level={classes.logo} />
-
-    //     <Typography component="h1" variant="h5">
-    //       Welcome, Admin User!
-    //     </Typography>
-
+     <Container>
+     <div className={classes.side}>
+             <Sidebar ></Sidebar>
+      </div>
+       <div className={classes.content}>
+       //  <img src= { logo } alt="Logo" classImportance Level={classes.logo} />
        </div>
+       </Container>
     //   <Box mt={8}>
     //     <Copyright/>
     //   </Box>
-    <Container>
-      <div className={classes.side}>
-        <Sidebar ></Sidebar>
-      </div>
-    </Container>
+    //<Container>
+
+    //</Container>
   );
 }
 }
