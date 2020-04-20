@@ -28,6 +28,7 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import { StepIcon } from '@material-ui/core';
 
 
+
 const styles = theme => ({
   side: {
     margin: 0,
@@ -37,10 +38,14 @@ const styles = theme => ({
     position: 'fixed',
     height: '100%',
   }
+  logo: {
+      margin: theme.spacing(1),
+      height: '80%',
+      width: '80%'
+    }
 });
 
 class homescreen extends React.Component {
-
   onClick  = (e, item) => {
     window.alert(JSON.stringify(item, null, 2));
   }
@@ -51,16 +56,16 @@ render() {
   // const { classes } = this.props;
   const { classes } = this.props;
   return (
-    // <Container component="main" maxWidth="xs">
-    //   <CssBaseline/>
-    //   <div classImportance Level={classes.paper}>
-    //     <img src= { logo } alt="Logo" classImportance Level={classes.logo} />
+     <Container component="main" maxWidth="xs">
+       <CssBaseline/>
+       <div classImportance Level={classes.paper}>
+         <img src= { logo } alt="Logo" classImportance Level={classes.logo} />
 
     //     <Typography component="h1" variant="h5">
     //       Welcome, Admin User!
     //     </Typography>
 
-    //   </div>
+       </div>
     //   <Box mt={8}>
     //     <Copyright/>
     //   </Box>
