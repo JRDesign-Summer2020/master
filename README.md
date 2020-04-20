@@ -1,7 +1,19 @@
-# Excel Competency Tracker.
+# Excel Competency Tracker Web Application
 This project was developed for the Georgia Tech Excel Program.
-The goal of this project was to help the excel program transfer the programs workflow from paper to a digital format.  
+The goal of this project was to help the Excel Program transfer the program's compentency tracking from paper to a digital format.
 
+## Release Notes for beta version of Excel Competency Tracker App (1.0)
+#### Current Features
+  Website pages for: Login, Home, Competency Evaluation for an individual student, Management of Users/Comptencies/Classes&Advising under Admin Settings, Sidebar for page navigation
+
+#### Bug Fixes
+  * There was an issue with a datatable that constantly expanded that has been    resolved
+  * Sidebar on website is now consistently rendered on every page
+  * Issue with build error on AWS Amplify solved via adding .env~ files
+
+#### Known Bugs
+  * Dummy data is used throughout website, there is a need for API calls and connection to backend implementation
+  * Due to use of dummy data, data does not always persist when pressing forward or back button in web browser
 
 ## Built With
 
@@ -29,7 +41,7 @@ You will need:
 
 * nodeJS
 * git
-* yarn
+* yarn (or npm, if preferred)
 
 #### Mac
 
