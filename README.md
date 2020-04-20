@@ -6,7 +6,7 @@ The goal of this project was to help the Excel Program transfer the program's co
 ## Table of Contents
 * [About the Project](#about-the-project)
   * [Built With](#built-with)
-* [Release Notes for Beta Version of Excel Competency Tracker App (1.0)] (#release-notes)
+* [Release Notes for Beta Version of Excel Competency Tracker App (1.0)](#release-notes)
   * [Current Features](#current-features)
   * [Bug Fixes](#bug-fixes)
   * [Known Bugs](#known-bugs)
