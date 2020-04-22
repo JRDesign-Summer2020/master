@@ -1,0 +1,16 @@
+{
+    "13": 
+        {
+            "name": "Transportation 1",
+            "competencies":[
+               "1283", "837"
+            ],
+            "profs": [
+                "Dr. John Doe",
+                "Prof. Nathan Heald"
+            ],
+            "students": [
+                "5"
+            ]
+        }
+}

@@ -7,7 +7,7 @@ import Sidebar from "./Sidebar";
 import {withStyles} from "@material-ui/core/styles";
 import getEvaluations from "./getEvaluations";
 
-const evaluationsFromApi = getEvaluations();
+//const evaluationsFromApi = getEvaluations();
 
 const evalU  = {
   title: "Evaluation Scale",

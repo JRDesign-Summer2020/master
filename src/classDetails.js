@@ -18,6 +18,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from "@material-ui/core/Divider";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import DummyEndpoint from './dummy_endpoint';
 
 const styles = theme => ({
   side: {
@@ -50,25 +51,25 @@ comp_text: {
 
  
 //gonna have to make API call to get comp ID then another to get comp name
-const details = {
-    '13': 
-    {
-        name: 'Transportation 1',
-        competencies:[
-            [1283, 'Crossing street without guidance.'],
-            [837, 'Calling an Uber without guidance.' ],
-        ]
-        ,
-        profs: [
-            'Dr. John Doe',
-            'Prof. Nathan Heald'
-        ],
-        students: [
-          [5, 'John Doe'],
-          [928, 'Bobby Bobberson'],
-        ]
-    }
-};
+// const details = {
+//     '13': 
+//     {
+//         name: 'Transportation 1',
+//         competencies:[
+//             [1283, 'Crossing street without guidance.'],
+//             [837, 'Calling an Uber without guidance.' ],
+//         ]
+//         ,
+//         profs: [
+//             'Dr. John Doe',
+//             'Prof. Nathan Heald'
+//         ],
+//         students: [
+//           [5, 'John Doe'],
+//           [928, 'Bobby Bobberson'],
+//         ]
+//     }
+// };
 
 
 function LocationName(props){
@@ -119,16 +120,20 @@ class ClassDetails extends Component {
     const { classes } = this.props;
     const passed = this.props.location.data;
     const id = passed ? passed.id : null;
-    const comp_name = id ? details[id].name : '';
-    const list_of_competencies = id ? details[id].competencies.map((comp) =>
-        <LocationItem name={comp[1]} sub_id={comp[0]} endpoint = '/compDetails' history={this.props.history} location={this.props.location}/>
+    const details = id ? DummyEndpoint.get_location(id) : null;
+    const competencies_tracked = details ? DummyEndpoint.get_simple_list_of_comps(details.competencies) : null;
+    const comp_name = details ? details.name : null;
+    const list_of_competencies = id ? competencies_tracked.map((comp) =>
+        <LocationItem name={comp["QuickName"]} sub_id={comp["id"]} endpoint = '/compDetails' history={this.props.history} location={this.props.location}/>
+    ): <ListItem></ListItem>;
+    console.log(details);
+    // console.log(details["students"]);
+    console.log(details["students"].forEach((comp) => console.log(DummyEndpoint.get_student(comp))));
+    const list_of_students = id ? details["students"].map((comp) => 
+        <LocationItem name={DummyEndpoint.get_student(comp)["name"]} sub_id={comp} endpoint = '/studentComp' history={this.props.history} location={this.props.location}/>
     ): <ListItem></ListItem>;
 
-    const list_of_students = id ? details[id].students.map((comp) => 
-        <LocationItem name={comp[1]} sub_id={comp[0]} endpoint = '/studentComp' history={this.props.history} location={this.props.location}/>
-    ): <ListItem></ListItem>;
-
-    const list_of_profs = id ? details[id].profs.map((prof) =>
+    const list_of_profs = id ? details.profs.map((prof) =>
         <LocationItem name={prof} history={this.props.history} location={this.props.location}/>
     ): <ListItem></ListItem>;
    

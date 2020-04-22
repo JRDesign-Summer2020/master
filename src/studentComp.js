@@ -9,6 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { chunk } from "lodash";
 import { Datatable } from "@o2xp/react-datatable";
 import _ from "lodash";
+import DummyEndpoint from './dummy_endpoint';
 
 const styles = () => ({
   side: {
@@ -224,11 +225,27 @@ class StudentComp extends Component {
       };
 
     data_id = this.props.location.data ? this.props.location.data.id : null;
-    comp_dict = this.data_id ? this.details[this.data_id] : null;
+    student_data = this.data_id ? DummyEndpoint.get_student(this.data_id) : null;
+    //comp_dict = this.data_id ? this.details[this.data_id] : null;
+    comp_dict = this.student_data;
 
     actionsRow = ({ type, payload }) => {
-        console.log(type);
-        console.log(payload);
+      console.log(type, payload);
+        if (type == 'save') {
+          // let new_state = [];
+          // this.state.comp_info.data.rows.forEach((comp) => {
+          //   console.log(comp);
+          //   console.log(comp["Competency"]);
+          //   if (comp["Competency"] == payload["Competency"]) {
+          //       new_state.push(payload);
+          //   } else {
+          //     new_state.push(comp);
+          //   }
+          // })
+          this.comp_dict["evaluations"][payload["id"]]["eval"] = payload["Evaluation"];
+          this.comp_dict["evaluations"][payload["id"]]["comment"] = payload["Comments"];
+          this.performTableUpdate();
+        }
       };
 
     refreshRows = (information) => {
@@ -253,40 +270,53 @@ class StudentComp extends Component {
 
     state = {
        comp_info: _.cloneDeep(datatable_frame),
-       comp_history_info: _.cloneDeep(datatable_frame)
+       comp_history_info: _.cloneDeep(datatable_frame),
+       competencies: null,
     }
 
     performEval(id) {
-        console.log(this.comp_dict.competencies.filter(item => item[0] == id))
-        let filtered = this.comp_dict.competencies.filter(item => item[0] == id)
-        let inter = filtered[0];
-        let comp_data = filtered ? (inter ? filtered[0][1] : inter) : null;
-        let rest = comp_data ? this.comp_dict.competencies.filter(item => item[0] != id) : this.comp_dict.competencies;
-        this.comp_dict.competencies = rest;
-        console.log(comp_data);
-        console.log(rest);
-        this.state.comp_info.data.rows = (rest ? rest.map((comp) => comp[1]) : null);
-        this.comp_dict.historic_competencies.push(inter);
-        console.log(this.comp_dict.historic_competencies);
-        this.state.comp_history_info.data.rows = this.comp_dict.historic_competencies.map((comp) => comp[1])
-        console.log(this.state.comp_history_info.data.rows);
-        this.forceUpdate();
-        // this.setState({data_table_current:  <Datatable options={this.state.comp_info} refreshRows={this.refreshRows} actions={this.actionsRow} forceRerender={true}/>});
+        console.log(id);
+        console.log(this.comp_dict.competencies)
+        let current_comps = this.comp_dict.competencies;
+        let filtered = current_comps.filter(item => item != id);
+        this.comp_dict.competencies = filtered;
+        this.comp_dict.historic_competencies.push(id);
+        console.log(current_comps);
+        console.log(filtered);
+        //console.log('calling write');
+        //DummyEndpoint.write_to_student(this.data_id, this.comp_dict);
+        //console.log('done write');
+        this.performTableUpdate();
     }
 
-    componentDidMount() {
-        this.state.comp_info.data.rows = (this.data_id ? this.comp_dict.competencies.map((comp) => comp[1]) : null);
-        this.state.comp_history_info.data.rows = (this.data_id ? this.comp_dict.historic_competencies.map((comp) => comp[1]) : null);
-        this.state.comp_history_info.title = "Previously evaluated competencies: ";
-        this.state.comp_history_info.features.userConfiguration.columnsOrder.pop();
-        this.state.comp_history_info.data.columns.pop();
+    performTableUpdate() {
+        let competency= DummyEndpoint.get_list_of_comps(this.comp_dict.competencies, this.performEval, this.data_id);
+        console.log(competency);
+        let historic_competency = DummyEndpoint.get_list_of_comps(this.comp_dict.historic_competencies, null, this.data_id);
+        console.log('historic');
+        console.log(historic_competency);
+        
+        this.state.comp_info.data.rows = competency;
+        this.state.comp_history_info.data.rows = historic_competency;
         console.log(this.state.comp_info.data.rows);
         console.log(this.state.comp_history_info.data.columns);
         this.forceUpdate();
     }
 
+    componentDidMount() {
+      if (this.comp_dict) {
+        console.log('component did mount')
+        this.performEval = this.performEval.bind(this);
+        this.state.comp_history_info.title = "Previously evaluated competencies: ";
+        this.state.comp_history_info.features.userConfiguration.columnsOrder.pop();
+        this.state.comp_history_info.data.columns.pop();
+        this.performTableUpdate();
+      }
+    }
+
     render() {
         console.log('yes');
+        console.log(this.student_data);
         const { classes } = this.props;
         const list_of_locations = this.data_id ? this.comp_dict.locations.map((loc) =>
             <LocationItem name={loc[1]} endpoint='/classDetails' sub_id={loc[0]} history={this.props.history} location={this.props.location}/>

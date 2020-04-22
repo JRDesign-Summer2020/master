@@ -19,6 +19,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { List } from 'semantic-ui-react';
 import Divider from "@material-ui/core/Divider";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import DummyEndpoint from './dummy_endpoint';
 
 const styles = theme => ({
   side: {
@@ -146,13 +147,17 @@ class LocationItem extends Component {
 }
 
 class CompetencyDetails extends Component {
+
   render() {
     const { classes } = this.props;
     const data_id = this.props.location.data ? this.props.location.data.id : null;
+    const tracking_classes = data_id ? DummyEndpoint.get_classes_for_competencies(data_id) : null;
+    console.log(tracking_classes);
     const comp_dict = data_id ? details[data_id] : null;
     console.log(comp_dict);
-    const list_of_locations = data_id ? comp_dict.locations.map((loc) =>
-        <LocationItem name={loc[1]} endpoint='/classDetails' sub_id={loc[0]} history={this.props.history} location={this.props.location}/>
+
+    const list_of_locations = data_id ? tracking_classes.map((loc) =>
+        <LocationItem name={loc[0]} endpoint='/classDetails' sub_id={loc[1]} history={this.props.history} location={this.props.location}/>
     ): <ListItem></ListItem>;
     //console.log(Object.keys(details[data_id]));
     const list_of_details = comp_dict ? Object.keys(comp_dict.sub_details).map((key) => {
