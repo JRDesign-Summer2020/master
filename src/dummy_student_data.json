@@ -1,0 +1,27 @@
+{
+    "5":
+        {
+          "name":"John Doe",
+          "id": "jdoe3",
+          "locations" : [
+                ["13", "Transportation I"],
+                ["12", "Career Skills II"]
+            ],
+            "competencies":[
+                "1283", "837"
+            ],
+            "historic_competencies": [],
+            "evaluations": {
+                "1283" : {"eval": "N", "comment": ""},
+                "837"  : {"eval": "N", "comment": ""}
+            },
+            "sub_details":
+            {
+                "user": "jdoe3",
+                "role": "Student (current)",
+                "cohort": "1",
+                "email": "jdoe3@gatech.edu"
+            }
+        }
+      
+}

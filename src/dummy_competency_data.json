@@ -1,0 +1,23 @@
+{
+    "1283":
+    {
+        "Competency": "Understands and demonstrates safe street crossing and other pedestrian laws",
+        "QuickName": "Safe Street Crossing",
+        "Evaluation": "N",
+        "Comments": "",
+        "FreqOfTrack": "Semester",
+        "clickButton": "<button onClick={() => this.performEval(1283)}>Submit</button>",
+        "id": "1283"
+      },
+
+    "837":
+      {
+          "Competency": "Understands and demonstrates safe Uber and taxi usage.",
+          "QuickName": "Taxi and Uber Usage",
+          "Evaluation": "N",
+          "Comments": "",
+          "FreqOfTrack": "Semester",
+          "clickButton": "<button onClick={() => this.performEval(837)}>Submit</button>",
+          "id": "837"
+    }
+}
