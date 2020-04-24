@@ -18,7 +18,7 @@ const options = {
       height: "60px"
     }
   },
-  keyColumn: "??",
+  keyColumn: "UserID",
   font: "Arial",
   data: {
     columns: [
@@ -26,28 +26,23 @@ const options = {
         id: "UserID",
         label: "Username",
         colSize: "150px",
-        editable: false
+        editable: true,
       },
       {
         id: "UserInfo",
         label: "Full Name",
         colSize: "200px",
-        editable: false,
+        editable: true,
       },
       {
         id: "Role",
         label: "Role",
         colSize: "150px",
-        editable: false,
+        editable: true,
       },
       {
         id: "Cohort",
         label: "Cohort",
-        colSize: "150px",
-      },
-      {
-        id: "GTID",
-        label: "GTID",
         colSize: "150px",
       }
     ],
@@ -81,6 +76,7 @@ const options = {
     canRefreshRows: true,
     canOrderColumns: true,
     canSaveUserConfiguration: true,
+    isUpdatingRows: true,
     userConfiguration: {
       columnsOrder: ["UserID", "UserInfo", "Role", "Cohort"],
       copyToClipboard: true
@@ -150,13 +146,6 @@ class Users extends Component {
                      actions={this.actionsRow}
           />
         </div>
-
-
-
-
-
-
-
       </Container>
     );
   }

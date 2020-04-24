@@ -150,6 +150,7 @@ class CompetencyDetails extends Component {
     //const comp_dict = data_id ? details[data_id] : null;
     const comp_dict = data_id ? DummyEndpoint.get_simple_comp(data_id) : null;
     console.log(comp_dict);
+    console.log(comp_dict["Competency"]);
 
     const list_of_locations = data_id ? tracking_classes.map((loc) =>
         <LocationItem name={loc[0]} endpoint='/classDetails' sub_id={loc[1]} history={this.props.history} location={this.props.location}/>
@@ -171,7 +172,7 @@ class CompetencyDetails extends Component {
           <Sidebar ></Sidebar>
         </div>
         <div className={classes.comp_text}>
-            <CompetencyName name={comp_dict.name} exist={this.props.location.data == null}></CompetencyName>
+            <CompetencyName name={comp_dict["Competency"]} exist={this.props.location.data == null}></CompetencyName>
             <div className={classes.content}>
                 <div className={classes.column_view}>
                     <h2>Details</h2>
