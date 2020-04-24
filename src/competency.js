@@ -190,10 +190,6 @@ const options = {
       copyToClipboard: true
     },
     pagination: false,
-    // rowsPerPage: {
-    //   available: [10, 25, 50, 100],
-    //   selected: 50
-    // },
   }
 };
 

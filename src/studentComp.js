@@ -80,6 +80,13 @@ let datatable_frame = {
           values: ["N", "0", "1", "2", "3", "4"]
         },
         {
+          id: "Class",
+          label: "Class",
+          colSize: "200px",
+          editable: true,
+          inputType: "input",
+        },
+        {
           id: "Comments",
           label: "Comments",
           colSize: "200px",
@@ -105,8 +112,6 @@ let datatable_frame = {
       ]
     },
     features: {
-      canEdit: true,
-      canDelete: true,
       canPrint: true,
       canDownload: true,
       canSearch: true,
@@ -114,7 +119,7 @@ let datatable_frame = {
       canSaveUserConfiguration: true,
       isUpdatingRows: true,
       userConfiguration: {
-        columnsOrder: ["Competency", "Evaluation", "FreqOfTrack", "Comments", "clickButton"],
+        columnsOrder: ["Competency", "Evaluation", "FreqOfTrack", "Class", "Comments", "clickButton"],
       },
       // rowsPerPage: {
       //   available: [10, 25, 50, 100],
@@ -197,6 +202,7 @@ class StudentComp extends Component {
                   {
                       Competency: "12. Understands and demonstrates safe street crossing and other pedestrian laws",
                       Evaluation: "N",
+                      Class: "Career Skills II",
                       Comments: "",
                       FreqOfTrack: "Semester",
                       clickButton: <button onClick={() => this.performEval(1283)}>Submit</button>,
@@ -206,6 +212,7 @@ class StudentComp extends Component {
                   {
                       Competency: "13. Understands and demonstrates safe Uber and taxi usage.",
                       Evaluation: "N",
+                      Class: "Transportation I",
                       Comments: "",
                       FreqOfTrack: "Semester",
                       clickButton: <button onClick={() => this.performEval(837)}>Submit</button>,
