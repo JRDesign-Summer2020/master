@@ -12,11 +12,10 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import color from "@material-ui/core/colors/red";
 import {withStyles} from "@material-ui/core/styles";
 import Typography from '@material-ui/core/Typography';
-import ListV from '@material-ui/core/List';
+import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import { List } from 'semantic-ui-react';
 import Divider from "@material-ui/core/Divider";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
@@ -44,10 +43,10 @@ comp_text: {
     flexDirection: 'column',
   },
   column_view: {
-      padding: '15px 105px',
+      padding: '15px 15px',
       display: 'flex',
       flexDirection: 'column',
-  }
+  },
 });
 
 const details = {
@@ -95,12 +94,6 @@ const markup = {
     eval_freq: <b>Evaluation Frequency</b>
 }
 
-const flexContainer = {
-  display: 'flex',
-  flexDirection: 'row',
-  marginLeft: '-240px',
-  padding: '1px 16px',
-};
 
 
 // const styles = theme => ({
@@ -173,18 +166,19 @@ class CompetencyDetails extends Component {
         <div className={classes.comp_text}>
             <CompetencyName name={comp_dict.name} exist={this.props.location.data == null}></CompetencyName>
             <div className={classes.content}>
-                <div>
+                <div className={classes.column_view}>
                     <h2>Details</h2>
-                    <List style={flexContainer}>
+                    <List>
                     {list_of_details}
                     </List>
                 </div>
                 <div className={classes.column_view}>
                     <h2> Evaluated by Locations</h2>
-                    <ListV>
+                    <List>
                     {list_of_locations}
-                    </ListV>
+                    </List>
                 </div>
+
             </div>
         </div>
 
