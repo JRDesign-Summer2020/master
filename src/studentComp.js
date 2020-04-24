@@ -24,11 +24,13 @@ const styles = () => ({
     height: '300px',
     display: 'fixed',
     marginBottom: 'inherit',
+    inlineBlock: '4px'
     // flexDirection: 'row',
   },
   comp_text: {
     marginLeft: '210px',
     marginBottom: '20px',
+    marginTop: '20px',
     padding: '1px 5px',
     height: '300px',
     display: 'fixed',
@@ -37,6 +39,7 @@ const styles = () => ({
   column_view: {
     padding: '8px 8px',
     display: 'inline-block',
+    marginBottom: '20px',
     // flexDirection: 'column',
   },
   content_displays: {
@@ -49,6 +52,11 @@ const styles = () => ({
   },
 });
 
+const flexContainer = {
+  display: 'flex',
+  flexDirection: 'row',
+  padding: 0,
+};
 
 let datatable_frame = {
     title: "Competencies that need evaluating:",
@@ -300,11 +308,13 @@ class StudentComp extends Component {
         ): <ListItem></ListItem>;
         const list_of_details = this.comp_dict ? Object.keys(this.comp_dict.sub_details).map((key) => {
             return(
+              <List>
                 <ListItem>
                     <ListItemText>
                         {markup[key]} : {this.comp_dict.sub_details[key]}
                     </ListItemText>
                 </ListItem>
+              </List>
             )
         }
         ) : <ListItem></ListItem>;
@@ -315,20 +325,19 @@ class StudentComp extends Component {
             </div>
             <div className={classes.comp_text}>
             <StudentName name={(this.comp_dict ? this.comp_dict.name : null)} exist={this.props.location.data == null} />
-            <div className={classes.content}>
-                <div className={classes.column_view}>
+
+              <div className={classes.column_view}>
                 {/* <h2>Student Details</h2> */}
-                <List>
+                <List style={flexContainer}>
                 {list_of_details}
                 </List>
                 </div>
-                <div className={classes.column_view}>
+
                 <ListItemText> <b>Classes</b> :</ListItemText>
-                <List>
+                <List className={classes.column_view}>
                     {list_of_locations}
                 </List>
-                </div>
-            </div>
+
             <div className={classes.content_displays}>
                 <Datatable options={this.state.comp_info} refreshRows={() => this.refreshRows(this.state.comp_info)} actions={this.actionsRow}/>
             </div>
