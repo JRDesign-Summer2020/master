@@ -39,7 +39,7 @@ class Students extends Component {
   }
 
   options = {
-    title: "Students assigned to compentencies",
+    title: "Faculty and Staff",
     dimensions: {
       datatable: {
         width: "100%",
@@ -49,13 +49,13 @@ class Students extends Component {
         height: "60px"
       }
     },
-    keyColumn: "allStudents",
+    keyColumn: "facultystaff",
     font: "Arial",
     data: {
       columns: [
         {
-          id: "allStudents",
-          label: "Students",
+          id: "facultystaff",
+          label: "Faculty/Staff",
           colSize: "150px",
           editable: false
         },
@@ -68,9 +68,9 @@ class Students extends Component {
       ],
       rows: [
         {
-          allStudents: "John Doe",
-          id: 'jdoe3',
-          clickButton: <button onClick={() => this.toStudent(5)}>Evaluate</button>,
+          facultystaff: "Ty Roberts",
+          id: 'troberts7',
+          
         },
       ]
     },
@@ -84,7 +84,7 @@ class Students extends Component {
       canOrderColumns: true,
       canSaveUserConfiguration: true,
       userConfiguration: {
-        columnsOrder: ["allStudents", "clickButton"],
+        columnsOrder: ["facultystaff"],
         copyToClipboard: true
       },
       rowsPerPage: {

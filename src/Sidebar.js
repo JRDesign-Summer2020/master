@@ -119,6 +119,10 @@ class Sidebar extends React.Component {
     this.props.history.push('/alllocations')
   };
 
+  goToFacultyStaff = () => {
+    this.props.history.push('/facultystaff')
+  };
+
   goToLocationDetails = () => {
     this.props.history.push('/locationDetails')
   };
@@ -147,9 +151,8 @@ class Sidebar extends React.Component {
         "divider",
         { level: "students", label: "Students", onClick:this.goToStudents},
         "divider",
-        { level: "facultystaff", label: "Faculty & Staff", onClick : this.goToUsers},
-        "divider",
-        { level: "peermentors", label: "Peer Mentors", onClick: this.goToUsers }]
+        { level: "facultystaff", label: "Faculty, Staff, Mentors", onClick : this.goToFacultyStaff},
+      ]
       },
     "divider",
     { level: "competencies",
@@ -158,7 +161,7 @@ class Sidebar extends React.Component {
 
       items: [
         "divider",
-        { level: "managecompetencies", label: "Evaluate & Review", onClick: this.goToCompetencies },
+        { level: "managecompetencies", label: "Evaluate & Review", onClick: this.goToStudents },
         "divider",
       ]
       },

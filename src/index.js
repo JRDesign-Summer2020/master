@@ -11,6 +11,7 @@ import Navigation from './Navigation';
 import Competency from './competency';
 import Users from './users';
 import Locations from './locations';
+import FacultyStaff from './facultyAndStaff';
 import allCompetencies from './allCompetencies';
 import locationDetails from './locationDetails';
 import competencyDetails from './competencyDetails';
@@ -34,6 +35,7 @@ ReactDOM.render((
                   <Route exact path ="/students" component={students} />
                   <Route exact path ="/studentComp" component={studentComp} />
                   <Route exact path = "/classDetails" component = {classDetails}/>
+                  <Route exact path = "/facultystaff" component = {FacultyStaff} />
                 </Switch>
 
     </BrowserRouter>
