@@ -94,17 +94,12 @@ class Locations extends Component {
           clickButton: <button onClick={() => this.toClass('13')}>View</button>,
         },
         {
-          LocationName: "Career Success I",
+          LocationName: "Career Skills II",
           PhysicalLocation: "College of Business 3317",
           MeetingTime : "2:30pm - 3:45pm",
           Faculty: "Prof. Nathan Heald",
+          clickButton: <button onClick={() => this.toClass('12')}>View</button>,
         },
-        {
-          LocationName: "Taxes and Accounting I",
-          PhysicalLocation: "College of Business 2321",
-          MeetingTime : "10:00am - 11:15am",
-          Faculty: "Dr. John Doe",
-        }
       ]
     },
     features: {
