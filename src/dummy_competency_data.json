@@ -8,7 +8,15 @@
         "FreqOfTrack": "Semester",
         "clickButton": "<button onClick={() => this.performEval(1283)}>Submit</button>",
         "id": "1283",
-        "Class": ""
+        "Class": "",
+        "sub_details":
+            {
+                "domain": "Transportation",
+                "subcategory": "Pedestrian Travel",
+                "importance": "High",
+                "difficulty": "Intermediate",
+                "eval_freq": "Semester"
+            }
       },
 
     "837":
@@ -20,6 +28,34 @@
           "FreqOfTrack": "Semester",
           "clickButton": "<button onClick={() => this.performEval(837)}>Submit</button>",
           "id": "837",
-          "Class": ""
+          "Class": "",
+          "sub_details":
+            {
+                "domain": "Transportation",
+                "subcategory": "Pedestrian Travel",
+                "importance": "Medium",
+                "difficulty": "Intermediate",
+                "eval_freq": "Semester"
+            }
+
+    },
+    "1000":
+      {
+          "Competency": "Can quickly and effectively dress professionally.",
+          "QuickName": "Presents themselves well.",
+          "Evaluation": "N",
+          "Comments": "",
+          "FreqOfTrack": "Year",
+          "clickButton": "<button onClick={() => this.performEval(1000)}>Submit</button>",
+          "id": "1000",
+          "Class": "",
+          "sub_details":
+            {
+                "domain": "Professionalism",
+                "subcategory": "Dressing Well",
+                "importance": "Medium",
+                "difficulty": "Intermediate",
+                "eval_freq": "Year"
+            }
     }
 }

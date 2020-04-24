@@ -25,6 +25,7 @@ class DummyEndpoint {
             console.log(tuple_push)
             place.competencies.forEach((competency) => competency == competencyID ? location_list.push(tuple_push) : '')
         });
+        console.log(location_list);
         return location_list;
     }
 
@@ -39,6 +40,12 @@ class DummyEndpoint {
         comp["Class"] = loc_of_class;
         return comp;
     }
+
+    static get_simple_comp(id, func, studentid) {
+        console.log(this.comp_data);
+        let comp = this.comp_data[id];
+        return comp;
+    }
     static get_list_of_comps(ids, func, studentid) {
         let id_list = ids.map((id) => DummyEndpoint.get_comp(id, func, studentid));
         return id_list;
@@ -46,6 +53,31 @@ class DummyEndpoint {
 
     static get_simple_list_of_comps(ids) {
         return ids.map((id) => this.comp_data[id]);
+    }
+
+    static get_list_of_students(ids) {
+        let stud_list = ids.map((id) => DummyEndpoint.get_student(id));
+        return stud_list;
+    }
+
+    static get_all_students_list(func) {
+        let list_return = [] 
+        // {
+        //   allStudents: "John Doe",
+        //   id: 'jdoe3',
+        //   clickButton: <button onClick={() => this.toStudent(5)}>Evaluate</button>,
+        // },   return format we need    
+        Object.keys(this.student_data).forEach((student_id) => {
+            let cur_stud = DummyEndpoint.get_student(student_id);
+            let nec_data = {
+                allStudents: cur_stud["name"],
+                id: cur_stud["id"],
+                clickButton: <button onClick={() => func(student_id)}>Evaluate</button>,
+            }
+            list_return.push(nec_data);
+        })
+        return list_return;
+
     }
 
     static write_to_student(studentId, studentInfo) {

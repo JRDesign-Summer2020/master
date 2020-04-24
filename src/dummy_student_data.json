@@ -8,12 +8,13 @@
                 ["12", "Career Skills II"]
             ],
             "competencies":[
-                "1283", "837"
+                "1283", "837", "1000"
             ],
             "historic_competencies": [],
             "evaluations": {
                 "1283" : {"eval": "N", "comment": "", "class": "13"},
-                "837"  : {"eval": "N", "comment": "", "class": "13"}
+                "837"  : {"eval": "N", "comment": "", "class": "13"},
+                "1000"  : {"eval": "N", "comment": "", "class": "12"}
             },
             "sub_details":
             {
@@ -22,6 +23,34 @@
                 "cohort": "1",
                 "email": "jdoe3@gatech.edu"
             }
+        },
+
+        "6":
+        {
+          "name":"Mark Smith",
+          "id": "msmith39",
+          "locations" : [
+                ["13", "Transportation I"],
+                ["12", "Career Skills II"]
+            ],
+            "competencies":[
+                "1283", "837", "1000"
+            ],
+            "historic_competencies": [],
+            "evaluations": {
+                "1283" : {"eval": "N", "comment": "", "class": "13"},
+                "837"  : {"eval": "N", "comment": "", "class": "13"},
+                "1000"  : {"eval": "N", "comment": "", "class": "12"}
+            },
+            "sub_details":
+            {
+                "user": "msmith39",
+                "role": "Student (current)",
+                "cohort": "1",
+                "email": "msmith39@gatech.edu"
+            }
         }
+    
+
       
 }

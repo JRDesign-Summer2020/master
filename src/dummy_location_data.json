@@ -10,7 +10,21 @@
                 "Prof. Nathan Heald"
             ],
             "students": [
-                "5"
+                "5", "6"
+            ]
+        },
+
+        "12": 
+        {
+            "name": "Career Skills II",
+            "competencies":[
+               "1000"
+            ],
+            "profs": [
+                "Prof. Nathan Heald"
+            ],
+            "students": [
+                "5", "6"
             ]
         }
 }

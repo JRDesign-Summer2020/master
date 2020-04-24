@@ -4,6 +4,7 @@ import { chunk } from "lodash";
 import Container from '@material-ui/core/Container';
 import Sidebar from "./Sidebar";
 import {withStyles} from "@material-ui/core/styles";
+import DummyEndpoint from './dummy_endpoint';
 
 const styles = () => ({
   side: {
@@ -67,11 +68,11 @@ class Students extends Component {
         }
       ],
       rows: [
-        {
-          allStudents: "John Doe",
-          id: 'jdoe3',
-          clickButton: <button onClick={() => this.toStudent(5)}>Evaluate</button>,
-        },
+        // {
+        //   allStudents: "John Doe",
+        //   id: 'jdoe3',
+        //   clickButton: <button onClick={() => this.toStudent(5)}>Evaluate</button>,
+        // },
       ]
     },
     features: {
@@ -116,6 +117,15 @@ class Students extends Component {
   onClick2  = (e, item) => {
     window.alert(JSON.stringify(item, null, 2));
   };
+  state = {updated: 0};
+  componentDidMount() {
+    this.toStudent = this.toStudent.bind(this);
+    let stud_list = DummyEndpoint.get_all_students_list(this.toStudent);
+    console.log(stud_list);
+    this.options.data.rows = stud_list;
+    console.log(this.options);
+    this.setState({updated: 1});
+  }
 
 
   render() {
