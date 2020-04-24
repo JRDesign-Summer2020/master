@@ -92,7 +92,7 @@ let datatable_frame = {
           id: "Class",
           label: "Class",
           colSize: "200px",
-          editable: true,
+          editable: false,
           inputType: "input",
         },
         {
@@ -121,6 +121,7 @@ let datatable_frame = {
       ]
     },
     features: {
+      canEdit: true,
       canPrint: true,
       canDownload: true,
       canSearch: true,
@@ -247,16 +248,6 @@ class StudentComp extends Component {
     actionsRow = ({ type, payload }) => {
       console.log(type, payload);
         if (type == 'save') {
-          // let new_state = [];
-          // this.state.comp_info.data.rows.forEach((comp) => {
-          //   console.log(comp);
-          //   console.log(comp["Competency"]);
-          //   if (comp["Competency"] == payload["Competency"]) {
-          //       new_state.push(payload);
-          //   } else {
-          //     new_state.push(comp);
-          //   }
-          // })
           this.comp_dict["evaluations"][payload["id"]]["eval"] = payload["Evaluation"];
           this.comp_dict["evaluations"][payload["id"]]["comment"] = payload["Comments"];
           this.performTableUpdate();

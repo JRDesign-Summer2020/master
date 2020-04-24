@@ -35,6 +35,8 @@ class DummyEndpoint {
         comp["clickButton"] = <button onClick={() => func(id)}>Submit</button>;
         comp["Evaluation"] = student["evaluations"][id]['eval'];
         comp["Comments"] = student["evaluations"][id]['comment'];
+        let loc_of_class = this.get_location(student["evaluations"][id]["class"])["name"]
+        comp["Class"] = loc_of_class;
         return comp;
     }
     static get_list_of_comps(ids, func, studentid) {

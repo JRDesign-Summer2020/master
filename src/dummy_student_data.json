@@ -12,8 +12,8 @@
             ],
             "historic_competencies": [],
             "evaluations": {
-                "1283" : {"eval": "N", "comment": ""},
-                "837"  : {"eval": "N", "comment": ""}
+                "1283" : {"eval": "N", "comment": "", "class": "13"},
+                "837"  : {"eval": "N", "comment": "", "class": "13"}
             },
             "sub_details":
             {
