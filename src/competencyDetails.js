@@ -105,7 +105,7 @@ const markup = {
 function CompetencyName(props){
     console.log(props.exist);
     return(!props.exist ?
-            <Typography variant="h3">
+            <Typography variant="h4">
                 Competency: {props.name}
             </Typography> : <Typography></Typography>
     )

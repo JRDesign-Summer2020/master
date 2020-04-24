@@ -70,7 +70,7 @@ const styles = theme => ({
 class login extends React.Component {
 
 sayHello = () => {
-    alert('Login Successful!');
+    // alert('Login Successful!');
     this.props.history.push('/homescreen');
     //return (<Redirect to='/homescreen' />);
 }

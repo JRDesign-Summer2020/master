@@ -73,8 +73,8 @@ const options = {
     ]
   },
   features: {
-    canEdit: false,
-    canDelete: false,
+    canEdit: true,
+    canDelete: true,
     canPrint: true,
     canDownload: true,
     canSearch: true,
