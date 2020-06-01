@@ -116,7 +116,7 @@ render() {
             fullWidth
             variant="contained"
             className={classes.submit}
-            onClick={this.sayHello}
+            onClick="getEvaluations()"
           >
             Sign In
           </Button>
