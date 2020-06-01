@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.cef23a11.chunk.css",
-    "main.js": "/static/js/main.1762afeb.chunk.js",
+    "main.css": "/static/css/main.fe5ea739.chunk.css",
+    "main.js": "/static/js/main.ccf82705.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.54a1e216.js",
     "static/css/2.22646d5d.chunk.css": "/static/css/2.22646d5d.chunk.css",
-    "static/js/2.c9a10d46.chunk.js": "/static/js/2.c9a10d46.chunk.js",
+    "static/js/2.5c232e1c.chunk.js": "/static/js/2.5c232e1c.chunk.js",
     "index.html": "/index.html",
-    "precache-manifest.e0358e7cf9e6caa4cd4d9b862617fa92.js": "/precache-manifest.e0358e7cf9e6caa4cd4d9b862617fa92.js",
+    "precache-manifest.e2ceb9161cbf0918ada53b809a76ed15.js": "/precache-manifest.e2ceb9161cbf0918ada53b809a76ed15.js",
     "service-worker.js": "/service-worker.js",
-    "static/js/2.c9a10d46.chunk.js.LICENSE.txt": "/static/js/2.c9a10d46.chunk.js.LICENSE.txt",
+    "static/js/2.5c232e1c.chunk.js.LICENSE.txt": "/static/js/2.5c232e1c.chunk.js.LICENSE.txt",
     "static/media/georgia-tech-excel-logo.png": "/static/media/georgia-tech-excel-logo.a67640dd.png"
   },
   "entrypoints": [
     "static/js/runtime-main.54a1e216.js",
     "static/css/2.22646d5d.chunk.css",
-    "static/js/2.c9a10d46.chunk.js",
-    "static/css/main.cef23a11.chunk.css",
-    "static/js/main.1762afeb.chunk.js"
+    "static/js/2.5c232e1c.chunk.js",
+    "static/css/main.fe5ea739.chunk.css",
+    "static/js/main.ccf82705.chunk.js"
   ]
 }

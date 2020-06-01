@@ -20,8 +20,9 @@ import logo from '../src/img/georgia-tech-excel-logo.png';
 import {yellow} from "@material-ui/core/colors";
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import { Redirect } from 'react-router-dom'
+import getEvaluations from './getEvaluations';
 
-
+import { Auth } from 'aws-amplify';
 
 function Copyright() {
   return (
@@ -68,78 +69,106 @@ const styles = theme => ({
 
 
 class login extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
 
-sayHello = () => {
-    this.props.history.push('/homescreen');
-}
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
 
-render() {
-  const { classes } = this.props;
+    handleInputChange(event) {
+        const target = event.target;
+        
+        this.setState({
+            [target.name]: target.value
+        });
+    }
 
-  return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline/>
-      <div className={classes.paper}>
-        <img src= { logo } alt="Logo" className={classes.logo} />
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary"/>}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            className={classes.submit}
-            onClick="getEvaluations()"
-          >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
-      <Box mt={8}>
-        <Copyright/>
-      </Box>
-    </Container>
-  );
-}
+    async handleSubmit(event) {
+        event.preventDefault();
+        this.signIn(this.state.email, this.state.password);
+    }
+
+    async signIn(username, password) {
+        try {
+            const user = await Auth.signIn(username, password);
+            console.log(user);
+            this.props.history.push('/homescreen');
+        } catch (error) {
+            console.log('Error signing in:', error);
+            document.getElementById('login-form').reset();
+        }
+    }
+
+    render() {
+        const { classes } = this.props;
+
+        return (
+            <Container component="main" maxWidth="xs">
+            <CssBaseline/>
+            <div className={classes.paper}>
+                <img src= { logo } alt="Logo" className={classes.logo} />
+                <Typography component="h1" variant="h5">
+                    Sign in
+                </Typography>
+                <form className={classes.form} noValidate onSubmit={this.handleSubmit} id="login-form">
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="email"
+                        label="Email Address"
+                        name="email"
+                        autoComplete="email"
+                        autoFocus
+                        onChange={this.handleInputChange}
+                    />
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        autoComplete="current-password"
+                        onChange={this.handleInputChange}
+                    />
+                    <FormControlLabel
+                        control={<Checkbox value="remember" color="primary"/>}
+                        label="Remember me"
+                    />
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        className={classes.submit}
+                    >
+                        Sign In
+                    </Button>
+                    <Grid container>
+                        <Grid item xs>
+                        <Link href="#" variant="body2">
+                            Forgot password?
+                        </Link>
+                        </Grid>
+                        <Grid item>
+                        <Link href="/register" variant="body2">
+                            {"Don't have an account? Sign Up"}
+                        </Link>
+                        </Grid>
+                    </Grid>
+                </form>
+            </div>
+            <Box mt={8}>
+                <Copyright/>
+            </Box>
+            </Container>
+        );
+    }
 }
 
 export default withStyles(styles)(login);
