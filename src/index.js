@@ -30,8 +30,8 @@ Amplify.configure({
         // identityPoolId: '',
 
         region: 'us-east-1',
-        userPoolId: 'us-east-1_wWP9btkmX',
-        userPoolWebClientId: '3o3tsruk6fmsf45i3rn21rm6pq',
+        userPoolId: 'us-east-1_ukWqeyhM4',
+        userPoolWebClientId: '1lr290tbgl9c533rklc7ncgvhg',
 
         cookieStorage: {
             domain: 'localhost',
@@ -45,7 +45,7 @@ Amplify.configure({
         endpoints: [
             {
                 name: 'ExcelAPI',
-                endpoint: 'https://0c8p8cda3f.execute-api.us-east-1.amazonaws.com/Prod'
+                endpoint: 'https://6z0glw5vac.execute-api.us-east-1.amazonaws.com/Prod'
             }
         ]
     }
