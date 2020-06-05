@@ -2,14 +2,14 @@ const https = require('https');
 
 export default function getEvaluations() {
   let options = {
-    host: 'https://6z0glw5vac.execute-api.us-east-1.amazonaws.com/Prod' ,
+    host: '0c8p8cda3f.execute-api.us-east-1.amazonaws.com/Prod',
     path: '/evaluations',
     method: 'GET',
-    //this header Authorization will be different for every user and certain timeframes, we will have to make a constant for this and pass it to here. this is just an example
-    headers: { 'Authorization': 'eyJraWQiOiJ5dkcwYVlQREdkWTNBQ1lLSEJqYm95bzEwWG9mclIzc3lZa0ZmaWFUbW0wPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIyZTIzOTdlYi02MGIyLTQyNjYtYjI2ZC0xNGQyODg2ZTIzMzgiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfdWtXcWV5aE00IiwicGhvbmVfbnVtYmVyX3ZlcmlmaWVkIjpmYWxzZSwiY29nbml0bzp1c2VybmFtZSI6Impjb3JvbmE4IiwiZ2l2ZW5fbmFtZSI6Ikp1bGlhIiwiYXVkIjoiMWxyMjkwdGJnbDljNTMzcmtsYzduY2d2aGciLCJldmVudF9pZCI6IjcwOWE2YmQ5LTA2M2YtNDMzNS05M2ZmLWY0ZGI0YjVmOTVkMyIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNTkwNzg3MzI4LCJuYW1lIjoiSnVsaWEiLCJleHAiOjE1OTA3OTA5MjgsImN1c3RvbTpyb2xlIjoiU3R1ZGVudCAoY3VycmVudCkiLCJpYXQiOjE1OTA3ODczMjgsImZhbWlseV9uYW1lIjoiQ29yb25hIiwiZW1haWwiOiJqY29yb25hQGdhdGVjaC5lZHUifQ.aHbW_gArqD0bGuLmkup4Wl0tuG7N5goIcyEarrOso6Lw8oTnhVhkTAfG_gD9koi0vWyrphX3Ne1_dhnM92SF5JiVoJ_imBSx4qYzURiYmrbuxrUuZO_tsmO5jOIRjOCXR6uXFvnINeBFrhYBn4k3t7ofuPJU1rBMZMiE9Qpen_19SCxN6ZQHq_wcoiktWe05N2A_c0yPTISvasNJ758lOXCQBd3XGwZIA0LnId0Vd0dvHqSb43RrIDC9tMoezDw1TdrKzrWuuC-fbF0mjX1gja9GwTV93E-Ufj2b-rXN3jbhUgjp1WzR-XlJ5EqL_LtX12yiuZ7vF3JipW87uJGyIw' }
-  }
+    headers: { 'Authorization': 'eyJraWQiOiJ6bVB1VzdCOTIraXlOZnlcL2xwRWhKdjRRTVEydFh6Y0k2eWZRUkVxVFpKQT0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI5NjEyZDAxZi0yOTU5LTQ0Y2ItOGQ2Yi1iNDRmZmE1NmI2OTciLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfd1dQOWJ0a21YIiwicGhvbmVfbnVtYmVyX3ZlcmlmaWVkIjpmYWxzZSwiY29nbml0bzp1c2VybmFtZSI6Imx1a2UiLCJnaXZlbl9uYW1lIjoiTHVrZSIsImF1ZCI6IjNvM3RzcnVrNmZtc2Y0NWkzcm4yMXJtNnBxIiwiZXZlbnRfaWQiOiI4NWI0ZWQwMi1hYTdkLTRlYWEtOTBhYy03MTZjZGNjNDdiODgiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTU5MDc4MTMxNiwibmFtZSI6Ikx1a2UiLCJleHAiOjE1OTA3ODQ5MTYsImN1c3RvbTpyb2xlIjoiU3R1ZGVudCAoZ3JhZHVhdGUpIiwiaWF0IjoxNTkwNzgxMzE2LCJmYW1pbHlfbmFtZSI6IkRvbm92YW4iLCJlbWFpbCI6Imxkb25vdmFuN0BnYXRlY2guZWR1In0.G-p5BQb53Ki9p8tQya5H7XQgp_QrxZxbrD1xtGXEI3rxBeA5oIQIGG2BB7my6keASYcFjhAmMXscvPiikfNj-JsH51T_lHDBtBo6l5UsJWviI7bf5zll2BUXPczPWUaMg5IRRLgD6EjacFk1a8KbJkoUWxeS9Ru-_UlVKq79SO0oh-2WJKAcZWERl3eJL-r6mRw8btjt8hA-rLnT5smtAakyUam6m5_ckrFvcm0pBnC_Qxh5wre4yaQjExtWLJHCXCoCT4mK-YIke13-r-k5OIthkcMBYJOEn0jwEB5mJmmUrLHXV434bW7HSLUBR9WCxYVedVeCT4lFE8UImB6--g' }
+  };
 
   let data;
+
   const req = https.request(options, res => {
     console.log(`statusCode: ${res.statusCode}`);
     res.setEncoding('utf8');
@@ -20,7 +20,7 @@ export default function getEvaluations() {
     });
   });
   req.on('error', error => {
-    console.error(error)
+    console.error(error);
   });
   req.end();
   return null;

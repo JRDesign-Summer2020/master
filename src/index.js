@@ -5,6 +5,7 @@ import './index.css';
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
+import addUserForm from './addUserForm';
 import login from './login';
 import homescreen from './homescreen';
 import Navigation from './Navigation';
@@ -20,10 +21,44 @@ import studentComp from "./studentComp";
 import studentDetails from "./studentDetails";
 import classDetails from './classDetails';
 
+import Amplify, { Auth, API } from 'aws-amplify';
+import awsconfig from './aws-exports';
+Amplify.configure(awsconfig);
+
+Amplify.configure({
+    Auth: {
+        // identityPoolId: '',
+
+        region: 'us-east-1',
+        userPoolId: 'us-east-1_ukWqeyhM4',
+        userPoolWebClientId: '1lr290tbgl9c533rklc7ncgvhg',
+
+        cookieStorage: {
+            domain: 'julia.d19x1ye7qes4du.amplifyapp.com',
+            path: '/',
+            expires: 365,
+            secure: false
+        }
+    },
+
+    API: {
+        endpoints: [
+            {
+                name: 'ExcelAPI',
+                endpoint: 'https://6z0glw5vac.execute-api.us-east-1.amazonaws.com/Prod'
+            }
+        ]
+    }
+})
+
+const authConfig = Auth.configure();
+const apiConfig = API.configure();
+
 ReactDOM.render((
     <BrowserRouter>
                 <Switch>
                   <Route exact path = "/" component = {login}/>
+                  <Route exact path = "/register" component = {addUserForm}/>
                   <Route exact path = "/homescreen" component = {homescreen}/>
                   <Route exact path = "/nav" component = {Navigation}/>
                   <Route exact path = "/competency" component = {Competency}/>
@@ -32,8 +67,8 @@ ReactDOM.render((
                   <Route exact path = "/allCompetencies" component = {allCompetencies}/>
                   <Route exact path = "/locationDetails" component = {locationDetails} />
                   <Route exact path = "/compDetails" component = {competencyDetails} />
-                  <Route exact path ="/students" component={students} />
-                  <Route exact path ="/studentComp" component={studentComp} />
+                  <Route exact path = "/students" component={students} />
+                  <Route exact path = "/studentComp" component={studentComp} />
                   <Route exact path = "/classDetails" component = {classDetails}/>
                   <Route exact path = "/facultystaff" component = {FacultyStaff} />
                 </Switch>

@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@aws-amplify/api": "latest",
+    "@aws-amplify/pubsub": "latest",
     "@material-ui/core": "^4.9.2",
     "@material-ui/icons": "^4.9.1",
     "@o2xp/react-datatable": "^1.1.37",
@@ -11,6 +13,8 @@
     "@testing-library/user-event": "^7.1.2",
     "@trendmicro/react-sidenav": "^0.5.0",
     "antd": "^3.26.7",
+    "aws-amplify": "^3.0.13",
+    "core-js": "^3.6.5",
     "material-table": "^1.57.2",
     "material-ui-image": "^3.2.2",
     "react": "^16.12.0",

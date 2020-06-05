@@ -16,6 +16,7 @@ import {withRouter} from "react-router";
 
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
+import { Auth } from 'aws-amplify';
 
 function onClick(e, item) {
   window.alert(JSON.stringify(item, null, 2));
@@ -100,106 +101,118 @@ function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
 }
 
 class Sidebar extends React.Component {
-  depthStep = 10;
-  depth = 0;
-  expanded = false;
-  goToCompetencies = () => {
-    this.props.history.push('/allCompetencies')
-  };
+    constructor(props) {
+        super(props);
+    }
 
-  goToUsers = () => {
-    this.props.history.push('/users')
-  };
+    depthStep = 10;
+    depth = 0;
+    expanded = false;
 
-  goToHome = () => {
-    this.props.history.push('/homescreen')
-  };
+    goToCompetencies = () => {
+        this.props.history.push('/allCompetencies');
+    }
 
-  goToAllLocations = () => {
-    this.props.history.push('/alllocations')
-  };
+    goToUsers = () => {
+        this.props.history.push('/users');
+    }
 
-  goToFacultyStaff = () => {
-    this.props.history.push('/facultystaff')
-  };
+    goToHome = () => {
+        this.props.history.push('/homescreen');
+    }
 
-  goToLocationDetails = () => {
-    this.props.history.push('/locationDetails')
-  };
-  goToStudents = () => {
-    this.props.history.push('/students')
-  };
+    goToAllLocations = () => {
+        this.props.history.push('/alllocations');
+    }
 
-  goToLogin = () => {
-      this.props.history.push('/')
-  };
-  items = [
-    { level: "home",
-    label: "Home",
-    Icon: HomeIcon,
-    onClick : this.goToHome
-    },
-    "divider",
-    { level: "competencies",
-    label: "Competencies",
-    Icon: CompetencyIcon,
+    goToFacultyStaff = () => {
+        this.props.history.push('/facultystaff');
+    }
 
-      items: [
+    goToLocationDetails = () => {
+        this.props.history.push('/locationDetails');
+    }
+
+    goToStudents = () => {
+        this.props.history.push('/students');
+    }
+
+    signOut = async () => {
+        try {
+            await Auth.signOut();
+            this.props.history.push('/');
+        } catch (error) {
+            console.log('Error signing out:', error);
+        }
+    }
+
+    items = [
+        { level: "home",
+        label: "Home",
+        Icon: HomeIcon,
+        onClick : this.goToHome
+        },
         "divider",
-        { level: "managecompetencies", label: "Evaluate & Review", onClick: this.goToStudents },
-        "divider",
-      ]
-      },
-    "divider",
-    {
-      level: "classandadvising",
-      label: "Class & Advising",
-      Icon: Location,
-      onClick: this.goToAllLocations,
-    },
-    "divider",
-    { level: "adminsettings",
-    label: "Admin Settings",
-    Icon: PeopleIcon,
-      items: [
-        "divider",
-        { level: "manageusers", label: "Edit Users", onClick:this.goToUsers},
-        "divider",
-        { level: "managecompetencies", label: "Edit Competencies", onClick : this.goToCompetencies},
-        "divider",
-        { level: "manageclassesadvising", label: "Edit Class & Advising", onClick: this.goToAllLocations }]
-      },
-    "divider",
-    {
-      level: "sign out",
-      label: "Sign out",
-      Icon: ExitToAppIcon,
-      onClick : this.goToLogin,
-     }
-  ];
+        { level: "competencies",
+        label: "Competencies",
+        Icon: CompetencyIcon,
 
-render() {
-  return (
-    <div className="sidebar">
-      <List disablePadding dense>
-        {this.items.map((sidebarItem, index) => (
-          <React.Fragment key={`${sidebarItem.name}${index}`}>
-            {sidebarItem === "divider" ? (
-              <Divider style={{margin: "6px 0"}}/>
-            ) : (
-              <SidebarItem
-                depthStep={this.depthStep}
-                depth={this.depth}
-                expanded={this.expanded}
-                item={sidebarItem}
-              />
-            )}
-          </React.Fragment>
-        ))}
-      </List>
-    </div>
-  );
-  }
+        items: [
+            "divider",
+            { level: "managecompetencies", label: "Evaluate & Review", onClick: this.goToStudents },
+            "divider",
+        ]
+        },
+        "divider",
+        {
+        level: "classandadvising",
+        label: "Class & Advising",
+        Icon: Location,
+        onClick: this.goToAllLocations,
+        },
+        "divider",
+        { level: "adminsettings",
+        label: "Admin Settings",
+        Icon: PeopleIcon,
+        items: [
+            "divider",
+            { level: "manageusers", label: "Edit Users", onClick:this.goToUsers},
+            "divider",
+            { level: "managecompetencies", label: "Edit Competencies", onClick : this.goToCompetencies},
+            "divider",
+            { level: "manageclassesadvising", label: "Edit Class & Advising", onClick: this.goToAllLocations }]
+        },
+        "divider",
+        {
+        level: "sign out",
+        label: "Sign out",
+        Icon: ExitToAppIcon,
+        onClick : this.signOut,
+        }
+    ];
+
+    render() {
+        return (
+            <div className="sidebar">
+            <List disablePadding dense>
+                {this.items.map((sidebarItem, index) => (
+                <React.Fragment key={`${sidebarItem.name}${index}`}>
+                    {sidebarItem === "divider" ? (
+                    <Divider style={{margin: "6px 0"}}/>
+                    ) : (
+                    <SidebarItem
+                        depthStep={this.depthStep}
+                        depth={this.depth}
+                        expanded={this.expanded}
+                        item={sidebarItem}
+                    />
+                    )}
+                </React.Fragment>
+                ))}
+            </List>
+            </div>
+        );
+    }
 }
 
 export default withRouter(Sidebar);
