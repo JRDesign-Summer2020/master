@@ -18,6 +18,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from "@material-ui/core/Divider";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+//DUMMY DATA
 import DummyEndpoint from './dummy_endpoint';
 
 const styles = theme => ({

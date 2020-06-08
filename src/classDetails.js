@@ -18,6 +18,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from "@material-ui/core/Divider";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+//DUMMY DATA
 import DummyEndpoint from './dummy_endpoint';
 
 const styles = theme => ({
@@ -120,7 +121,9 @@ class ClassDetails extends Component {
     const { classes } = this.props;
     const passed = this.props.location.data;
     const id = passed ? passed.id : null;
+    //DUMMY DATA
     const details = id ? DummyEndpoint.get_location(id) : null;
+    //DUMMY DATA
     const competencies_tracked = details ? DummyEndpoint.get_simple_list_of_comps(details.competencies) : null;
     const comp_name = details ? details.name : null;
     const list_of_competencies = id ? competencies_tracked.map((comp) =>
@@ -128,7 +131,9 @@ class ClassDetails extends Component {
     ): <ListItem></ListItem>;
     console.log(details);
     // console.log(details["students"]);
+    //DUMMY DATA
     console.log(details["students"].forEach((comp) => console.log(DummyEndpoint.get_student(comp))));
+    //DUMMY DATA
     const list_of_students = id ? details["students"].map((comp) => 
         <LocationItem name={DummyEndpoint.get_student(comp)["name"]} sub_id={comp} endpoint = '/studentComp' history={this.props.history} location={this.props.location}/>
     ): <ListItem></ListItem>;
