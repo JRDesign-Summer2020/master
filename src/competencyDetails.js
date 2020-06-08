@@ -146,9 +146,11 @@ class CompetencyDetails extends Component {
     const { classes } = this.props;
     const data_id = this.props.location.data ? this.props.location.data.id : null;
     console.log(data_id);
+    //DUMMY DATA
     const tracking_classes = data_id ? DummyEndpoint.get_classes_for_competencies(data_id) : null;
     console.log(tracking_classes);
     //const comp_dict = data_id ? details[data_id] : null;
+    //DUMMY DATA
     const comp_dict = data_id ? DummyEndpoint.get_simple_comp(data_id) : null;
     console.log(comp_dict);
     console.log(comp_dict["Competency"]);
