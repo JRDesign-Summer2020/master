@@ -28,8 +28,9 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import { StepIcon } from '@material-ui/core';
 import {BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,} from 'recharts';
 
+import './login.js';
 import { API } from 'aws-amplify';
-import { authorize } from './utils';
+import { invokeApig } from './utils';
 
 const styles = theme => ({
   side: {
@@ -56,15 +57,22 @@ class homescreen extends React.Component {
             queryStringParameters: {},
         };
 
-        authorize(requestSettings).then(init =>
-            API.get('ExcelAPI', '/evaluations', init)
-                .then(response => {
-                    console.log(response);
-                })
-                .catch(error => {
-                    console.error(error);
-                })
-        );
+        invokeApig({
+            path: ( '/evaluations'), 
+            method: "GET",
+            headers: {},
+            queryParams: {} ,
+        });
+
+        // authorize(requestSettings).then(init =>
+        //     API.get('ExcelAPI', '/evaluations', init)
+        //         .then(response => {
+        //             console.log(response);
+        //         })
+        //         .catch(error => {
+        //             console.error(error);
+        //         })
+        // );
     }
 
     onClick = (e, item) => {

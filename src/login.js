@@ -22,7 +22,13 @@ import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import { Redirect } from 'react-router-dom'
 import getEvaluations from './getEvaluations';
 
+import { CognitoUser } from 'amazon-cognito-identity-js'
+import { CognitoUserPool } from 'amazon-cognito-identity-js'
+import {AuthenticationDetails} from 'amazon-cognito-identity-js'
+import { API } from 'aws-amplify';
 import { Auth } from 'aws-amplify';
+import AWS from 'aws-sdk';
+import { setCookie } from './utils';
 
 function Copyright() {
   return (
@@ -70,35 +76,103 @@ const styles = theme => ({
 
 class login extends React.Component {
     constructor(props) {
-        super(props);
-        this.state = {};
+      super(props);
+      this.state = {};
 
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleInputChange = this.handleInputChange.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleInputChange(event) {
-        const target = event.target;
+      const target = event.target;
         
-        this.setState({
-            [target.name]: target.value
-        });
+      this.setState({
+        [target.name]: target.value
+      });
     }
 
     async handleSubmit(event) {
-        event.preventDefault();
-        this.signIn(this.state.email, this.state.password);
+      event.preventDefault();
+      this.signIn(this.state.email, this.state.password);
     }
 
+    // async login(username, password) {
+    //   let currentUser = await Auth.currentUserPoolUser();
+    //   console.log(currentUser);
+    //   const userPool = new CognitoUserPool({
+    //     UserPoolId: 'us-east-1_ukWqeyhM4',
+    //     ClientId: '1lr290tbgl9c533rklc7ncgvhg'
+    //   });
+    //   const user = new CognitoUser({ Username: username, Pool: userPool });
+    //   const authenticationData = { Username: username, Password: password };
+    //   const authenticationDetails = new AuthenticationDetails(authenticationData);
+
+    //   //this.props.history.push('/homescreen');
+    //   return new Promise((resolve, reject) =>
+    //     user.authenticateUser(authenticationDetails, {
+    //       onSuccess: result => resolve(),
+    //       onFailure: err => reject(err)
+    //     })
+    //   );
+  //}
+
     async signIn(username, password) {
-        try {
-            const user = await Auth.signIn(username, password);
-            console.log(user);
+      try {
+        let user = await Auth.signIn(username, password)
+        let authConfig = Auth.configure();
+
+        user.getSession((err, session) => {
+          if (err) {
+            console.error(err);
+            return;
+          }
+
+          let providerName = `cognito-idp.${authConfig.region}.amazonaws.com/${authConfig.userPoolId}`;
+          let token = session.getIdToken().getJwtToken();
+
+          AWS.config.region = authConfig.region;
+
+          let logins = {};
+          logins[providerName] = token;
+
+          AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: authConfig.identityPoolId,
+            Logins: logins
+          });
+
+          AWS.config.credentials.get(err => {
+            if (err) {
+              console.error(err);
+              return;
+            }
+
+            let d = new Date();
+            d.setTime(d.getTime() + (1 * 60 * 60 * 1000));
+            let extime = d.getTime();
+  
+            setCookie('accesskey', AWS.config.credentials.accessKeyId, extime);
+            setCookie('secretkey', AWS.config.credentials.secretAccessKey, extime);
+            setCookie('sessiontoken', AWS.config.credentials.sessionToken, extime);
+          
+            // creds.get(function(){
+            //   // Credentials will be available when this function is called.
+            //   var accessKeyId = AWS.config.credentials.accessKeyId;
+            //   var secretAccessKey = AWS.config.credentials.secretAccessKey;
+            //   var sessionToken = AWS.config.credentials.sessionToken;
+            //   //console.log(AWS.config.credentials);
+            // });
+
+            //creds.getPromise()
+
+            console.log(AWS.config.credentials);
+    
             this.props.history.push('/homescreen');
-        } catch (error) {
-            console.log('Error signing in:', error);
-            document.getElementById('login-form').reset();
-        }
+          });
+        });
+      } catch (error) {
+        console.error('Error signing in:', error);
+        document.getElementById('login-form').reset();
+      }
     }
 
     render() {
