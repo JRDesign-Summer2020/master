@@ -58,10 +58,12 @@ class homescreen extends React.Component {
         };
 
         invokeApig({
-            path: ( '/evaluations'), 
+            path: ( '/evaluations'),
             method: "GET",
             headers: {},
             queryParams: {} ,
+        }).then(body => {
+          console.log(body);
         });
 
         // authorize(requestSettings).then(init =>
