@@ -1,9 +1,0 @@
-{
-	"function": {
-		"mastermaster6c9ba317": {
-			"build": true,
-			"providerPlugin": "awscloudformation",
-			"service": "Lambda"
-		}
-	}
-}
