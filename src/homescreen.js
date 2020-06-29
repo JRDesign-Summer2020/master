@@ -63,10 +63,37 @@ class homescreen extends React.Component {
             headers: {},
             queryParams: {} ,
         }).then(body => {
-          console.log(body);
+            console.log(body);
         });
 
-        // authorize(requestSettings).then(init =>
+        invokeApig({
+            path: ( '/evaluations/nonexistentuser'),
+            method: "GET",
+            headers: {},
+            queryParams: {} ,
+        }).then(body => {
+            console.log(body);
+        });
+
+        invokeApig({
+            path: ( '/competencies'),
+            method: "GET",
+            headers: {},
+            queryParams: {} ,
+        }).then(body => {
+            console.log(body);
+        });
+
+        invokeApig({
+            path: ( '/competencies/nonexistentuser'),
+            method: "GET",
+            headers: {},
+            queryParams: {} ,
+        }).then(body => {
+            console.log(body);
+        });
+
+      // authorize(requestSettings).then(init =>
         //     API.get('ExcelAPI', '/evaluations', init)
         //         .then(response => {
         //             console.log(response);
