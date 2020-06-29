@@ -91,7 +91,7 @@ class homescreen extends React.Component {
         });
 
         invokeApig({
-            path: ( '/competencies/nonexistentuser'),
+            path: ( '/competencies/nonexistentuser/nonexistentdomain'),
             method: "GET",
             headers: {},
             queryParams: {} ,
