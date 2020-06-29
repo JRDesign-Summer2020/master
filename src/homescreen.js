@@ -64,6 +64,8 @@ class homescreen extends React.Component {
             queryParams: {} ,
         }).then(body => {
             console.log(body);
+        }).catch(error => {
+          console.error(error);
         });
 
         invokeApig({
@@ -73,6 +75,8 @@ class homescreen extends React.Component {
             queryParams: {} ,
         }).then(body => {
             console.log(body);
+        }).catch(error => {
+          console.error(error);
         });
 
         invokeApig({
@@ -82,6 +86,8 @@ class homescreen extends React.Component {
             queryParams: {} ,
         }).then(body => {
             console.log(body);
+        }).catch(error => {
+          console.error(error);
         });
 
         invokeApig({
@@ -91,6 +97,8 @@ class homescreen extends React.Component {
             queryParams: {} ,
         }).then(body => {
             console.log(body);
+        }).catch(error => {
+          console.error(error);
         });
 
       // authorize(requestSettings).then(init =>
