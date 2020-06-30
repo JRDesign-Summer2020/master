@@ -4,6 +4,7 @@ import { chunk } from "lodash";
 import Container from '@material-ui/core/Container';
 import Sidebar from "./Sidebar";
 import {withStyles} from "@material-ui/core/styles";
+import { invokeApig } from './utils';
 
 const styles = theme => ({
   side: {
@@ -36,6 +37,23 @@ class allCompetencies extends Component {
         data: {id}
       }
     );
+  }
+
+  constructor(props) {
+    super(props);
+
+    const invoke = invokeApig({
+      path: ( '/competencies'), 
+      method: "GET",
+      headers: {},
+      queryParams: {} ,
+    });
+
+    invoke.then(response => {
+      let items = response["Items"];
+      console.log(items);
+    });
+
   }
 
   options = {
