@@ -33,17 +33,16 @@ export function getCookie(name) {
 }
 
 export function deleteCookie(name) {
-    setCookie(name, '', new Date(new Date().getTime() - 1).getTime());
+  setCookie(name, '', new Date(new Date().getTime() - 1).getTime());
 }
 
 export function loggedIn() {
-    let loginAccessKey = getCookie('accesskey');
-    let loginSecretKey = getCookie('secretkey');
-    let loginSessionToken = getCookie('sessiontoken')
+  let loginAccessKey = getCookie('accesskey');
+  let loginSecretKey = getCookie('secretkey');
+  let loginSessionToken = getCookie('sessiontoken');
 
-    return (loginAccessKey != null) && (loginSecretKey != null) && (loginSessionToken != null);
+  return (loginAccessKey != null) && (loginSecretKey != null) && (loginSessionToken != null);
 }
-
 
 export async function invokeApig({
     path,
@@ -51,7 +50,7 @@ export async function invokeApig({
     headers = {},
     queryParams = {},
     body
-}) {
+  }) {
     const signedRequest = sigV4Client
       .newClient({
         accessKey: getCookie('accesskey'),
@@ -80,6 +79,6 @@ export async function invokeApig({
     if (results.status !== 200) {
       throw new Error(await results.text());
     }
-  
+    
     return results.json();
   }

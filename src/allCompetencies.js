@@ -4,6 +4,7 @@ import { chunk } from "lodash";
 import Container from '@material-ui/core/Container';
 import Sidebar from "./Sidebar";
 import {withStyles} from "@material-ui/core/styles";
+import { invokeApig } from './utils';
 
 const styles = theme => ({
   side: {
@@ -38,6 +39,11 @@ class allCompetencies extends Component {
     );
   }
 
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   options = {
     title: "All Competencies",
     dimensions: {
@@ -66,18 +72,19 @@ class allCompetencies extends Component {
           editable: false
         }
       ],
-      rows: [
-        {
-          allCompetencies: "Understands and demonstrates safe street crossing and other pedestrian laws",
-          id: '1283',
-          clickButton: <button onClick={() => this.toCompetency('1283')}>View</button>,
-        },
-        {
-          allCompetencies: "Ability to call an Uber without any guidance.",
-          id: '837',
-          clickButton: <button onClick={() => this.toCompetency('837')}>View</button>,
-        },
-      ]
+      rows: []
+      // [
+      //   {
+      //     allCompetencies: "Understands and demonstrates safe street crossing and other pedestrian laws",
+      //     id: '1283',
+      //     clickButton: <button onClick={() => this.toCompetency('1283')}>View</button>,
+      //   },
+      //   {
+      //     allCompetencies: "Ability to call an Uber without any guidance.",
+      //     id: '837',
+      //     clickButton: <button onClick={() => this.toCompetency('837')}>View</button>,
+      //   },
+      // ]
     },
     features: {
       canEdit: true,
@@ -98,30 +105,40 @@ class allCompetencies extends Component {
       },
     }
   };
+
   actionsRow = ({ type, payload }) => {
     console.log(type);
     console.log(payload);
   };
 
-  refreshRows = () => {
-    const { rows } = this.options.data;
-    const randomRows = Math.floor(Math.random() * rows.length) + 1;
-    const randomTime = Math.floor(Math.random() * 4000) + 1000;
-    const randomResolve = Math.floor(Math.random() * 10) + 1;
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (randomResolve > 3) {
-          resolve(chunk(rows, randomRows)[0]);
-        }
-        reject(new Error("err"));
-      }, randomTime);
+  async getRows() {
+    let response = await invokeApig({
+      path: ( '/competencies'), 
+      method: "GET",
+      headers: {},
+      queryParams: {} ,
     });
+
+    let items = response["Items"];
+
+    return items.map(item => ({
+      allCompetencies: item['CompetencyTitle'],
+      id: item['CompetencyId'],
+      clickButton: <button onClick={() => this.toCompetency('1283')}>View</button>,
+    }));
+
+    // this.getRows();
+    //console.log(items[1]["CompetencyTitle"]);
+
+    // return rows;
   };
 
   onClick2  = (e, item) => {
     window.alert(JSON.stringify(item, null, 2));
   }
 
+  componentDidMount() {
+  }
 
   render() {
     const { classes } = this.props;
@@ -133,9 +150,9 @@ class allCompetencies extends Component {
         </div>
         <div className={classes.content}>
           <Datatable
-                     options={this.options}
-                     refreshRows={this.refreshRows}
-                     actions={this.actionsRow}
+            options={this.options}
+            refreshRows={this.getRows}
+            actions={this.actionsRow}
           />
         </div>
       </Container>

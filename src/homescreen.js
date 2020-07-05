@@ -52,11 +52,6 @@ const styles = theme => ({
 class homescreen extends React.Component {
     constructor(props) {
         super(props);
-        const requestSettings = {
-            response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
-            queryStringParameters: {},
-        };
-
         invokeApig({
             path: ( '/evaluations'),
             method: "GET",
@@ -129,27 +124,27 @@ class homescreen extends React.Component {
         return (
             <Container>
             <div className={classes.side}>
-                    <Sidebar ></Sidebar>
+                <Sidebar ></Sidebar>
             </div>
             <div className={classes.logo}>
-                    <img src= { logo } alt="Logo" classImportance Level={classes.logo} />
+                <img src= { logo } alt="Logo" classImportance Level={classes.logo} />
             </div>
             <div className={classes.options}>
                 <BarChart
-                        width={900}
-                        height={300}
-                        data={data}
-                        margin={{
-                        top: 5, right: 0, left: 400, bottom: 5,
-                        }}
+                    width={900}
+                    height={300}
+                    data={data}
+                    margin={{
+                    top: 5, right: 0, left: 400, bottom: 5,
+                    }}
                     >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend />
-                        <Bar dataKey="Competencies" fill="#000080" />
-                    </BarChart>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="Competencies" fill="#000080" />
+                </BarChart>
             </div>
             </Container>
 
