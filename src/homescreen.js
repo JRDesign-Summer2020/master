@@ -86,6 +86,7 @@ class homescreen extends React.Component {
         });
 
         invokeApig({
+            // This one doesn't work rn
             path: ( '/competencies/nonexistentuser/nonexistentdomain'),
             method: "GET",
             headers: {},
@@ -131,7 +132,7 @@ class homescreen extends React.Component {
             </div>
             <div className={classes.options}>
                 <BarChart
-                    width={900}
+                    width={500}
                     height={300}
                     data={data}
                     margin={{
