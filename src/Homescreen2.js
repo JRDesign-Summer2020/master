@@ -42,8 +42,6 @@ const styles = theme => ({
     height: '100%',
   },
   logo: {
-      marginLeft: '400px',
-      height: '100%',
       width: '100%',
     }
 });
