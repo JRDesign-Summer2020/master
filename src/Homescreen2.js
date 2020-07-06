@@ -133,12 +133,9 @@ class homescreen extends React.Component {
                     </div>
                     <div className={classes.options}>
                         <BarChart
-                            width={900}
+                            width={500}
                             height={300}
                             data={data}
-                            margin={{
-                            top: 5, right: 0, left: 400, bottom: 5,
-                            }}
                             >
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="name" />
