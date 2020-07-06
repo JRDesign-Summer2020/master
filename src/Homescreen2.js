@@ -42,13 +42,14 @@ const styles = theme => ({
       height: '100%',
     },
     logo: {
-      width: '100%',
+      width: '504px',
+      height: '197px',
     },
     centered: {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
     }
 });
 
