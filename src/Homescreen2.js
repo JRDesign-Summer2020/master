@@ -46,6 +46,7 @@ const styles = theme => ({
     },
     centered: {
       display: 'flex',
+      flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center'
     }
