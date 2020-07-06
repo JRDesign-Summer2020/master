@@ -55,25 +55,41 @@ Amplify.configure({
 const authConfig = Auth.configure();
 const apiConfig = API.configure();
 
+const flexRow = {
+    display: "flex"
+};
+
+const LoginContainer = () => (
+  <div>
+    <Route exact path = "/" component={login} />
+  </div>
+)
+
+const MainContainer = () => (
+    <div style={flexRow}>
+        <Sidebar></Sidebar>
+        <Route exact path = "/register" component = {addUserForm}/>
+        <Route exact path = "/homescreen" component = {Homescreen2}/>
+        <Route exact path = "/nav" component = {Navigation}/>
+        <Route exact path = "/competency" component = {Competency}/>
+        <Route exact path = "/users" component = {Users}/>
+        <Route exact path = "/alllocations" component = {Locations}/>
+        <Route exact path = "/allCompetencies" component = {allCompetencies}/>
+        <Route exact path = "/locationDetails" component = {locationDetails} />
+        <Route exact path = "/compDetails" component = {competencyDetails} />
+        <Route exact path = "/students" component={students} />
+        <Route exact path = "/studentComp" component={studentComp} />
+        <Route exact path = "/classDetails" component = {classDetails}/>
+        <Route exact path = "/facultystaff" component = {FacultyStaff} />
+    </div>
+)
+
 ReactDOM.render((
     <BrowserRouter>
-                <Switch>
-                  <Route exact path = "/" component = {login}/>
-                  <Route exact path = "/register" component = {addUserForm}/>
-                  <Route exact path = "/homescreen" component = {homescreen}/>
-                  <Route exact path = "/nav" component = {Navigation}/>
-                  <Route exact path = "/competency" component = {Competency}/>
-                  <Route exact path = "/users" component = {Users}/>
-                  <Route exact path = "/alllocations" component = {Locations}/>
-                  <Route exact path = "/allCompetencies" component = {allCompetencies}/>
-                  <Route exact path = "/locationDetails" component = {locationDetails} />
-                  <Route exact path = "/compDetails" component = {competencyDetails} />
-                  <Route exact path = "/students" component={students} />
-                  <Route exact path = "/studentComp" component={studentComp} />
-                  <Route exact path = "/classDetails" component = {classDetails}/>
-                  <Route exact path = "/facultystaff" component = {FacultyStaff} />
-                </Switch>
-
+        <Switch>
+            <Route exact path = "/" component={login} />
+            <Route component={MainContainer} />
+        </Switch>
     </BrowserRouter>
     ), document.getElementById('root'));
 
