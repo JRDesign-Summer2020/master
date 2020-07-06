@@ -148,46 +148,45 @@ class Sidebar extends React.Component {
 
     items = [
         { level: "home",
-        label: "Home",
-        Icon: HomeIcon,
-        onClick : this.goToHome
+          label: "Home",
+          Icon: HomeIcon,
+          onClick : this.goToHome
         },
         "divider",
         { level: "competencies",
-        label: "Competencies",
-        Icon: CompetencyIcon,
-
-        items: [
+          label: "Competencies",
+          Icon: CompetencyIcon,
+          items: [
             "divider",
-            { level: "managecompetencies", label: "Evaluate & Review", onClick: this.goToStudents },
-            "divider",
-        ]
+            { level: "managecompetencies",
+              label: "Evaluate & Review",
+              onClick: this.goToStudents },
+          ]
         },
         "divider",
-        {
-        level: "classandadvising",
-        label: "Class & Advising",
-        Icon: Location,
-        onClick: this.goToAllLocations,
+        { level: "classandadvising",
+          label: "Class & Advising",
+          Icon: Location,
+          onClick: this.goToAllLocations,
         },
         "divider",
         { level: "adminsettings",
-        label: "Admin Settings",
-        Icon: PeopleIcon,
-        items: [
+          label: "Admin Settings",
+          Icon: PeopleIcon,
+          items: [
             "divider",
             { level: "manageusers", label: "Edit Users", onClick:this.goToUsers},
             "divider",
             { level: "managecompetencies", label: "Edit Competencies", onClick : this.goToCompetencies},
             "divider",
-            { level: "manageclassesadvising", label: "Edit Class & Advising", onClick: this.goToAllLocations }]
+            { level: "manageclassesadvising", label: "Edit Class & Advising", onClick: this.goToAllLocations }
+          ]
         },
         "divider",
-        {
-        level: "sign out",
-        label: "Sign out",
-        Icon: ExitToAppIcon,
-        onClick : this.signOut,
+        { level: "sign out",
+          label: "Sign out",
+          Icon: ExitToAppIcon,
+          onClick : this.signOut,
         }
     ];
 
