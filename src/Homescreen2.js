@@ -57,6 +57,7 @@ const styles = theme => ({
 class homescreen extends React.Component {
     constructor(props) {
         super(props);
+         /**
         invokeApig({
             path: ( '/evaluations'),
             method: "GET",
@@ -101,6 +102,7 @@ class homescreen extends React.Component {
         }).catch(error => {
           console.error(error);
         });
+         **/
 
       // authorize(requestSettings).then(init =>
         //     API.get('ExcelAPI', '/evaluations', init)
