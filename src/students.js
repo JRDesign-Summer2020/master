@@ -133,9 +133,6 @@ class Students extends Component {
 
     return (
       <Container>
-        <div className={classes.side}>
-          <Sidebar />
-        </div>
         <div className={classes.content}>
           <Datatable
             options={this.options}

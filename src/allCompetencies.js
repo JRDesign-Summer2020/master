@@ -113,7 +113,7 @@ class allCompetencies extends Component {
 
   async getRows() {
     let response = await invokeApig({
-      path: ( '/competencies'), 
+      path: ( '/competencies'),
       method: "GET",
       headers: {},
       queryParams: {} ,
@@ -145,9 +145,6 @@ class allCompetencies extends Component {
 
     return (
       <Container>
-        <div className={classes.side}>
-          <Sidebar ></Sidebar>
-        </div>
         <div className={classes.content}>
           <Datatable
             options={this.options}

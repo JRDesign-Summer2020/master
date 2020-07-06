@@ -150,9 +150,6 @@ class LocationDetails extends Component {
 
     return (
       <Container>
-        <div className={classes.side}>
-          <Sidebar ></Sidebar>
-        </div>
         <div className={classes.content}>
           <Datatable
             options={options}
