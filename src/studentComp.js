@@ -301,7 +301,7 @@ class StudentComp extends Component {
         let historic_competency = DummyEndpoint.get_list_of_comps(this.comp_dict.historic_competencies, null, this.data_id);
         console.log('historic');
         console.log(historic_competency);
-        
+
         this.state.comp_info.data.rows = competency;
         this.state.comp_history_info.data.rows = historic_competency;
         console.log(this.state.comp_info.data.rows);
@@ -341,9 +341,6 @@ class StudentComp extends Component {
         ) : <ListItem></ListItem>;
         return (
         <Container>
-            <div className={classes.side}>
-            <Sidebar />
-            </div>
             <div className={classes.comp_text}>
             <StudentName name={(this.comp_dict ? this.comp_dict.name : null)} exist={this.props.location.data == null} />
 

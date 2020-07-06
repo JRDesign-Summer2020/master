@@ -121,7 +121,7 @@ class Locations extends Component {
       },
     }
   };
-  
+
   actionsRow = ({ type, payload }) => {
     console.log(type);
     console.log(payload);
@@ -152,9 +152,6 @@ class Locations extends Component {
 
     return (
       <Container>
-        <div className={classes.side}>
-          <Sidebar ></Sidebar>
-        </div>
         <div className={classes.content}>
           <Datatable
                      options={this.options}

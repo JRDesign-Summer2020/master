@@ -70,7 +70,7 @@ class Students extends Component {
         {
           facultystaff: "Ty Roberts",
           id: 'troberts7',
-          
+
         },
       ]
     },
@@ -123,9 +123,6 @@ class Students extends Component {
 
     return (
       <Container>
-        <div className={classes.side}>
-          <Sidebar />
-        </div>
         <div className={classes.content}>
           <Datatable
             options={this.options}
