@@ -60,9 +60,9 @@ const flexRow = {
 };
 
 ReactDOM.render((
-    <div style={flexRow}>
-        <Sidebar></Sidebar>
-        <BrowserRouter>
+    <BrowserRouter>
+        <div style={flexRow}>
+            <Sidebar></Sidebar>
                 <Switch>
                   <Route exact path = "/" component = {login}/>
                   <Route exact path = "/register" component = {addUserForm}/>
@@ -79,9 +79,8 @@ ReactDOM.render((
                   <Route exact path = "/classDetails" component = {classDetails}/>
                   <Route exact path = "/facultystaff" component = {FacultyStaff} />
                 </Switch>
-
-        </BrowserRouter>
-    </div>
+        </div>
+    </BrowserRouter>
     ), document.getElementById('root'));
 
 
