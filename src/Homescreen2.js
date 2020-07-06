@@ -124,9 +124,6 @@ class homescreen extends React.Component {
         const { classes } = this.props;
         return (
             <Container>
-            <div className={classes.side}>
-                <Sidebar ></Sidebar>
-            </div>
             <div className={classes.logo}>
                 <img src= { logo } alt="Logo" classImportance Level={classes.logo} />
             </div>

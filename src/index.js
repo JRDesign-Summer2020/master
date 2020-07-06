@@ -8,6 +8,7 @@ import * as serviceWorker from './serviceWorker';
 import addUserForm from './addUserForm';
 import login from './login';
 import homescreen from './homescreen';
+import Homescreen2 from "./Homescreen2";
 import Navigation from './Navigation';
 import Competency from './competency';
 import Users from './users';
@@ -16,6 +17,7 @@ import FacultyStaff from './facultyAndStaff';
 import allCompetencies from './allCompetencies';
 import locationDetails from './locationDetails';
 import competencyDetails from './competencyDetails';
+import Sidebar from "./Sidebar";
 import students from './students';
 import studentComp from "./studentComp";
 import studentDetails from "./studentDetails";
@@ -53,12 +55,18 @@ Amplify.configure({
 const authConfig = Auth.configure();
 const apiConfig = API.configure();
 
+const flexRow = {
+    display: "flex"
+};
+
 ReactDOM.render((
-    <BrowserRouter>
+    <div style={flexRow}>
+        <Sidebar></Sidebar>
+        <BrowserRouter>
                 <Switch>
                   <Route exact path = "/" component = {login}/>
                   <Route exact path = "/register" component = {addUserForm}/>
-                  <Route exact path = "/homescreen" component = {homescreen}/>
+                  <Route exact path = "/homescreen" component = {Homescreen2}/>
                   <Route exact path = "/nav" component = {Navigation}/>
                   <Route exact path = "/competency" component = {Competency}/>
                   <Route exact path = "/users" component = {Users}/>
@@ -72,7 +80,8 @@ ReactDOM.render((
                   <Route exact path = "/facultystaff" component = {FacultyStaff} />
                 </Switch>
 
-    </BrowserRouter>
+        </BrowserRouter>
+    </div>
     ), document.getElementById('root'));
 
 
