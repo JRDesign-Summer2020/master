@@ -67,7 +67,7 @@ const LoginContainer = () => (
 
 const MainContainer = () => (
     <div style={flexRow}>
-        <Sidebar></Sidebar>
+        <Sidebar />
         <Route exact path = "/register" component = {addUserForm}/>
         <Route exact path = "/homescreen" component = {Homescreen2}/>
         <Route exact path = "/nav" component = {Navigation}/>
