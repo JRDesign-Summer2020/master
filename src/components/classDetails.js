@@ -19,7 +19,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from "@material-ui/core/Divider";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 //DUMMY DATA
-import DummyEndpoint from './dummy_endpoint';
+import DummyEndpoint from '../legacy/dummy_endpoint';
 
 const styles = theme => ({
   side: {
@@ -41,77 +41,54 @@ comp_text: {
     flexDirection: 'column',
   },
   column_view: {
-      padding: '15px 15px',
+      padding: '0px 15px',
       display: 'flex',
       flexDirection: 'column',
   },
 });
 
-const details = {
-    1283:
-    {
-        name:'Crossing street without guidance.',
-        id: '1283',
-        locations : [
-            ['13', "Transportation I"],
-            ['12', "Career Skills II"],
-        ],
-        sub_details:
-        {
-            domain: 'Transportation',
-            subcategory: 'Pedestrian Travel',
-            importance: 'High',
-            difficulty: 'Basic',
-            eval_freq: 'Year'
-        }
-    },
-    837:
-    {
-        name:'Calling an uber with no guidance.',
-        id: '837',
-        locations : [
-            ['13', "Transportation I"],
-            ['12', "Professionalism II"],
-        ],
-        sub_details:
-        {
-            domain: 'Transportation',
-            subcategory: 'Pedestrian Travel',
-            importance: 'High',
-            difficulty: 'Intermediate',
-            eval_freq: 'Year'
-        }
-    },
-};
 
-const markup = {
-    domain: <b>Domain</b>,
-    subcategory: <b>Subcategory</b>,
-    importance: <b>Importance</b>,
-    difficulty: <b>Difficulty</b>,
-    eval_freq: <b>Evaluation Frequency</b>
-}
+//gonna have to make API call to get comp ID then another to get comp name
+// const details = {
+//     '13':
+//     {
+//         name: 'Transportation 1',
+//         competencies:[
+//             [1283, 'Crossing street without guidance.'],
+//             [837, 'Calling an Uber without guidance.' ],
+//         ]
+//         ,
+//         profs: [
+//             'Dr. John Doe',
+//             'Prof. Nathan Heald'
+//         ],
+//         students: [
+//           [5, 'John Doe'],
+//           [928, 'Bobby Bobberson'],
+//         ]
+//     }
+// };
 
 
-
-// const styles = theme => ({
-//   sideB: {
-//     float: left,
-//   },
-// });
-
-function CompetencyName(props){
+function LocationName(props){
     console.log(props.exist);
     return(!props.exist ?
-            <Typography variant="h4">
-                Competency: {props.name}
+            <Typography variant="h5">
+                Class: {props.name}
             </Typography> : <Typography></Typography>
     )
 }
 
 class LocationItem extends Component {
     listbutton = {
-        border: '1px solid black',
+        border: '2px',
+        background: '#CFCFCF',
+        transition: "#efefef",
+        color: 'solid black',
+        textAlign: 'center',
+        borderRadius: '5px',
+        height: '30px',
+        margin: '0 0 3px 0',
         width: '300px',
       };
     bringToLocation = () => {
@@ -136,50 +113,53 @@ class LocationItem extends Component {
     }
 }
 
-class CompetencyDetails extends Component {
-
+class ClassDetails extends Component {
   render() {
     const { classes } = this.props;
-    const data_id = this.props.location.data ? this.props.location.data.id : null;
-    console.log(data_id);
+    const passed = this.props.location.data;
+    const id = passed ? passed.id : null;
     //DUMMY DATA
-    const tracking_classes = data_id ? DummyEndpoint.get_classes_for_competencies(data_id) : null;
-    console.log(tracking_classes);
-    //const comp_dict = data_id ? details[data_id] : null;
+    const details = id ? DummyEndpoint.get_location(id) : null;
     //DUMMY DATA
-    const comp_dict = data_id ? DummyEndpoint.get_simple_comp(data_id) : null;
-    console.log(comp_dict);
-    console.log(comp_dict["Competency"]);
-
-    const list_of_locations = data_id ? tracking_classes.map((loc) =>
-        <LocationItem name={loc[0]} endpoint='/classDetails' sub_id={loc[1]} history={this.props.history} location={this.props.location}/>
+    const competencies_tracked = details ? DummyEndpoint.get_simple_list_of_comps(details.competencies) : null;
+    const comp_name = details ? details.name : null;
+    const list_of_competencies = id ? competencies_tracked.map((comp) =>
+        <LocationItem name={comp["QuickName"]} sub_id={comp["id"]} endpoint = '/compDetails' history={this.props.history} location={this.props.location}/>
     ): <ListItem></ListItem>;
-    //console.log(Object.keys(details[data_id]));
-    const list_of_details = comp_dict ? Object.keys(comp_dict.sub_details).map((key) => {
-        return(
-            <ListItem>
-                <ListItemText>
-                    {markup[key]} : {comp_dict.sub_details[key]}
-                </ListItemText>
-            </ListItem>
-        )
-    }
-    ) : <ListItem></ListItem>;
+    console.log(details);
+    // console.log(details["students"]);
+    //DUMMY DATA
+    console.log(details["students"].forEach((comp) => console.log(DummyEndpoint.get_student(comp))));
+    //DUMMY DATA
+    const list_of_students = id ? details["students"].map((comp) =>
+        <LocationItem name={DummyEndpoint.get_student(comp)["name"]} sub_id={comp} endpoint = '/studentComp' history={this.props.history} location={this.props.location}/>
+    ): <ListItem></ListItem>;
+
+    const list_of_profs = id ? details.profs.map((prof) =>
+        <LocationItem name={prof} history={this.props.history} location={this.props.location}/>
+    ): <ListItem></ListItem>;
+
     return (
       <Container>
         <div className={classes.comp_text}>
-            <CompetencyName name={comp_dict["Competency"]} exist={this.props.location.data == null}></CompetencyName>
+            <LocationName name={comp_name} exist={id == null}></LocationName>
             <div className={classes.content}>
                 <div className={classes.column_view}>
-                    <h2>Details</h2>
+                    <h4>Competencies Tracked</h4>
                     <List>
-                    {list_of_details}
+                    {list_of_competencies}
                     </List>
                 </div>
                 <div className={classes.column_view}>
-                    <h2> Evaluated by Locations</h2>
+                    <h4> Professors</h4>
                     <List>
-                    {list_of_locations}
+                    {list_of_profs}
+                    </List>
+                </div>
+                <div className={classes.column_view}>
+                    <h4> Students</h4>
+                    <List>
+                    {list_of_students}
                     </List>
                 </div>
 
@@ -191,4 +171,4 @@ class CompetencyDetails extends Component {
   }
 }
 
-export default withStyles(styles)(CompetencyDetails);
+export default withStyles(styles)(ClassDetails);

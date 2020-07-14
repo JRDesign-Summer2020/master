@@ -4,9 +4,9 @@ import { chunk } from "lodash";
 import Container from '@material-ui/core/Container';
 import Sidebar from "./Sidebar";
 import {withStyles} from "@material-ui/core/styles";
-import DummyEndpoint from './dummy_endpoint';
+import { invokeApig } from '../helpers/utils';
 
-const styles = () => ({
+const styles = theme => ({
   side: {
     margin: 0,
     padding: 0,
@@ -27,18 +27,23 @@ const styles = () => ({
 // });
 
 
-class Students extends Component {
-  toStudent(id) {
+class allCompetencies extends Component {
+  toCompetency(id) {
     this.props.history.push(
       {
-        pathname: '/studentComp',
+        pathname: '/compDetails',
         data: {id}
       }
     );
   }
 
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   options = {
-    title: "Students assigned to compentencies",
+    title: "All Competencies",
     dimensions: {
       datatable: {
         width: "100%",
@@ -48,13 +53,13 @@ class Students extends Component {
         height: "60px"
       }
     },
-    keyColumn: "allStudents",
+    keyColumn: "allCompetencies",
     font: "Arial",
     data: {
       columns: [
         {
-          id: "allStudents",
-          label: "Students",
+          id: "allCompetencies",
+          label: "Competencies",
           colSize: "150px",
           editable: false
         },
@@ -65,13 +70,19 @@ class Students extends Component {
           editable: false
         }
       ],
-      rows: [
-        // {
-        //   allStudents: "John Doe",
-        //   id: 'jdoe3',
-        //   clickButton: <button onClick={() => this.toStudent(5)}>Evaluate</button>,
-        // },
-      ]
+      rows: []
+      // [
+      //   {
+      //     allCompetencies: "Understands and demonstrates safe street crossing and other pedestrian laws",
+      //     id: '1283',
+      //     clickButton: <button onClick={() => this.toCompetency('1283')}>View</button>,
+      //   },
+      //   {
+      //     allCompetencies: "Ability to call an Uber without any guidance.",
+      //     id: '837',
+      //     clickButton: <button onClick={() => this.toCompetency('837')}>View</button>,
+      //   },
+      // ]
     },
     features: {
       canEdit: true,
@@ -83,7 +94,7 @@ class Students extends Component {
       canOrderColumns: true,
       canSaveUserConfiguration: true,
       userConfiguration: {
-        columnsOrder: ["allStudents", "clickButton"],
+        columnsOrder: ["allCompetencies", "clickButton"], //"PhysicalLocation", "MeetingTime", "Faculty"],
         copyToClipboard: true
       },
       rowsPerPage: {
@@ -92,39 +103,40 @@ class Students extends Component {
       },
     }
   };
+
   actionsRow = ({ type, payload }) => {
     console.log(type);
     console.log(payload);
   };
 
-  refreshRows = () => {
-    const { rows } = this.options.data;
-    const randomRows = Math.floor(Math.random() * rows.length) + 1;
-    const randomTime = Math.floor(Math.random() * 4000) + 1000;
-    const randomResolve = Math.floor(Math.random() * 10) + 1;
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (randomResolve > 3) {
-          resolve(chunk(rows, randomRows)[0]);
-        }
-        reject(new Error("err"));
-      }, randomTime);
+  async getRows() {
+    let response = await invokeApig({
+      path: ( '/competencies'),
+      method: "GET",
+      headers: {},
+      queryParams: {} ,
     });
+
+    let items = response["Items"];
+
+    return items.map(item => ({
+      allCompetencies: item['CompetencyTitle'],
+      id: item['CompetencyId'],
+      clickButton: <button onClick={() => this.toCompetency('1283')}>View</button>,
+    }));
+
+    // this.getRows();
+    //console.log(items[1]["CompetencyTitle"]);
+
+    // return rows;
   };
 
   onClick2  = (e, item) => {
     window.alert(JSON.stringify(item, null, 2));
-  };
-  state = {updated: 0};
-  componentDidMount() {
-    this.toStudent = this.toStudent.bind(this);
-    let stud_list = DummyEndpoint.get_all_students_list(this.toStudent);
-    console.log(stud_list);
-    this.options.data.rows = stud_list;
-    console.log(this.options);
-    this.setState({updated: 1});
   }
 
+  componentDidMount() {
+  }
 
   render() {
     const { classes } = this.props;
@@ -134,7 +146,7 @@ class Students extends Component {
         <div className={classes.content}>
           <Datatable
             options={this.options}
-            refreshRows={this.refreshRows}
+            refreshRows={this.getRows}
             actions={this.actionsRow}
           />
         </div>
@@ -143,4 +155,4 @@ class Students extends Component {
   }
 }
 
-export default withStyles(styles)(Students);
+export default withStyles(styles)(allCompetencies);

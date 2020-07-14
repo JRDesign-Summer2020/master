@@ -2,7 +2,7 @@ import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import CardMedia from "@material-ui/core/CardMedia";
 import Card from '@material-ui/core/Card';
-import Copyright from './login.js';
+import Copyright from '../components/login.js';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -16,9 +16,9 @@ import Container from '@material-ui/core/Container';
 import { withStyles } from '@material-ui/core/styles';
 import color from "@material-ui/core/colors/red";
 import Image from 'material-ui-image';
-import logo from '../src/img/georgia-tech-excel-logo.png';
+import logo from '../img/georgia-tech-excel-logo.png';
 import {yellow} from "@material-ui/core/colors";
-import Sidebar from './Sidebar.js';
+import Sidebar from '../components/Sidebar.js';
 import HomeIcon from "@material-ui/icons/Home";
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import PeopleIcon from '@material-ui/icons/People';
@@ -28,28 +28,23 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import { StepIcon } from '@material-ui/core';
 import {BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,} from 'recharts';
 
-import './login.js';
+import '../components/login.js';
 import { API } from 'aws-amplify';
-import { invokeApig } from './utils';
+import { invokeApig } from './helpers/utils';
 
 const styles = theme => ({
-    side: {
-      margin: 0,
-      padding: 0,
-      width: '200px',
-      backgroundColor : '#f1f1f1',
-      position: 'fixed',
+  side: {
+    margin: 0,
+    padding: 0,
+    width: '200px',
+    backgroundColor : '#f1f1f1',
+    position: 'fixed',
+    height: '100%',
+  },
+  logo: {
+      marginLeft: '400px',
       height: '100%',
-    },
-    logo: {
-      width: '504px',
-      height: '197px',
-    },
-    centered: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
+      width: '100%',
     }
 });
 
@@ -57,7 +52,6 @@ const styles = theme => ({
 class homescreen extends React.Component {
     constructor(props) {
         super(props);
-         /**
         invokeApig({
             path: ( '/evaluations'),
             method: "GET",
@@ -102,7 +96,6 @@ class homescreen extends React.Component {
         }).catch(error => {
           console.error(error);
         });
-         **/
 
       // authorize(requestSettings).then(init =>
         //     API.get('ExcelAPI', '/evaluations', init)
@@ -131,25 +124,29 @@ class homescreen extends React.Component {
         const { classes } = this.props;
         return (
             <Container>
-                <div className={classes.centered}>
-                    <div className={classes.logo}>
-                        <img src= { logo } alt="Logo" />
-                    </div>
-                    <div className={classes.options}>
-                        <BarChart
-                            width={500}
-                            height={300}
-                            data={data}
-                            >
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="name" />
-                            <YAxis />
-                            <Tooltip />
-                            <Legend />
-                            <Bar dataKey="Competencies" fill="#000080" />
-                        </BarChart>
-                    </div>
-                </div>
+            <div className={classes.side}>
+                <Sidebar ></Sidebar>
+            </div>
+            <div className={classes.logo}>
+                <img src= { logo } alt="Logo" classImportance Level={classes.logo} />
+            </div>
+            <div className={classes.options}>
+                <BarChart
+                    width={900}
+                    height={300}
+                    data={data}
+                    margin={{
+                    top: 5, right: 0, left: 400, bottom: 5,
+                    }}
+                    >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="Competencies" fill="#000080" />
+                </BarChart>
+            </div>
             </Container>
 
 

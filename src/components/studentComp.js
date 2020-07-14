@@ -9,7 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { chunk } from "lodash";
 import { Datatable } from "@o2xp/react-datatable";
 import _ from "lodash";
-import DummyEndpoint from './dummy_endpoint';
+import DummyEndpoint from '../legacy/dummy_endpoint';
 
 const styles = () => ({
   side: {
