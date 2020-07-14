@@ -31,15 +31,11 @@ const styles = theme => ({
     height: '100%',
   },
   content: {
-  marginLeft: '200px',
-  padding: '1px 16px',
   height: '1000px',
   display: 'flex',
   flexDirection: 'row',
 },
 comp_text: {
-    marginLeft: '200px',
-    padding: '1px 16px',
     height: '1000px',
     display: 'flex',
     flexDirection: 'column',
@@ -171,9 +167,6 @@ class CompetencyDetails extends Component {
     ) : <ListItem></ListItem>;
     return (
       <Container>
-        <div className={classes.side}>
-          <Sidebar ></Sidebar>
-        </div>
         <div className={classes.comp_text}>
             <CompetencyName name={comp_dict["Competency"]} exist={this.props.location.data == null}></CompetencyName>
             <div className={classes.content}>

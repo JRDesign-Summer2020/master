@@ -17,8 +17,6 @@ const styles = theme => ({
     height: '100%',
   },
   content: {
-  marginLeft: '200px',
-  padding: '1px 16px',
   height: '1000px',
 }
 });
