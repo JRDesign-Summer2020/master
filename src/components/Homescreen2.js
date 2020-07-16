@@ -16,7 +16,7 @@ import Container from '@material-ui/core/Container';
 import { withStyles } from '@material-ui/core/styles';
 import color from "@material-ui/core/colors/red";
 import Image from 'material-ui-image';
-import logo from '../src/img/georgia-tech-excel-logo.png';
+import logo from '../img/georgia-tech-excel-logo.png';
 import {yellow} from "@material-ui/core/colors";
 import Sidebar from './Sidebar.js';
 import HomeIcon from "@material-ui/icons/Home";
@@ -33,18 +33,23 @@ import { API } from 'aws-amplify';
 import { invokeApig } from './utils';
 
 const styles = theme => ({
-  side: {
-    margin: 0,
-    padding: 0,
-    width: '200px',
-    backgroundColor : '#f1f1f1',
-    position: 'fixed',
-    height: '100%',
-  },
-  logo: {
-      marginLeft: '400px',
+    side: {
+      margin: 0,
+      padding: 0,
+      width: '200px',
+      backgroundColor : '#f1f1f1',
+      position: 'fixed',
       height: '100%',
-      width: '100%',
+    },
+    logo: {
+      width: '504px',
+      height: '197px',
+    },
+    centered: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
     }
 });
 
@@ -52,6 +57,7 @@ const styles = theme => ({
 class homescreen extends React.Component {
     constructor(props) {
         super(props);
+         /**
         invokeApig({
             path: ( '/evaluations'),
             method: "GET",
@@ -96,7 +102,7 @@ class homescreen extends React.Component {
         }).catch(error => {
           console.error(error);
         });
-
+         **/
       // authorize(requestSettings).then(init =>
         //     API.get('ExcelAPI', '/evaluations', init)
         //         .then(response => {
@@ -124,29 +130,25 @@ class homescreen extends React.Component {
         const { classes } = this.props;
         return (
             <Container>
-            <div className={classes.side}>
-                <Sidebar ></Sidebar>
-            </div>
-            <div className={classes.logo}>
-                <img src= { logo } alt="Logo" classImportance Level={classes.logo} />
-            </div>
-            <div className={classes.options}>
-                <BarChart
-                    width={900}
-                    height={300}
-                    data={data}
-                    margin={{
-                    top: 5, right: 0, left: 400, bottom: 5,
-                    }}
-                    >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Bar dataKey="Competencies" fill="#000080" />
-                </BarChart>
-            </div>
+                <div className={classes.centered}>
+                    <div className={classes.logo}>
+                        <img src= { logo } alt="Logo" />
+                    </div>
+                    <div className={classes.options}>
+                        <BarChart
+                            width={500}
+                            height={300}
+                            data={data}
+                            >
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="name" />
+                            <YAxis />
+                            <Tooltip />
+                            <Legend />
+                            <Bar dataKey="Competencies" fill="#000080" />
+                        </BarChart>
+                    </div>
+                </div>
             </Container>
 
 

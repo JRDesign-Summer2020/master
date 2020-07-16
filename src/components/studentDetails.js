@@ -17,15 +17,11 @@ const styles = () => ({
     height: '100%',
   },
   content: {
-    marginLeft: '200px',
-    padding: '1px 16px',
     height: '1000px',
     display: 'flex',
     flexDirection: 'row',
   },
   comp_text: {
-    marginLeft: '200px',
-    padding: '1px 16px',
     height: '1000px',
     display: 'flex',
     flexDirection: 'column',

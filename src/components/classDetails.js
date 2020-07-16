@@ -19,7 +19,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from "@material-ui/core/Divider";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 //DUMMY DATA
-import DummyEndpoint from './dummy_endpoint';
+import DummyEndpoint from '../legacy/dummy_endpoint';
 
 const styles = theme => ({
   side: {
@@ -31,14 +31,11 @@ const styles = theme => ({
     height: '100%',
   },
   content: {
-  padding: '1px 5px',
   height: '1000px',
   display: 'flex',
   flexDirection: 'row',
 },
 comp_text: {
-    marginLeft: '200px',
-    padding: '1px 16px',
     height: '1000px',
     display: 'flex',
     flexDirection: 'column',

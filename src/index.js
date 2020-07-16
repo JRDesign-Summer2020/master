@@ -1,30 +1,30 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './css/index.css';
 
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
-import addUserForm from './addUserForm';
-import login from './login';
-import homescreen from './homescreen';
-import Homescreen2 from "./Homescreen2";
-import Navigation from './Navigation';
-import Competency from './competency';
-import Users from './users';
-import Locations from './locations';
-import FacultyStaff from './facultyAndStaff';
-import allCompetencies from './allCompetencies';
-import locationDetails from './locationDetails';
-import competencyDetails from './competencyDetails';
-import Sidebar from "./Sidebar";
-import students from './students';
-import studentComp from "./studentComp";
-import studentDetails from "./studentDetails";
-import classDetails from './classDetails';
+import addUserForm from './components/addUserForm';
+import login from './components/login';
+import homescreen from './legacy/homescreen';
+import Homescreen2 from "./components/Homescreen2";
+import Navigation from './legacy/Navigation';
+import Competency from './components/competency';
+import Users from './components/users';
+import Locations from './components/locations';
+import FacultyStaff from './components/facultyAndStaff';
+import allCompetencies from './components/allCompetencies';
+import locationDetails from './components/locationDetails';
+import competencyDetails from './components/competencyDetails';
+import Sidebar from "./components/Sidebar";
+import students from './components/students';
+import studentComp from "./components/studentComp";
+import studentDetails from "./components/studentDetails";
+import classDetails from './components/classDetails';
 
 import Amplify, { Auth, API } from 'aws-amplify';
-import awsconfig from './aws-exports';
+import awsconfig from './helpers/aws-exports';
 Amplify.configure(awsconfig);
 
 Amplify.configure({
@@ -67,7 +67,7 @@ const LoginContainer = () => (
 
 const MainContainer = () => (
     <div style={flexRow}>
-        <Sidebar></Sidebar>
+        <Sidebar />
         <Route exact path = "/register" component = {addUserForm}/>
         <Route exact path = "/homescreen" component = {Homescreen2}/>
         <Route exact path = "/nav" component = {Navigation}/>

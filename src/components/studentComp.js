@@ -9,7 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { chunk } from "lodash";
 import { Datatable } from "@o2xp/react-datatable";
 import _ from "lodash";
-import DummyEndpoint from './dummy_endpoint';
+import DummyEndpoint from '../legacy/dummy_endpoint';
 
 const styles = () => ({
   side: {
@@ -21,8 +21,6 @@ const styles = () => ({
     height: '100%',
   },
   content: {
-    padding: '1px 16px',
-    height: '300px',
     display: 'fixed',
     marginBottom: 'inherit',
     inlineBlock: '4px'
@@ -345,16 +343,16 @@ class StudentComp extends Component {
             <StudentName name={(this.comp_dict ? this.comp_dict.name : null)} exist={this.props.location.data == null} />
 
               <div className={classes.column_view}>
-                {/* <h2>Student Details</h2> */}
-                <List style={flexContainer}>
-                {list_of_details}
-                </List>
-                </div>
+                  {/* <h2>Student Details</h2> */}
+                  <List style={flexContainer}>
+                    {list_of_details}
+                  </List>
+              </div>
 
-                <ListItemText> <b>Classes</b> :</ListItemText>
-                <List className={classes.column_view}>
-                    {list_of_locations}
-                </List>
+              <ListItemText> <b>Classes</b> :</ListItemText>
+              <List className={classes.column_view}>
+                {list_of_locations}
+              </List>
 
             <div className={classes.content_displays}>
                 <Datatable options={this.state.comp_info} refreshRows={() => this.refreshRows(this.state.comp_info)} actions={this.actionsRow}/>
