@@ -5,6 +5,7 @@ import Container from '@material-ui/core/Container';
 import Sidebar from "./Sidebar";
 import {withStyles} from "@material-ui/core/styles";
 import { invokeApig } from './utils';
+import AddIcon from '@material-ui/icons/Add';
 
 const styles = theme => ({
   side: {
@@ -22,11 +23,7 @@ const styles = theme => ({
 }
 });
 
-// const styles = theme => ({
-//   sideB: {
-//     float: left,
-//   },
-// });
+
 
 
 class allCompetencies extends Component {
@@ -34,14 +31,22 @@ class allCompetencies extends Component {
     this.props.history.push(
       {
         pathname: '/compDetails',
-        data: {id}
+        id: '1283'
       }
     );
   }
 
+
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      data: []
+    };
+
+  }
+
+  componentWillMount(){
+    console.log('First this called');
   }
 
   options = {
@@ -73,18 +78,6 @@ class allCompetencies extends Component {
         }
       ],
       rows: []
-      // [
-      //   {
-      //     allCompetencies: "Understands and demonstrates safe street crossing and other pedestrian laws",
-      //     id: '1283',
-      //     clickButton: <button onClick={() => this.toCompetency('1283')}>View</button>,
-      //   },
-      //   {
-      //     allCompetencies: "Ability to call an Uber without any guidance.",
-      //     id: '837',
-      //     clickButton: <button onClick={() => this.toCompetency('837')}>View</button>,
-      //   },
-      // ]
     },
     features: {
       canEdit: true,
@@ -103,6 +96,13 @@ class allCompetencies extends Component {
         available: [10, 25, 50, 100],
         selected: 50
       },
+      additionalIcons: [
+        {
+            tooltip: 'Add',
+            icon: <AddIcon/>,
+            onClick: () => alert('Add!')
+        }
+    ],
     }
   };
 
@@ -120,29 +120,39 @@ class allCompetencies extends Component {
     });
 
     let items = response["Items"];
-
+    
     return items.map(item => ({
       allCompetencies: item['CompetencyTitle'],
       id: item['CompetencyId'],
-      clickButton: <button onClick={() => this.toCompetency('1283')}>View</button>,
+      clickButton: <button onClick={() => this.toCompetency(item['CompetencyId'])}>View</button>,
     }));
 
-    // this.getRows();
-    //console.log(items[1]["CompetencyTitle"]);
-
-    // return rows;
   };
 
   onClick2  = (e, item) => {
     window.alert(JSON.stringify(item, null, 2));
   }
 
+
   componentDidMount() {
+    console.log("then this");
+    invokeApig({
+      path: ( '/competencies'), 
+      method: "GET",
+      headers: {},
+      queryParams: {} ,
+    }).then(response => response["Items"]).then(items => items.map(item => ({
+      allCompetencies: item['CompetencyTitle'],
+      id: item['CompetencyId'],
+      clickButton: <button onClick={() => this.toCompetency(item.CompetencyId)}>View</button>,
+    }))).then(comps => {
+      this.setState({ data: comps });
+    });
   }
+
 
   render() {
     const { classes } = this.props;
-
     return (
       <Container>
         <div className={classes.side}>
@@ -150,7 +160,62 @@ class allCompetencies extends Component {
         </div>
         <div className={classes.content}>
           <Datatable
-            options={this.options}
+            options={{
+              title: "All Competencies",
+              dimensions: {
+                datatable: {
+                  width: "100%",
+                  height: "80%"
+                },
+                row: {
+                  height: "60px"
+                }
+              },
+              keyColumn: "allCompetencies",
+              font: "Arial",
+              data: {
+                columns: [
+                  {
+                    id: "allCompetencies",
+                    label: "Competencies",
+                    colSize: "150px",
+                    editable: false
+                  },
+                  {
+                    id: "clickButton",
+                    label: "View",
+                    colSize: "20px",
+                    editable: false
+                  }
+                ],
+                rows: this.state.data
+              },
+              features: {
+                canEdit: true,
+                canDelete: true,
+                canPrint: true,
+                canDownload: true,
+                canSearch: true,
+                canRefreshRows: true,
+                canOrderColumns: true,
+                canSaveUserConfiguration: true,
+                userConfiguration: {
+                  columnsOrder: ["allCompetencies", "clickButton"], //"PhysicalLocation", "MeetingTime", "Faculty"],
+                  copyToClipboard: true
+                },
+                rowsPerPage: {
+                  available: [10, 25, 50, 100],
+                  selected: 50
+                },
+                additionalIcons: [
+                  {
+                      tooltip: 'Add',
+                      icon: <AddIcon/>,
+                      onClick: () => alert('Add!')
+                  }
+              ],
+              }
+            }}
             refreshRows={this.getRows}
             actions={this.actionsRow}
           />
