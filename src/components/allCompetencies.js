@@ -17,10 +17,8 @@ const styles = theme => ({
     height: '100%',
   },
   content: {
-  marginLeft: '200px',
-  padding: '1px 16px',
-  height: '1000px',
-}
+    height: '1000px',
+  }
 });
 
 
@@ -113,7 +111,7 @@ class allCompetencies extends Component {
 
   async getRows() {
     let response = await invokeApig({
-      path: ( '/competencies'), 
+      path: ( '/competencies'),
       method: "GET",
       headers: {},
       queryParams: {} ,
@@ -155,9 +153,6 @@ class allCompetencies extends Component {
     const { classes } = this.props;
     return (
       <Container>
-        <div className={classes.side}>
-          <Sidebar ></Sidebar>
-        </div>
         <div className={classes.content}>
           <Datatable
             options={{

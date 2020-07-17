@@ -19,7 +19,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from "@material-ui/core/Divider";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 //DUMMY DATA
-import DummyEndpoint from './dummy_endpoint';
+import DummyEndpoint from '../legacy/dummy_endpoint';
 
 const styles = theme => ({
   side: {
@@ -31,14 +31,11 @@ const styles = theme => ({
     height: '100%',
   },
   content: {
-  padding: '1px 5px',
   height: '1000px',
   display: 'flex',
   flexDirection: 'row',
 },
 comp_text: {
-    marginLeft: '200px',
-    padding: '1px 16px',
     height: '1000px',
     display: 'flex',
     flexDirection: 'column',
@@ -50,10 +47,10 @@ comp_text: {
   },
 });
 
- 
+
 //gonna have to make API call to get comp ID then another to get comp name
 // const details = {
-//     '13': 
+//     '13':
 //     {
 //         name: 'Transportation 1',
 //         competencies:[
@@ -134,19 +131,16 @@ class ClassDetails extends Component {
     //DUMMY DATA
     console.log(details["students"].forEach((comp) => console.log(DummyEndpoint.get_student(comp))));
     //DUMMY DATA
-    const list_of_students = id ? details["students"].map((comp) => 
+    const list_of_students = id ? details["students"].map((comp) =>
         <LocationItem name={DummyEndpoint.get_student(comp)["name"]} sub_id={comp} endpoint = '/studentComp' history={this.props.history} location={this.props.location}/>
     ): <ListItem></ListItem>;
 
     const list_of_profs = id ? details.profs.map((prof) =>
         <LocationItem name={prof} history={this.props.history} location={this.props.location}/>
     ): <ListItem></ListItem>;
-   
+
     return (
       <Container>
-        <div className={classes.side}>
-          <Sidebar ></Sidebar>
-        </div>
         <div className={classes.comp_text}>
             <LocationName name={comp_name} exist={id == null}></LocationName>
             <div className={classes.content}>

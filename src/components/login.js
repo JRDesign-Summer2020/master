@@ -16,11 +16,11 @@ import Container from '@material-ui/core/Container';
 import { withStyles } from '@material-ui/core/styles';
 import color from "@material-ui/core/colors/red";
 import Image from 'material-ui-image';
-import logo from '../src/img/georgia-tech-excel-logo.png';
+import logo from '../img/georgia-tech-excel-logo.png';
 import {yellow} from "@material-ui/core/colors";
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import { Redirect } from 'react-router-dom'
-import getEvaluations from './getEvaluations';
+import getEvaluations from '../legacy/getEvaluations';
 
 import { CognitoUser } from 'amazon-cognito-identity-js'
 import { CognitoUserPool } from 'amazon-cognito-identity-js'
@@ -28,7 +28,7 @@ import {AuthenticationDetails} from 'amazon-cognito-identity-js'
 import { API } from 'aws-amplify';
 import { Auth } from 'aws-amplify';
 import AWS from 'aws-sdk';
-import { setCookie } from './utils';
+import { setCookie } from '../helpers/utils';
 
 function Copyright() {
   return (
@@ -85,7 +85,7 @@ class login extends React.Component {
 
     handleInputChange(event) {
       const target = event.target;
-        
+
       this.setState({
         [target.name]: target.value
       });
@@ -149,11 +149,11 @@ class login extends React.Component {
             let d = new Date();
             d.setTime(d.getTime() + (1 * 60 * 60 * 1000));
             let extime = d.getTime();
-  
+
             setCookie('accesskey', AWS.config.credentials.accessKeyId, extime);
             setCookie('secretkey', AWS.config.credentials.secretAccessKey, extime);
             setCookie('sessiontoken', AWS.config.credentials.sessionToken, extime);
-          
+
             // creds.get(function(){
             //   // Credentials will be available when this function is called.
             //   var accessKeyId = AWS.config.credentials.accessKeyId;
@@ -165,7 +165,7 @@ class login extends React.Component {
             //creds.getPromise()
 
             console.log(AWS.config.credentials);
-    
+
             this.props.history.push('/homescreen');
           });
         });

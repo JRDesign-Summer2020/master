@@ -17,15 +17,11 @@ const styles = () => ({
     height: '100%',
   },
   content: {
-    marginLeft: '200px',
-    padding: '1px 16px',
     height: '1000px',
     display: 'flex',
     flexDirection: 'row',
   },
   comp_text: {
-    marginLeft: '200px',
-    padding: '1px 16px',
     height: '1000px',
     display: 'flex',
     flexDirection: 'column',
@@ -50,7 +46,7 @@ const details = {
         [1283, 'Crossing street without guidance.'],
         [837, 'Calling an Uber without guidance.' ],
     ],
-        sub_details: 
+        sub_details:
         {
           user: 'jdoe3',
           role: 'Student (current)',
@@ -135,13 +131,10 @@ class StudentDetails extends Component {
                 </ListItemText>
             </ListItem>
         )
-    } 
+    }
     ) : <ListItem></ListItem>;
     return (
       <Container>
-        <div className={classes.side}>
-          <Sidebar />
-        </div>
         <div className={classes.comp_text}>
           <StudentName name={comp_dict.name} exist={this.props.location.data == null}/>
           <div className={classes.content}>

@@ -4,9 +4,10 @@ import { chunk } from "lodash";
 import Container from '@material-ui/core/Container';
 import Sidebar from "./Sidebar";
 import {withStyles} from "@material-ui/core/styles";
-import DummyEndpoint from './dummy_endpoint';
 
-const styles = () => ({
+
+
+const styles = theme => ({
   side: {
     margin: 0,
     padding: 0,
@@ -16,10 +17,8 @@ const styles = () => ({
     height: '100%',
   },
   content: {
-    marginLeft: '200px',
-    padding: '1px 16px',
-    height: '1000px',
-  }
+  height: '1000px',
+}
 });
 
 // const styles = theme => ({
@@ -29,18 +28,17 @@ const styles = () => ({
 // });
 
 
-class Students extends Component {
-  toStudent(id) {
+class Locations extends Component {
+  toClass(id) {
     this.props.history.push(
       {
-        pathname: '/studentComp',
+        pathname: '/classDetails',
         data: {id}
       }
     );
   }
-
   options = {
-    title: "Students assigned to compentencies",
+    title: "Classes and Advising",
     dimensions: {
       datatable: {
         width: "100%",
@@ -50,15 +48,32 @@ class Students extends Component {
         height: "60px"
       }
     },
-    keyColumn: "allStudents",
+    keyColumn: "LocationName",
     font: "Arial",
     data: {
       columns: [
         {
-          id: "allStudents",
-          label: "Students",
-          colSize: "150px",
+          id: "LocationName",
+          label: "Class or Advising",
+          colSize: "90px",
           editable: false
+        },
+        {
+          id: "PhysicalLocation",
+          label: "Location on Campus",
+          colSize: "100px",
+          editable: false,
+        },
+        {
+          id: "MeetingTime",
+          label: "Meeting Time",
+          colSize: "70px",
+          editable: false,
+        },
+        {
+          id: "Faculty",
+          label: "Faculty",
+          colSize: "70px",
         },
         {
           id: "clickButton",
@@ -68,11 +83,21 @@ class Students extends Component {
         }
       ],
       rows: [
-        // {
-        //   allStudents: "John Doe",
-        //   id: 'jdoe3',
-        //   clickButton: <button onClick={() => this.toStudent(5)}>Evaluate</button>,
-        // },
+        {
+          LocationName: "Transportation I",
+          PhysicalLocation: "College of Business 4321",
+          MeetingTime : "12:30pm - 1:15pm",
+          Faculty: "Dr. John Doe",
+          id: '1283',
+          clickButton: <button onClick={() => this.toClass('13')}>View</button>,
+        },
+        {
+          LocationName: "Career Skills II",
+          PhysicalLocation: "College of Business 3317",
+          MeetingTime : "2:30pm - 3:45pm",
+          Faculty: "Prof. Nathan Heald",
+          clickButton: <button onClick={() => this.toClass('12')}>View</button>,
+        },
       ]
     },
     features: {
@@ -85,7 +110,7 @@ class Students extends Component {
       canOrderColumns: true,
       canSaveUserConfiguration: true,
       userConfiguration: {
-        columnsOrder: ["allStudents", "clickButton"],
+        columnsOrder: ["LocationName", "PhysicalLocation", "MeetingTime", "Faculty", "clickButton"],
         copyToClipboard: true
       },
       rowsPerPage: {
@@ -94,6 +119,7 @@ class Students extends Component {
       },
     }
   };
+
   actionsRow = ({ type, payload }) => {
     console.log(type);
     console.log(payload);
@@ -116,15 +142,6 @@ class Students extends Component {
 
   onClick2  = (e, item) => {
     window.alert(JSON.stringify(item, null, 2));
-  };
-  state = {updated: 0};
-  componentDidMount() {
-    this.toStudent = this.toStudent.bind(this);
-    let stud_list = DummyEndpoint.get_all_students_list(this.toStudent);
-    console.log(stud_list);
-    this.options.data.rows = stud_list;
-    console.log(this.options);
-    this.setState({updated: 1});
   }
 
 
@@ -133,19 +150,23 @@ class Students extends Component {
 
     return (
       <Container>
-        <div className={classes.side}>
-          <Sidebar />
-        </div>
         <div className={classes.content}>
           <Datatable
-            options={this.options}
-            refreshRows={this.refreshRows}
-            actions={this.actionsRow}
+                     options={this.options}
+                     refreshRows={this.refreshRows}
+                     actions={this.actionsRow}
           />
         </div>
+
+
+
+
+
+
+
       </Container>
     );
   }
 }
 
-export default withStyles(styles)(Students);
+export default withStyles(styles)(Locations);

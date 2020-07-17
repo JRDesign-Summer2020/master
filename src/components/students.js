@@ -4,6 +4,7 @@ import { chunk } from "lodash";
 import Container from '@material-ui/core/Container';
 import Sidebar from "./Sidebar";
 import {withStyles} from "@material-ui/core/styles";
+import DummyEndpoint from '../legacy/dummy_endpoint';
 
 const styles = () => ({
   side: {
@@ -15,8 +16,6 @@ const styles = () => ({
     height: '100%',
   },
   content: {
-    marginLeft: '200px',
-    padding: '1px 16px',
     height: '1000px',
   }
 });
@@ -39,7 +38,7 @@ class Students extends Component {
   }
 
   options = {
-    title: "Faculty and Staff",
+    title: "Students assigned to compentencies",
     dimensions: {
       datatable: {
         width: "100%",
@@ -49,13 +48,13 @@ class Students extends Component {
         height: "60px"
       }
     },
-    keyColumn: "facultystaff",
+    keyColumn: "allStudents",
     font: "Arial",
     data: {
       columns: [
         {
-          id: "facultystaff",
-          label: "Faculty/Staff",
+          id: "allStudents",
+          label: "Students",
           colSize: "150px",
           editable: false
         },
@@ -67,16 +66,16 @@ class Students extends Component {
         }
       ],
       rows: [
-        {
-          facultystaff: "Ty Roberts",
-          id: 'troberts7',
-          
-        },
+        // {
+        //   allStudents: "John Doe",
+        //   id: 'jdoe3',
+        //   clickButton: <button onClick={() => this.toStudent(5)}>Evaluate</button>,
+        // },
       ]
     },
     features: {
-      canEdit: false,
-      canDelete: false,
+      canEdit: true,
+      canDelete: true,
       canPrint: true,
       canDownload: true,
       canSearch: true,
@@ -84,7 +83,7 @@ class Students extends Component {
       canOrderColumns: true,
       canSaveUserConfiguration: true,
       userConfiguration: {
-        columnsOrder: ["facultystaff"],
+        columnsOrder: ["allStudents", "clickButton"],
         copyToClipboard: true
       },
       rowsPerPage: {
@@ -116,6 +115,15 @@ class Students extends Component {
   onClick2  = (e, item) => {
     window.alert(JSON.stringify(item, null, 2));
   };
+  state = {updated: 0};
+  componentDidMount() {
+    this.toStudent = this.toStudent.bind(this);
+    let stud_list = DummyEndpoint.get_all_students_list(this.toStudent);
+    console.log(stud_list);
+    this.options.data.rows = stud_list;
+    console.log(this.options);
+    this.setState({updated: 1});
+  }
 
 
   render() {
@@ -123,9 +131,6 @@ class Students extends Component {
 
     return (
       <Container>
-        <div className={classes.side}>
-          <Sidebar />
-        </div>
         <div className={classes.content}>
           <Datatable
             options={this.options}

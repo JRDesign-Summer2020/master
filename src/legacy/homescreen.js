@@ -2,7 +2,7 @@ import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import CardMedia from "@material-ui/core/CardMedia";
 import Card from '@material-ui/core/Card';
-import Copyright from './login.js';
+import Copyright from '../components/login.js';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -16,9 +16,9 @@ import Container from '@material-ui/core/Container';
 import { withStyles } from '@material-ui/core/styles';
 import color from "@material-ui/core/colors/red";
 import Image from 'material-ui-image';
-import logo from '../src/img/georgia-tech-excel-logo.png';
+import logo from '../img/georgia-tech-excel-logo.png';
 import {yellow} from "@material-ui/core/colors";
-import Sidebar from './Sidebar.js';
+import Sidebar from '../components/Sidebar.js';
 import HomeIcon from "@material-ui/icons/Home";
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import PeopleIcon from '@material-ui/icons/People';
@@ -28,9 +28,9 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import { StepIcon } from '@material-ui/core';
 import {BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,} from 'recharts';
 
-import './login.js';
+import '../components/login.js';
 import { API } from 'aws-amplify';
-import { invokeApig } from './utils';
+import { invokeApig } from './helpers/utils';
 
 const styles = theme => ({
   side: {
@@ -62,6 +62,41 @@ class homescreen extends React.Component {
                 "UserId": "test2"
             }
         });
+
+        // invokeApig({
+        //     path: ( '/evaluations/nonexistentuser'),
+        //     method: "GET",
+        //     headers: {},
+        //     queryParams: {} ,
+        // }).then(body => {
+        //     console.log(body);
+        // }).catch(error => {
+        //   console.error(error);
+        // });
+
+        // invokeApig({
+        //     path: ( '/competencies'),
+        //     method: "GET",
+        //     headers: {},
+        //     queryParams: {} ,
+        // }).then(body => {
+        //     console.log(body);
+        // }).catch(error => {
+        //   console.error(error);
+        // });
+
+        // invokeApig({
+        //     // This one doesn't work rn
+        //     path: ( '/competencies/nonexistentuser/nonexistentdomain'),
+        //     method: "GET",
+        //     headers: {},
+        //     queryParams: {} ,
+        // }).then(body => {
+        //     console.log(body);
+        // }).catch(error => {
+        //   console.error(error);
+        // });
+
     }
 
     onClick = (e, item) => {

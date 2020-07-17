@@ -2,8 +2,8 @@ import { Auth } from 'aws-amplify';
 import AWS from 'aws-sdk';
 import { CognitoUserPool } from 'amazon-cognito-identity-js'
 import { config } from 'aws-sdk'
-import { sigV4Client } from'./sigV4Client';
-import './login'
+import { sigV4Client } from './sigV4Client';
+import '../components/login'
 
 export function setCookie(name, val, extime) {
   let date = new Date(extime);
@@ -66,10 +66,10 @@ export async function invokeApig({
         queryParams,
         body
       });
-  
+
     body = body ? JSON.stringify(body) : body;
     headers = signedRequest.headers;
-  
+
     const results = await fetch(signedRequest.url, {
       method,
       headers,
@@ -79,6 +79,6 @@ export async function invokeApig({
     if (!([200, 201].includes(results.status))) {
       throw new Error(await results.text());
     }
-    
+
     return results.json();
   }

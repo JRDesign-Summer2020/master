@@ -5,9 +5,7 @@ import Container from '@material-ui/core/Container';
 import Sidebar from "./Sidebar";
 import {withStyles} from "@material-ui/core/styles";
 
-
-
-const styles = theme => ({
+const styles = () => ({
   side: {
     margin: 0,
     padding: 0,
@@ -17,10 +15,8 @@ const styles = theme => ({
     height: '100%',
   },
   content: {
-  marginLeft: '200px',
-  padding: '1px 16px',
-  height: '1000px',
-}
+    height: '1000px',
+  }
 });
 
 // const styles = theme => ({
@@ -30,17 +26,18 @@ const styles = theme => ({
 // });
 
 
-class Locations extends Component {
-  toClass(id) {
+class Students extends Component {
+  toStudent(id) {
     this.props.history.push(
       {
-        pathname: '/classDetails',
+        pathname: '/studentComp',
         data: {id}
       }
     );
   }
+
   options = {
-    title: "Classes and Advising",
+    title: "Faculty and Staff",
     dimensions: {
       datatable: {
         width: "100%",
@@ -50,32 +47,15 @@ class Locations extends Component {
         height: "60px"
       }
     },
-    keyColumn: "LocationName",
+    keyColumn: "facultystaff",
     font: "Arial",
     data: {
       columns: [
         {
-          id: "LocationName",
-          label: "Class or Advising",
-          colSize: "90px",
+          id: "facultystaff",
+          label: "Faculty/Staff",
+          colSize: "150px",
           editable: false
-        },
-        {
-          id: "PhysicalLocation",
-          label: "Location on Campus",
-          colSize: "100px",
-          editable: false,
-        },
-        {
-          id: "MeetingTime",
-          label: "Meeting Time",
-          colSize: "70px",
-          editable: false,
-        },
-        {
-          id: "Faculty",
-          label: "Faculty",
-          colSize: "70px",
         },
         {
           id: "clickButton",
@@ -86,25 +66,15 @@ class Locations extends Component {
       ],
       rows: [
         {
-          LocationName: "Transportation I",
-          PhysicalLocation: "College of Business 4321",
-          MeetingTime : "12:30pm - 1:15pm",
-          Faculty: "Dr. John Doe",
-          id: '1283',
-          clickButton: <button onClick={() => this.toClass('13')}>View</button>,
-        },
-        {
-          LocationName: "Career Skills II",
-          PhysicalLocation: "College of Business 3317",
-          MeetingTime : "2:30pm - 3:45pm",
-          Faculty: "Prof. Nathan Heald",
-          clickButton: <button onClick={() => this.toClass('12')}>View</button>,
+          facultystaff: "Ty Roberts",
+          id: 'troberts7',
+
         },
       ]
     },
     features: {
-      canEdit: true,
-      canDelete: true,
+      canEdit: false,
+      canDelete: false,
       canPrint: true,
       canDownload: true,
       canSearch: true,
@@ -112,7 +82,7 @@ class Locations extends Component {
       canOrderColumns: true,
       canSaveUserConfiguration: true,
       userConfiguration: {
-        columnsOrder: ["LocationName", "PhysicalLocation", "MeetingTime", "Faculty", "clickButton"],
+        columnsOrder: ["facultystaff"],
         copyToClipboard: true
       },
       rowsPerPage: {
@@ -121,7 +91,6 @@ class Locations extends Component {
       },
     }
   };
-  
   actionsRow = ({ type, payload }) => {
     console.log(type);
     console.log(payload);
@@ -144,7 +113,7 @@ class Locations extends Component {
 
   onClick2  = (e, item) => {
     window.alert(JSON.stringify(item, null, 2));
-  }
+  };
 
 
   render() {
@@ -152,26 +121,16 @@ class Locations extends Component {
 
     return (
       <Container>
-        <div className={classes.side}>
-          <Sidebar ></Sidebar>
-        </div>
         <div className={classes.content}>
           <Datatable
-                     options={this.options}
-                     refreshRows={this.refreshRows}
-                     actions={this.actionsRow}
+            options={this.options}
+            refreshRows={this.refreshRows}
+            actions={this.actionsRow}
           />
         </div>
-
-
-
-
-
-
-
       </Container>
     );
   }
 }
 
-export default withStyles(styles)(Locations);
+export default withStyles(styles)(Students);

@@ -93,7 +93,7 @@ class addUserForm extends React.Component {
                     <MenuItem>2</MenuItem>
                     <MenuItem>3</MenuItem>
                     </Select>
-                </FormControl>  
+                </FormControl>
                 <div/>
                 <div/>
                 <Button

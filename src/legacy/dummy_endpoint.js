@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 
 class DummyEndpoint {
-    static student_data = require("./dummy_student_data.json");
-    static location_data = require("./dummy_location_data.json");
-    static comp_data = require("./dummy_competency_data.json");
+    static student_data = require("../json/dummy_student_data.json");
+    static location_data = require("../json/dummy_location_data.json");
+    static comp_data = require("../json/dummy_competency_data.json");
 
     static get_student(id) {
         console.log(this.student_data);
@@ -61,12 +61,12 @@ class DummyEndpoint {
     }
 
     static get_all_students_list(func) {
-        let list_return = [] 
+        let list_return = []
         // {
         //   allStudents: "John Doe",
         //   id: 'jdoe3',
         //   clickButton: <button onClick={() => this.toStudent(5)}>Evaluate</button>,
-        // },   return format we need    
+        // },   return format we need
         Object.keys(this.student_data).forEach((student_id) => {
             let cur_stud = DummyEndpoint.get_student(student_id);
             let nec_data = {

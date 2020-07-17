@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Sidebar from "./Sidebar";
 import {withStyles} from "@material-ui/core/styles";
-import getEvaluations from "./getEvaluations";
+import getEvaluations from "../legacy/getEvaluations";
 
 //const evaluationsFromApi = getEvaluations();
 
@@ -241,9 +241,6 @@ class App extends Component {
 
     return (
       <Container>
-        <div className={classes.side}>
-          <Sidebar ></Sidebar>
-        </div>
         <div className={classes.content}>
           <Datatable
                      options={options}
