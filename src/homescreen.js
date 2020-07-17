@@ -53,10 +53,14 @@ class homescreen extends React.Component {
     constructor(props) {
         super(props);
         invokeApig({
-            path: ( '/evaluations'), 
-            method: "GET",
+            path: ( '/users-to-tracking-location'), 
+            method: "POST",
             headers: {},
             queryParams: {} ,
+            body: {
+                "StudentIds": ["test1", "janedoe"],
+                "UserId": "test2"
+            }
         });
     }
 
