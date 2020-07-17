@@ -75,8 +75,8 @@ export async function invokeApig({
       headers,
       body
     });
-
-    if (results.status !== 200) {
+  
+    if (!([200, 201].includes(results.status))) {
       throw new Error(await results.text());
     }
 

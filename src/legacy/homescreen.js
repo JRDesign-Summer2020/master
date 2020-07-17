@@ -53,59 +53,50 @@ class homescreen extends React.Component {
     constructor(props) {
         super(props);
         invokeApig({
-            path: ( '/evaluations'),
-            method: "GET",
+            path: ( '/users-to-tracking-location'), 
+            method: "POST",
             headers: {},
             queryParams: {} ,
-        }).then(body => {
-            console.log(body);
-        }).catch(error => {
-          console.error(error);
+            body: {
+                "StudentIds": ["test1", "janedoe"],
+                "UserId": "test2"
+            }
         });
 
-        invokeApig({
-            path: ( '/evaluations/nonexistentuser'),
-            method: "GET",
-            headers: {},
-            queryParams: {} ,
-        }).then(body => {
-            console.log(body);
-        }).catch(error => {
-          console.error(error);
-        });
+        // invokeApig({
+        //     path: ( '/evaluations/nonexistentuser'),
+        //     method: "GET",
+        //     headers: {},
+        //     queryParams: {} ,
+        // }).then(body => {
+        //     console.log(body);
+        // }).catch(error => {
+        //   console.error(error);
+        // });
 
-        invokeApig({
-            path: ( '/competencies'),
-            method: "GET",
-            headers: {},
-            queryParams: {} ,
-        }).then(body => {
-            console.log(body);
-        }).catch(error => {
-          console.error(error);
-        });
+        // invokeApig({
+        //     path: ( '/competencies'),
+        //     method: "GET",
+        //     headers: {},
+        //     queryParams: {} ,
+        // }).then(body => {
+        //     console.log(body);
+        // }).catch(error => {
+        //   console.error(error);
+        // });
 
-        invokeApig({
-            // This one doesn't work rn
-            path: ( '/competencies/nonexistentuser/nonexistentdomain'),
-            method: "GET",
-            headers: {},
-            queryParams: {} ,
-        }).then(body => {
-            console.log(body);
-        }).catch(error => {
-          console.error(error);
-        });
+        // invokeApig({
+        //     // This one doesn't work rn
+        //     path: ( '/competencies/nonexistentuser/nonexistentdomain'),
+        //     method: "GET",
+        //     headers: {},
+        //     queryParams: {} ,
+        // }).then(body => {
+        //     console.log(body);
+        // }).catch(error => {
+        //   console.error(error);
+        // });
 
-      // authorize(requestSettings).then(init =>
-        //     API.get('ExcelAPI', '/evaluations', init)
-        //         .then(response => {
-        //             console.log(response);
-        //         })
-        //         .catch(error => {
-        //             console.error(error);
-        //         })
-        // );
     }
 
     onClick = (e, item) => {
