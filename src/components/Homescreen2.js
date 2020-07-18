@@ -30,7 +30,7 @@ import {BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,} from
 
 import './login.js';
 import { API } from 'aws-amplify';
-import { invokeApig } from './utils';
+import { invokeApig } from '../helpers/utils';
 
 const styles = theme => ({
     side: {

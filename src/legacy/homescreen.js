@@ -30,7 +30,7 @@ import {BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,} from
 
 import '../components/login.js';
 import { API } from 'aws-amplify';
-import { invokeApig } from './helpers/utils';
+import { invokeApig } from '../helpers/utils';
 
 const styles = theme => ({
   side: {
@@ -53,7 +53,7 @@ class homescreen extends React.Component {
     constructor(props) {
         super(props);
         invokeApig({
-            path: ( '/users-to-tracking-location'), 
+            path: ( '/users-to-tracking-location'),
             method: "POST",
             headers: {},
             queryParams: {} ,
