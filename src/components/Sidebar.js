@@ -7,8 +7,6 @@ import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import Collapse from "@material-ui/core/Collapse";
 import HomeIcon from "@material-ui/icons/Home";
 import PeopleIcon from '@material-ui/icons/People';
-import SettingsIcon from "@material-ui/icons/Settings";
-import Dashboard from '@material-ui/icons/Dashboard';
 import Location from '@material-ui/icons/Place';
 import CompetencyIcon from '@material-ui/icons/Notes';
 import {Redirect} from 'react-router-dom'
@@ -18,9 +16,6 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import { Auth } from 'aws-amplify';
 
-function onClick(e, item) {
-  window.alert(JSON.stringify(item, null, 2));
-}
 function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
   const [collapsed, setCollapsed] = React.useState(true);
   const { label, items, Icon, onClick: onClickProp } = item;
@@ -193,22 +188,22 @@ class Sidebar extends React.Component {
     render() {
         return (
             <div className="sidebar">
-            <List disablePadding dense>
-                {this.items.map((sidebarItem, index) => (
-                <React.Fragment key={`${sidebarItem.name}${index}`}>
-                    {sidebarItem === "divider" ? (
-                    <Divider style={{margin: "6px 0"}}/>
-                    ) : (
-                    <SidebarItem
-                        depthStep={this.depthStep}
-                        depth={this.depth}
-                        expanded={this.expanded}
-                        item={sidebarItem}
-                    />
-                    )}
-                </React.Fragment>
-                ))}
-            </List>
+                <List disablePadding dense>
+                    {this.items.map((sidebarItem, index) => (
+                        <React.Fragment key={`${sidebarItem.name}${index}`}>
+                            {sidebarItem === "divider" ? (
+                                <Divider style={{margin: "6px 0"}}/>
+                            ) : (
+                                <SidebarItem
+                                    depthStep={this.depthStep}
+                                    depth={this.depth}
+                                    expanded={this.expanded}
+                                    item={sidebarItem}
+                                />
+                            )}
+                        </React.Fragment>
+                    ))}
+                </List>
             </div>
         );
     }

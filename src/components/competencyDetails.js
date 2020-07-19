@@ -1,41 +1,20 @@
 import React, { Component } from "react";
-import { Datatable } from "@o2xp/react-datatable";
-import { chunk } from "lodash";
-import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
-import Sidebar from "./Sidebar";
-import HomeIcon from "@material-ui/icons/Home";
-import Dashboard from "@material-ui/icons/Dashboard";
-import PeopleIcon from "@material-ui/icons/People";
-import CheckBoxIcon from "@material-ui/icons/CheckBox";
-import SettingsIcon from "@material-ui/icons/Settings";
-import color from "@material-ui/core/colors/red";
 import {withStyles} from "@material-ui/core/styles";
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Divider from "@material-ui/core/Divider";
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 //DUMMY DATA
 import DummyEndpoint from '../legacy/dummy_endpoint';
 
 const styles = theme => ({
-  side: {
-    margin: 0,
-    padding: 0,
-    width: '200px',
-    backgroundColor : '#f1f1f1',
-    position: 'fixed',
-    height: '100%',
-  },
   content: {
   height: '1000px',
   display: 'flex',
   flexDirection: 'row',
-},
-comp_text: {
+  },
+  comp_text: {
     height: '1000px',
     display: 'flex',
     flexDirection: 'column',
@@ -105,7 +84,8 @@ function CompetencyName(props){
     return(!props.exist ?
             <Typography variant="h4">
                 Competency: {props.name}
-            </Typography> : <Typography></Typography>
+            </Typography>
+            : <Typography />
     )
 }
 
@@ -138,57 +118,62 @@ class LocationItem extends Component {
 
 class CompetencyDetails extends Component {
 
-  render() {
-    const { classes } = this.props;
-    const data_id = this.props.location.data ? this.props.location.data.id : null;
-    console.log(data_id);
-    //DUMMY DATA
-    const tracking_classes = data_id ? DummyEndpoint.get_classes_for_competencies(data_id) : null;
-    console.log(tracking_classes);
-    //const comp_dict = data_id ? details[data_id] : null;
-    //DUMMY DATA
-    const comp_dict = data_id ? DummyEndpoint.get_simple_comp(data_id) : null;
-    console.log(comp_dict);
-    console.log(comp_dict["Competency"]);
-
-    const list_of_locations = data_id ? tracking_classes.map((loc) =>
-        <LocationItem name={loc[0]} endpoint='/classDetails' sub_id={loc[1]} history={this.props.history} location={this.props.location}/>
-    ): <ListItem></ListItem>;
-    //console.log(Object.keys(details[data_id]));
-    const list_of_details = comp_dict ? Object.keys(comp_dict.sub_details).map((key) => {
-        return(
-            <ListItem>
-                <ListItemText>
-                    {markup[key]} : {comp_dict.sub_details[key]}
-                </ListItemText>
-            </ListItem>
-        )
+    constructor(props) {
+        super(props);
     }
-    ) : <ListItem></ListItem>;
-    return (
-      <Container>
-        <div className={classes.comp_text}>
-            <CompetencyName name={comp_dict["Competency"]} exist={this.props.location.data == null}></CompetencyName>
-            <div className={classes.content}>
-                <div className={classes.column_view}>
-                    <h2>Details</h2>
-                    <List>
-                    {list_of_details}
-                    </List>
-                </div>
-                <div className={classes.column_view}>
-                    <h2> Evaluated by Locations</h2>
-                    <List>
-                    {list_of_locations}
-                    </List>
-                </div>
 
+    render() {
+        const { classes } = this.props;
+        const data_id = this.props.location.data ? this.props.location.data.id : null;
+        console.log(data_id);
+        //DUMMY DATA
+        const tracking_classes = data_id ? DummyEndpoint.get_classes_for_competencies(data_id) : null;
+        console.log(tracking_classes);
+        //const comp_dict = data_id ? details[data_id] : null;
+        //DUMMY DATA
+        const comp_dict = data_id ? DummyEndpoint.get_simple_comp(data_id) : null;
+        console.log(comp_dict);
+        console.log(comp_dict["Competency"]);
+
+        const list_of_locations = data_id ? tracking_classes.map((loc) =>
+            <LocationItem name={loc[0]} endpoint='/classDetails' sub_id={loc[1]} history={this.props.history}
+                          location={this.props.location}/>
+        ): <ListItem />;
+        //console.log(Object.keys(details[data_id]));
+        const list_of_details = comp_dict ? Object.keys(comp_dict.sub_details).map((key) => {
+            return(
+                <ListItem>
+                    <ListItemText>
+                        {markup[key]} : {comp_dict.sub_details[key]}
+                    </ListItemText>
+                </ListItem>
+            )
+        }
+        ) : <ListItem />;
+        return (
+          <Container>
+            <div className={classes.comp_text}>
+                <CompetencyName name={comp_dict["Competency"]} exist={this.props.location.data == null} />
+                    <div className={classes.content}>
+                    <div className={classes.column_view}>
+                        <h2>Details</h2>
+                        <List>
+                        {list_of_details}
+                        </List>
+                    </div>
+                    <div className={classes.column_view}>
+                        <h2> Evaluated by Locations</h2>
+                        <List>
+                        {list_of_locations}
+                        </List>
+                    </div>
+
+                </div>
             </div>
-        </div>
 
-      </Container>
-    );
-  }
+          </Container>
+        );
+    }
 }
 
 export default withStyles(styles)(CompetencyDetails);

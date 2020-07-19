@@ -1,41 +1,20 @@
 import React, { Component } from "react";
-import { Datatable } from "@o2xp/react-datatable";
-import { chunk } from "lodash";
-import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
-import Sidebar from "./Sidebar";
-import HomeIcon from "@material-ui/icons/Home";
-import Dashboard from "@material-ui/icons/Dashboard";
-import PeopleIcon from "@material-ui/icons/People";
-import CheckBoxIcon from "@material-ui/icons/CheckBox";
-import SettingsIcon from "@material-ui/icons/Settings";
-import color from "@material-ui/core/colors/red";
 import {withStyles} from "@material-ui/core/styles";
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Divider from "@material-ui/core/Divider";
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 //DUMMY DATA
 import DummyEndpoint from '../legacy/dummy_endpoint';
 
 const styles = theme => ({
-  side: {
-    margin: 0,
-    padding: 0,
-    width: '200px',
-    backgroundColor : '#f1f1f1',
-    position: 'fixed',
-    height: '100%',
-  },
   content: {
   height: '1000px',
   display: 'flex',
   flexDirection: 'row',
-},
-comp_text: {
+  },
+  comp_text: {
     height: '1000px',
     display: 'flex',
     flexDirection: 'column',

@@ -2,12 +2,10 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import './css/index.css';
 
-
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 import addUserForm from './components/addUserForm';
 import login from './components/login';
-import homescreen from './legacy/homescreen';
 import Homescreen2 from "./components/Homescreen2";
 import Navigation from './legacy/Navigation';
 import Competency from './components/competency';
@@ -20,7 +18,7 @@ import competencyDetails from './components/competencyDetails';
 import Sidebar from "./components/Sidebar";
 import students from './components/students';
 import studentComp from "./components/studentComp";
-import studentDetails from "./components/studentDetails";
+// import studentDetails from "./components/studentDetails";
 import classDetails from './components/classDetails';
 
 import Amplify, { Auth, API } from 'aws-amplify';

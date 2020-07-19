@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import Container from '@material-ui/core/Container';
-import Sidebar from "./Sidebar";
 import {withStyles} from "@material-ui/core/styles";
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
@@ -12,14 +11,6 @@ import _ from "lodash";
 import DummyEndpoint from '../legacy/dummy_endpoint';
 
 const styles = () => ({
-  side: {
-    margin: 0,
-    padding: 0,
-    width: '200px',
-    backgroundColor : '#f1f1f1',
-    position: 'fixed',
-    height: '100%',
-  },
   content: {
     display: 'fixed',
     marginBottom: 'inherit',
@@ -145,19 +136,12 @@ const markup = {
   email: <b> Email</b>
 };
 
-
-
-// const styles = theme => ({
-//   sideB: {
-//     float: left,
-//   },
-// });
-
 function StudentName(props){
   return(!props.exist ?
       <Typography variant="h5">
         Student: {props.name}
-      </Typography> : <Typography/>
+      </Typography>
+      : <Typography/>
   )
 }
 
@@ -245,7 +229,7 @@ class StudentComp extends Component {
 
     actionsRow = ({ type, payload }) => {
       console.log(type, payload);
-        if (type == 'save') {
+        if (type === 'save') {
           this.comp_dict["evaluations"][payload["id"]]["eval"] = payload["Evaluation"];
           this.comp_dict["evaluations"][payload["id"]]["comment"] = payload["Comments"];
           this.performTableUpdate();
@@ -282,7 +266,7 @@ class StudentComp extends Component {
         console.log(id);
         console.log(this.comp_dict.competencies)
         let current_comps = this.comp_dict.competencies;
-        let filtered = current_comps.filter(item => item != id);
+        let filtered = current_comps.filter(item => item !== id);
         this.comp_dict.competencies = filtered;
         this.comp_dict.historic_competencies.push(id);
         console.log(current_comps);
@@ -308,14 +292,14 @@ class StudentComp extends Component {
     }
 
     componentDidMount() {
-      if (this.comp_dict) {
-        console.log('component did mount')
-        this.performEval = this.performEval.bind(this);
-        this.state.comp_history_info.title = "Previously evaluated competencies: ";
-        this.state.comp_history_info.features.userConfiguration.columnsOrder.pop();
-        this.state.comp_history_info.data.columns.pop();
-        this.performTableUpdate();
-      }
+        if (this.comp_dict) {
+            console.log('component did mount')
+            this.performEval = this.performEval.bind(this);
+            this.state.comp_history_info.title = "Previously evaluated competencies: ";
+            this.state.comp_history_info.features.userConfiguration.columnsOrder.pop();
+            this.state.comp_history_info.data.columns.pop();
+            this.performTableUpdate();
+        }
     }
 
     render() {
@@ -324,45 +308,45 @@ class StudentComp extends Component {
         const { classes } = this.props;
         const list_of_locations = this.data_id ? this.comp_dict.locations.map((loc) =>
             <LocationItem name={loc[1]} endpoint='/classDetails' sub_id={loc[0]} history={this.props.history} location={this.props.location}/>
-        ): <ListItem></ListItem>;
+        ): <ListItem />;
         const list_of_details = this.comp_dict ? Object.keys(this.comp_dict.sub_details).map((key) => {
             return(
-              <List>
-                <ListItem>
-                    <ListItemText>
-                        {markup[key]} : {this.comp_dict.sub_details[key]}
-                    </ListItemText>
-                </ListItem>
-              </List>
+                <List>
+                    <ListItem>
+                        <ListItemText>
+                            {markup[key]} : {this.comp_dict.sub_details[key]}
+                        </ListItemText>
+                    </ListItem>
+                </List>
             )
-        }
-        ) : <ListItem></ListItem>;
+        })
+        : <ListItem />;
         return (
-        <Container>
-            <div className={classes.comp_text}>
-            <StudentName name={(this.comp_dict ? this.comp_dict.name : null)} exist={this.props.location.data == null} />
+            <Container>
+                <div className={classes.comp_text}>
+                <StudentName name={(this.comp_dict ? this.comp_dict.name : null)} exist={this.props.location.data == null} />
 
-              <div className={classes.column_view}>
-                  {/* <h2>Student Details</h2> */}
-                  <List style={flexContainer}>
-                    {list_of_details}
-                  </List>
-              </div>
+                    <div className={classes.column_view}>
+                        {/* <h2>Student Details</h2> */}
+                        <List style={flexContainer}>
+                          {list_of_details}
+                        </List>
+                    </div>
 
-              <ListItemText> <b>Classes</b> :</ListItemText>
-              <List className={classes.column_view}>
-                {list_of_locations}
-              </List>
+                    <ListItemText> <b>Classes</b> :</ListItemText>
+                    <List className={classes.column_view}>
+                        {list_of_locations}
+                    </List>
 
-            <div className={classes.content_displays}>
-                <Datatable options={this.state.comp_info} refreshRows={() => this.refreshRows(this.state.comp_info)} actions={this.actionsRow}/>
-            </div>
-            <div className={classes.content_displays}>
-                <Datatable options={this.state.comp_history_info} refreshRows={() => this.refreshRows(this.state.comp_history_info)} actions={this.actionsRow}/>
-            </div>
-            </div>
+                <div className={classes.content_displays}>
+                    <Datatable options={this.state.comp_info} refreshRows={() => this.refreshRows(this.state.comp_info)} actions={this.actionsRow}/>
+                </div>
+                <div className={classes.content_displays}>
+                    <Datatable options={this.state.comp_history_info} refreshRows={() => this.refreshRows(this.state.comp_history_info)} actions={this.actionsRow}/>
+                </div>
+                </div>
 
-        </Container>
+            </Container>
         );
     }
 }

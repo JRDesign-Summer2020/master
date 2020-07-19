@@ -1,7 +1,4 @@
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import CardMedia from "@material-ui/core/CardMedia";
-import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -10,17 +7,12 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { withStyles } from '@material-ui/core/styles';
 import color from "@material-ui/core/colors/red";
-import Image from 'material-ui-image';
 import logo from '../img/georgia-tech-excel-logo.png';
-import {yellow} from "@material-ui/core/colors";
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
-import { Redirect } from 'react-router-dom'
-import getEvaluations from '../legacy/getEvaluations';
 
 import { CognitoUser } from 'amazon-cognito-identity-js'
 import { CognitoUserPool } from 'amazon-cognito-identity-js'

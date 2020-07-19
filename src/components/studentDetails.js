@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import Container from '@material-ui/core/Container';
-import Sidebar from "./Sidebar";
 import {withStyles} from "@material-ui/core/styles";
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
@@ -8,14 +7,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
 const styles = () => ({
-  side: {
-    margin: 0,
-    padding: 0,
-    width: '200px',
-    backgroundColor : '#f1f1f1',
-    position: 'fixed',
-    height: '100%',
-  },
   content: {
     height: '1000px',
     display: 'flex',
@@ -65,14 +56,6 @@ const markup = {
   email: <b> Email</b>
 };
 
-
-
-// const styles = theme => ({
-//   sideB: {
-//     float: left,
-//   },
-// });
-
 function StudentName(props){
   console.log(props.exist);
   return(!props.exist ?
@@ -99,7 +82,7 @@ class LocationItem extends Component {
           data: {id}
         }
       );
-}
+  }
   render(){
     return(
       <ListItem button onClick={this.bringToLocation} style={this.listbutton}>
@@ -118,11 +101,11 @@ class StudentDetails extends Component {
 
     const list_of_competencies = data_id ? comp_dict.competencies.map((comp) =>
         <LocationItem name={comp[1]} sub_id={comp[0]} endpoint = '/compDetails' history={this.props.history} location={this.props.location}/>
-    ): <ListItem></ListItem>;
+    ): <ListItem />;
 
     const list_of_locations = data_id ? comp_dict.locations.map((loc) =>
         <LocationItem name={loc[1]} endpoint='/classDetails' sub_id={loc[0]} history={this.props.history} location={this.props.location}/>
-    ): <ListItem></ListItem>;
+    ): <ListItem />;
     const list_of_details = comp_dict ? Object.keys(comp_dict.sub_details).map((key) => {
         return(
             <ListItem>
@@ -131,8 +114,8 @@ class StudentDetails extends Component {
                 </ListItemText>
             </ListItem>
         )
-    }
-    ) : <ListItem></ListItem>;
+    })
+    : <ListItem />;
     return (
       <Container>
         <div className={classes.comp_text}>
@@ -156,10 +139,8 @@ class StudentDetails extends Component {
                 {list_of_competencies}
               </List>
             </div>
-
           </div>
         </div>
-
       </Container>
     );
   }

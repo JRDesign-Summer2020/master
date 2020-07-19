@@ -1,7 +1,7 @@
-import { Auth } from 'aws-amplify';
-import AWS from 'aws-sdk';
-import { CognitoUserPool } from 'amazon-cognito-identity-js'
-import { config } from 'aws-sdk'
+// import { Auth } from 'aws-amplify';
+// import AWS from 'aws-sdk';
+// import { CognitoUserPool } from 'amazon-cognito-identity-js'
+// import { config } from 'aws-sdk'
 import { sigV4Client } from './sigV4Client';
 import '../components/login'
 
