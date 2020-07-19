@@ -27,7 +27,7 @@ import Amplify, { Auth, API } from 'aws-amplify';
 import awsconfig from './helpers/aws-exports';
 Amplify.configure(awsconfig);
 
-let domainString = ((process.env.NODE_ENV === 'development') ? 'localhost:3000' : 'master.d19x1ye7qes4du.amplifyapp.com');
+let domainString = ((process.env.NODE_ENV === 'development') ? 'localhost' : 'master.d19x1ye7qes4du.amplifyapp.com');
 
 Amplify.configure({
     Auth: {
