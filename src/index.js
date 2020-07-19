@@ -27,6 +27,8 @@ import Amplify, { Auth, API } from 'aws-amplify';
 import awsconfig from './helpers/aws-exports';
 Amplify.configure(awsconfig);
 
+let domainString = ((process.env.NODE_ENV === 'development') ? 'localhost:3000' : 'master.d19x1ye7qes4du.amplifyapp.com');
+
 Amplify.configure({
     Auth: {
         identityPoolId: 'us-east-1:5d742d2a-b8bd-4caf-8ce5-1f251f107091',
@@ -35,7 +37,7 @@ Amplify.configure({
         userPoolWebClientId: '1lr290tbgl9c533rklc7ncgvhg',
 
         cookieStorage: {
-            domain: 'master.d19x1ye7qes4du.amplifyapp.com',
+            domain: domainString,
             path: '/',
             expires: 365,
             secure: false
