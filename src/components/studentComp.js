@@ -172,7 +172,7 @@ class StudentComp extends Component {
       this.setState({unevaluated_competencies: current_comps});
 
       invokeApig({
-        path: ( '/evaluations'), 
+        path: ( '/evaluations'),
         method: "POST",
         headers: {},
         queryParams: {} ,
@@ -196,7 +196,7 @@ class StudentComp extends Component {
     //responsible for pulling att of the data from the database
     componentDidMount() {
       invokeApig({
-        path: ( '/users/' + this.state.student_id), 
+        path: ( '/users/' + this.state.student_id),
         method: "GET",
         headers: {},
         queryParams: {} ,
@@ -209,29 +209,33 @@ class StudentComp extends Component {
         }
       ));
 
-      
+
       invokeApig({
-        path: ( '/users-to-tracking-location'), 
+        path: ( '/users-to-tracking-location'),
         method: "GET",
         headers: {},
         queryParams: {} ,
       }).then(response => {
+        console.log(response);
         let users = response['Items'];
         //fix for more than one item in array
         getUsername().then(username => {
           this.setState( {evaluator_id: username} )
-          let myUser = users.find(user => user.UserId == username);
+          let myUser = users.find(user => user.UserId === username);
+          if (myUser === undefined) {
+              console.log("No user-to-tracking-location found for " + username);
+          }
           let locationId = myUser.LocationIds[0];
           this.setState({classes: locationId})
           invokeApig({
-            path: ( '/tracking-locations-to-competencies/' + encodeURIComponent(this.state.classes)), 
+            path: ( '/tracking-locations-to-competencies/' + encodeURIComponent(this.state.classes)),
             method: "GET",
             headers: {},
             queryParams: {} ,
           }).then(response => {
             let c = response["Item"]["CompetencyIds"]
             invokeApig({
-              path: ( '/competencies'), 
+              path: ( '/competencies'),
               method: "GET",
               headers: {},
               queryParams: {} ,
@@ -239,7 +243,7 @@ class StudentComp extends Component {
               let allComps = data["Items"];
               let comps = []
               for(var i = 0; i < c.length; ++i){
-                comps.push(allComps.find(allComp => allComp.CompetencyId == c[i]));
+                comps.push(allComps.find(allComp => allComp.CompetencyId === c[i]));
                 var cmp = comps.map((comp) => ({
                   Competency: comp.CompetencyTitle,
                   Evaluation: "N",
@@ -260,7 +264,7 @@ class StudentComp extends Component {
     }
 
     //brings users to the class details page
-    //not sure if this is needed 
+    //not sure if this is needed
     bringToLocation(classId) {
       this.props.history.push(
         {
@@ -270,7 +274,7 @@ class StudentComp extends Component {
       );
     }
 
-    
+
     //responsible for rendering everything on the page
     //you want to put your state variables in here so they automatically update
     render() {

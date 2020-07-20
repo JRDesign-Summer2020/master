@@ -22,7 +22,7 @@ class Students extends Component {
     );
   }
 
-  
+
 
   constructor(props) {
     super(props);
@@ -55,9 +55,9 @@ class Students extends Component {
   //get your students based on role
   componentDidMount() {
     getRole().then(role => {
-        if (role == 'Admins' || role == "PeerMentorCoordinators") {
+        if (role === 'Admins' || role === "PeerMentorCoordinators") {
           invokeApig({
-            path: ( '/users/students'), 
+            path: ( '/users/students'),
             method: "GET",
             headers: {},
             queryParams: {} ,
@@ -68,10 +68,10 @@ class Students extends Component {
             }))).then(students => {
             this.setState({ data: students });
             });
-        } else if(role == "FacultyStaff" || role == "Mentors" || role == "Coaches") {
+        } else if(role === "FacultyStaff" || role === "Mentors" || role === "Coaches") {
           getUsername().then(userId => {
             invokeApig({
-              path: ( '/users/mentors/' + userId +'/students'), 
+              path: ( '/users/mentors/' + userId +'/students'),
               method: "GET",
               headers: {},
               queryParams: {} ,

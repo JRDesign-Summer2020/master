@@ -1,4 +1,4 @@
-// import { Auth } from 'aws-amplify';
+import { Auth } from 'aws-amplify';
 // import AWS from 'aws-sdk';
 // import { CognitoUserPool } from 'amazon-cognito-identity-js'
 // import { config } from 'aws-sdk'
@@ -47,7 +47,7 @@ export async function invokeApig({
       headers,
       body
     });
-  
+
     if (!([200, 201, 204].includes(results.status))) {
       throw new Error(await results.text());
     }
