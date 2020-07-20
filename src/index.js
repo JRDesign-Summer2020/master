@@ -35,7 +35,7 @@ Amplify.configure({
         userPoolWebClientId: '1lr290tbgl9c533rklc7ncgvhg',
 
         cookieStorage: {
-            domain: 'master.d19x1ye7qes4du.amplifyapp.com',
+            domain: 'localhost',
             path: '/',
             expires: 365,
             secure: false
