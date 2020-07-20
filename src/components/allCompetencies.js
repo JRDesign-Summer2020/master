@@ -4,7 +4,7 @@ import { chunk } from "lodash";
 import Container from '@material-ui/core/Container';
 import Sidebar from "./Sidebar";
 import {withStyles} from "@material-ui/core/styles";
-import { invokeApig } from './utils';
+import { invokeApig } from '../helpers/utils.js';
 import AddIcon from '@material-ui/icons/Add';
 
 const styles = theme => ({
@@ -96,11 +96,11 @@ class allCompetencies extends Component {
       },
       additionalIcons: [
         {
-            tooltip: 'Add',
-            icon: <AddIcon/>,
-            onClick: () => alert('Add!')
+          tooltip: 'Add',
+          icon: <AddIcon/>,
+          onClick: () => alert('Add!')
         }
-    ],
+      ],
     }
   };
 

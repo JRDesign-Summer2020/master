@@ -17,6 +17,7 @@
     "aws-sdk": "^2.705.0",
     "core-js": "^3.6.5",
     "crypto-js": "^4.0.0",
+    "jwt-decode": "^2.2.0",
     "material-table": "^1.57.2",
     "material-ui-image": "^3.2.2",
     "react": "^16.12.0",

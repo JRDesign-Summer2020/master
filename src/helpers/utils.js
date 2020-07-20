@@ -3,45 +3,16 @@ import AWS from 'aws-sdk';
 import { CognitoUserPool } from 'amazon-cognito-identity-js'
 import { config } from 'aws-sdk'
 import { sigV4Client } from './sigV4Client';
-import '../components/login'
+import '../components/login';
 
-export function setCookie(name, val, extime) {
-  let date = new Date(extime);
-  let expires = 'expires=' + date.toUTCString();
-  document.cookie = name + '=' + val + ';' + expires + ';path=/';
+export async function getRole() {
+  let user = await Auth.currentAuthenticatedUser();
+  return user.signInUserSession.accessToken.payload['cognito:groups'][0];
 }
 
-export function getCookie(name) {
-  name += '=';
-
-  let decodedCookie = decodeURIComponent(document.cookie);
-  let ca = decodedCookie.split(';');
-
-  for (let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-
-  return null;
-}
-
-export function deleteCookie(name) {
-  setCookie(name, '', new Date(new Date().getTime() - 1).getTime());
-}
-
-export function loggedIn() {
-  let loginAccessKey = getCookie('accesskey');
-  let loginSecretKey = getCookie('secretkey');
-  let loginSessionToken = getCookie('sessiontoken');
-
-  return (loginAccessKey != null) && (loginSecretKey != null) && (loginSessionToken != null);
+export async function getUsername() {
+  let user = await Auth.currentAuthenticatedUser();
+  return user.signInUserSession.accessToken.payload['username'];
 }
 
 export async function invokeApig({
@@ -51,11 +22,12 @@ export async function invokeApig({
     queryParams = {},
     body
   }) {
+    let creds = await Auth.currentCredentials();
     const signedRequest = sigV4Client
       .newClient({
-        accessKey: getCookie('accesskey'),
-        secretKey: getCookie('secretkey'),
-        sessionToken: getCookie('sessiontoken'),
+        accessKey: creds['accessKeyId'],
+        secretKey: creds['secretAccessKey'],
+        sessionToken: creds['sessionToken'],
         region: 'us-east-1',
         endpoint: 'https://6z0glw5vac.execute-api.us-east-1.amazonaws.com/Prod'
       })
@@ -76,7 +48,7 @@ export async function invokeApig({
       body
     });
   
-    if (!([200, 201].includes(results.status))) {
+    if (!([200, 201, 204].includes(results.status))) {
       throw new Error(await results.text());
     }
 

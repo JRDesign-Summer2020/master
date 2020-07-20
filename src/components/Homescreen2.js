@@ -29,8 +29,8 @@ import { StepIcon } from '@material-ui/core';
 import {BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,} from 'recharts';
 
 import './login.js';
-import { API } from 'aws-amplify';
-import { invokeApig } from './utils';
+import { API, Auth } from 'aws-amplify';
+import { invokeApig, getCreds, getRole } from '../helpers/utils.js';
 
 const styles = theme => ({
     side: {
@@ -57,6 +57,25 @@ const styles = theme => ({
 class homescreen extends React.Component {
     constructor(props) {
         super(props);
+
+        // Auth.currentAuthenticatedUser().then(user => user.signInUserSession.accessToken.payload['cognito:groups'][0])
+        // .then(data => console.log(data));
+
+        // invokeApig({
+        //     path: ( '/competencies'), 
+        //     method: 'GET',
+        //     headers: {},
+        //     queryParams: {},
+        // });
+
+        // let userId = 'test2'
+        // invokeApig({
+        //     path: ( '/users-to-tracking-location/users/' + userId), 
+        //     method: "DELETE",
+        //     headers: {},
+        //     queryParams: {} ,
+        // });
+
          /**
         invokeApig({
             path: ( '/evaluations'),
