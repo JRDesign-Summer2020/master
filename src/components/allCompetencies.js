@@ -11,9 +11,6 @@ const styles = theme => ({
   }
 });
 
-
-
-
 class allCompetencies extends Component {
   toCompetency(id) {
     this.props.history.push(

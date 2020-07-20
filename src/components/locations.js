@@ -4,11 +4,9 @@ import { chunk } from "lodash";
 import Container from '@material-ui/core/Container';
 import {withStyles} from "@material-ui/core/styles";
 
-
-
 const styles = theme => ({
   content: {
-  height: '1000px',
+    height: '1000px',
   }
 });
 
@@ -95,7 +93,7 @@ class Locations extends Component {
       canSaveUserConfiguration: true,
       userConfiguration: {
         columnsOrder: ["LocationName", "PhysicalLocation", "MeetingTime", "Faculty", "clickButton"],
-        copyToClipboard: true
+        copyToClipboard: false
       },
       rowsPerPage: {
         available: [10, 25, 50, 100],
@@ -124,11 +122,6 @@ class Locations extends Component {
     });
   };
 
-  onClick2  = (e, item) => {
-    window.alert(JSON.stringify(item, null, 2));
-  }
-
-
   render() {
     const { classes } = this.props;
 
@@ -141,13 +134,6 @@ class Locations extends Component {
                      actions={this.actionsRow}
           />
         </div>
-
-
-
-
-
-
-
       </Container>
     );
   }

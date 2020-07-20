@@ -5,14 +5,15 @@ import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+//import LocationItem from "./LocationItem";
 //DUMMY DATA
 import DummyEndpoint from '../legacy/dummy_endpoint';
 
 const styles = theme => ({
   content: {
-  height: '1000px',
-  display: 'flex',
-  flexDirection: 'row',
+    height: '1000px',
+    display: 'flex',
+    flexDirection: 'row',
   },
   comp_text: {
     height: '1000px',
@@ -20,47 +21,47 @@ const styles = theme => ({
     flexDirection: 'column',
   },
   column_view: {
-      padding: '15px 15px',
-      display: 'flex',
-      flexDirection: 'column',
+    padding: '15px 15px',
+    display: 'flex',
+    flexDirection: 'column',
   },
 });
 
 const details = {
-    1283:
+  1283:
+  {
+    name:'Crossing street without guidance.',
+    id: '1283',
+    locations : [
+      ['13', "Transportation I"],
+      ['12', "Career Skills II"],
+    ],
+    sub_details:
     {
-        name:'Crossing street without guidance.',
-        id: '1283',
-        locations : [
-            ['13', "Transportation I"],
-            ['12', "Career Skills II"],
-        ],
-        sub_details:
-        {
-            domain: 'Transportation',
-            subcategory: 'Pedestrian Travel',
-            importance: 'High',
-            difficulty: 'Basic',
-            eval_freq: 'Year'
-        }
-    },
-    837:
+      domain: 'Transportation',
+      subcategory: 'Pedestrian Travel',
+      importance: 'High',
+      difficulty: 'Basic',
+      eval_freq: 'Year'
+    }
+  },
+  837:
+  {
+    name:'Calling an uber with no guidance.',
+    id: '837',
+    locations : [
+      ['13', "Transportation I"],
+      ['12', "Professionalism II"],
+    ],
+    sub_details:
     {
-        name:'Calling an uber with no guidance.',
-        id: '837',
-        locations : [
-            ['13', "Transportation I"],
-            ['12', "Professionalism II"],
-        ],
-        sub_details:
-        {
-            domain: 'Transportation',
-            subcategory: 'Pedestrian Travel',
-            importance: 'High',
-            difficulty: 'Intermediate',
-            eval_freq: 'Year'
-        }
-    },
+      domain: 'Transportation',
+      subcategory: 'Pedestrian Travel',
+      importance: 'High',
+      difficulty: 'Intermediate',
+      eval_freq: 'Year'
+    }
+  },
 };
 
 const markup = {
@@ -70,14 +71,6 @@ const markup = {
     difficulty: <b>Difficulty</b>,
     eval_freq: <b>Evaluation Frequency</b>
 }
-
-
-
-// const styles = theme => ({
-//   sideB: {
-//     float: left,
-//   },
-// });
 
 function CompetencyName(props){
     console.log(props.exist);
@@ -90,10 +83,10 @@ function CompetencyName(props){
 }
 
 class LocationItem extends Component {
-    listbutton = {
-        border: '1px solid black',
-        width: '300px',
-      };
+  listbutton = {
+    border: '1px solid black',
+    width: '300px',
+  };
     bringToLocation = () => {
         console.log('name: ' + this.props.name);
         console.log('sub: ' + this.props.sub_id)
@@ -136,13 +129,18 @@ class CompetencyDetails extends Component {
         console.log(comp_dict["Competency"]);
 
         const list_of_locations = data_id ? tracking_classes.map((loc) =>
-            <LocationItem name={loc[0]} endpoint='/classDetails' sub_id={loc[1]} history={this.props.history}
-                          location={this.props.location}/>
+            <LocationItem
+                name={loc[0]}
+                endpoint='/classDetails'
+                sub_id={loc[1]}
+                history={this.props.history}
+                location={this.props.location}
+            />
         ): <ListItem />;
         //console.log(Object.keys(details[data_id]));
         const list_of_details = comp_dict ? Object.keys(comp_dict.sub_details).map((key) => {
             return(
-                <ListItem>
+                <ListItem key={key}>
                     <ListItemText>
                         {markup[key]} : {comp_dict.sub_details[key]}
                     </ListItemText>
@@ -151,27 +149,25 @@ class CompetencyDetails extends Component {
         }
         ) : <ListItem />;
         return (
-          <Container>
-            <div className={classes.comp_text}>
-                <CompetencyName name={comp_dict["Competency"]} exist={this.props.location.data == null} />
-                    <div className={classes.content}>
-                    <div className={classes.column_view}>
-                        <h2>Details</h2>
-                        <List>
-                        {list_of_details}
-                        </List>
+            <Container>
+                <div className={classes.comp_text}>
+                    <CompetencyName name={comp_dict["Competency"]} exist={this.props.location.data == null} />
+                        <div className={classes.content}>
+                            <div className={classes.column_view}>
+                                <h2>Details</h2>
+                                <List>
+                                    {list_of_details}
+                                </List>
+                            </div>
+                        <div className={classes.column_view}>
+                            <h2> Evaluated by Locations</h2>
+                            <List>
+                                {list_of_locations}
+                            </List>
+                        </div>
                     </div>
-                    <div className={classes.column_view}>
-                        <h2> Evaluated by Locations</h2>
-                        <List>
-                        {list_of_locations}
-                        </List>
-                    </div>
-
                 </div>
-            </div>
-
-          </Container>
+            </Container>
         );
     }
 }

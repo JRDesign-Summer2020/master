@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+//import LocationItem from "./LocationItem";
 
 const styles = () => ({
   content: {
@@ -70,26 +71,26 @@ class LocationItem extends Component {
     border: '1px solid black',
     width: '300px',
   };
-  bringToLocation = () => {
-    console.log('name: ' + this.props.name);
-    console.log('sub: ' + this.props.sub_id)
-    const goTo = this.props.endpoint;
-    const id = this.props.sub_id;
-    console.log(this.props.location.pathname);
-    this.props.history.push(
-        {
-          pathname: goTo,
-          data: {id}
-        }
-      );
-  }
-  render(){
-    return(
-      <ListItem button onClick={this.bringToLocation} style={this.listbutton}>
-        <ListItemText primary={this.props.name}/>
-      </ListItem>
-    )
-  }
+    bringToLocation = () => {
+        console.log('name: ' + this.props.name);
+        console.log('sub: ' + this.props.sub_id)
+        const goTo = this.props.endpoint;
+        const id = this.props.sub_id;
+        console.log(this.props.location.pathname);
+        this.props.history.push(
+            {
+              pathname: goTo,
+              data: {id}
+            }
+          );
+    }
+    render(){
+        return(
+            <ListItem button onClick={this.bringToLocation} style={this.listbutton}>
+                <ListItemText primary={this.props.name}/>
+            </ListItem>
+        )
+    }
 }
 
 class StudentDetails extends Component {
