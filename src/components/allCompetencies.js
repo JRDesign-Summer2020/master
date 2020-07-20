@@ -11,6 +11,9 @@ const styles = theme => ({
   }
 });
 
+
+
+//move to competency details
 class allCompetencies extends Component {
   toCompetency(id) {
     this.props.history.push(
@@ -28,10 +31,6 @@ class allCompetencies extends Component {
       data: []
     };
 
-  }
-
-  componentWillMount(){
-    console.log('First this called');
   }
 
   options = {
@@ -83,11 +82,11 @@ class allCompetencies extends Component {
       },
       additionalIcons: [
         {
-            tooltip: 'Add',
-            icon: <AddIcon/>,
-            onClick: () => alert('Add!')
+          tooltip: 'Add',
+          icon: <AddIcon/>,
+          onClick: () => alert('Add!')
         }
-    ],
+      ],
     }
   };
 
@@ -118,9 +117,8 @@ class allCompetencies extends Component {
     window.alert(JSON.stringify(item, null, 2));
   }
 
-
+//get all of the competencies
   componentDidMount() {
-    console.log("then this");
     invokeApig({
       path: ( '/competencies'),
       method: "GET",

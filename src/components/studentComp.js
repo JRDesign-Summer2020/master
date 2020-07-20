@@ -9,6 +9,8 @@ import { chunk } from "lodash";
 import { Datatable } from "@o2xp/react-datatable";
 import _ from "lodash";
 import DummyEndpoint from '../legacy/dummy_endpoint';
+import { invokeApig } from '../helpers/utils.js';
+import { getUsername } from '../helpers/utils.js';
 
 const styles = () => ({
   content: {
@@ -18,7 +20,6 @@ const styles = () => ({
     // flexDirection: 'row',
   },
   comp_text: {
-    marginLeft: '210px',
     marginBottom: '20px',
     marginTop: '20px',
     padding: '1px 5px',
@@ -48,92 +49,16 @@ const flexContainer = {
   padding: 0,
 };
 
-let datatable_frame = {
-    title: "Competencies that need evaluating:",
-    dimensions: {
-      datatable: {
-        width: "100%",
-        height: "100%"
-      },
-      row: {
-        height: "60px"
-      }
-    },
-    keyColumn: "Competency",
-    font: "Arial",
-    data: {
-      columns: [
-        {
-          id: "Competency",
-          label: "Competency",
-          colSize: "350px",
-          editable: false
-        },
-        {
-          id: "Evaluation",
-          label: "Evaluation",
-          colSize: "50px",
-          editable: true,
-          inputType: "select",
-          values: ["N", "0", "1", "2", "3", "4"]
-        },
-        {
-          id: "Class",
-          label: "Class",
-          colSize: "200px",
-          editable: false,
-          inputType: "input",
-        },
-        {
-          id: "Comments",
-          label: "Comments",
-          colSize: "200px",
-          editable: true,
-          inputType: "input",
-        },
-        {
-          id: "FreqOfTrack" ,
-          label: "Tracking Frequency",
-          colSize: "80px",
-          editable: false,
-          inputType: "select",
-          values: ["Year", "Semester", "Month"]
-        },
-        {
-            id: "clickButton",
-            label: "Submit",
-            colSize: "70px",
-            editable: false
-          }
-      ],
-      rows: [
-      ]
-    },
-    features: {
-      canEdit: true,
-      canPrint: true,
-      canDownload: true,
-      canSearch: true,
-      canOrderColumns: true,
-      canSaveUserConfiguration: true,
-      isUpdatingRows: true,
-      userConfiguration: {
-        columnsOrder: ["Competency", "Evaluation", "FreqOfTrack", "Class", "Comments", "clickButton"],
-      },
-      // rowsPerPage: {
-      //   available: [10, 25, 50, 100],
-      //   selected: 50
-      // },
-    },
-
-  };
-
-
-const markup = {
-  user: <b> Username</b>,
-  role: <b>Role</b>,
-  cohort: <b>Cohort</b>,
-  email: <b> Email</b>
+const listbutton = {
+  border: '2px',
+  background: '#CFCFCF',
+  transition: "#efefef",
+  color: 'solid black',
+  textAlign: 'center',
+  borderRadius: '5px',
+  height: '30px',
+  margin: '0 0 3px 0',
+  width: '300px',
 };
 
 function StudentName(props){
@@ -180,61 +105,34 @@ class LocationItem extends Component {
 }
 
 class StudentComp extends Component {
-    details = {
-        5:
-          {
-              name:'John Doe',
-              id: 'jdoe3',
-              locations : [
-                ['13', "Transportation I"],
-                ['12', "Career Skills II"],
-            ],
-            competencies:[
-              [1283,
-                  {
-                      Competency: "12. Understands and demonstrates safe street crossing and other pedestrian laws",
-                      Evaluation: "N",
-                      Class: "Career Skills II",
-                      Comments: "",
-                      FreqOfTrack: "Semester",
-                      clickButton: <button onClick={() => this.performEval(1283)}>Submit</button>,
-                    }
-              ],
-              [837,
-                  {
-                      Competency: "13. Understands and demonstrates safe Uber and taxi usage.",
-                      Evaluation: "N",
-                      Class: "Transportation I",
-                      Comments: "",
-                      FreqOfTrack: "Semester",
-                      clickButton: <button onClick={() => this.performEval(837)}>Submit</button>,
-                }
-              ],
-          ],
-          historic_competencies: [],
-              sub_details:
-              {
-                user: 'jdoe3',
-                role: 'Student (current)',
-                cohort: '1',
-                email: "jdoe3@gatech.edu",
-              }
-          },
+    constructor(props) {
+      super(props);
+      this.state = {
+        //things that we will need to auto-update
+        evaluator_id: [],
+        student_id: this.props.location.data ? this.props.location.data.id : null,
+        student_name: [],
+        student_role: [],
+        student_cohort: [],
+        unevaluated_competencies: [],
+        evaluated_competencies: [],
+        classes: [],
       };
 
-    data_id = this.props.location.data ? this.props.location.data.id : null;
-    student_data = this.data_id ? DummyEndpoint.get_student(this.data_id) : null;
-    //comp_dict = this.data_id ? this.details[this.data_id] : null;
-    comp_dict = this.student_data;
+    }
 
+    //updates competency for the save button
     actionsRow = ({ type, payload }) => {
       console.log(type, payload);
-        if (type === 'save') {
-          this.comp_dict["evaluations"][payload["id"]]["eval"] = payload["Evaluation"];
-          this.comp_dict["evaluations"][payload["id"]]["comment"] = payload["Comments"];
-          this.performTableUpdate();
-        }
-      };
+      if (type == 'save') {
+        let currentComps = this.state.unevaluated_competencies
+        let index = currentComps.findIndex(comp => comp.Id == payload["Id"]);
+        currentComps[index]["Evaluation"] = payload["Evaluation"];
+        currentComps[index]["Comments"] = payload["Comments"];
+        currentComps[index]["Evidence"] = payload["Evidence"];
+        this.setState({unevaluated_competencies: currentComps})
+      }
+    };
 
     refreshRows = (information) => {
         const { rows } = information.data;
@@ -256,95 +154,342 @@ class StudentComp extends Component {
         window.alert(JSON.stringify(item, null, 2));
     };
 
-    state = {
-       comp_info: _.cloneDeep(datatable_frame),
-       comp_history_info: _.cloneDeep(datatable_frame),
-       competencies: null,
-    }
-
+    //updates the tables - removes competency from unevaluated table, adds it to evaluated table
+    //example of how to set state
+    //also responsible for writing to evaluations datababase
     performEval(id) {
-        console.log(id);
-        console.log(this.comp_dict.competencies)
-        let current_comps = this.comp_dict.competencies;
-        let filtered = current_comps.filter(item => item !== id);
-        this.comp_dict.competencies = filtered;
-        this.comp_dict.historic_competencies.push(id);
-        console.log(current_comps);
-        console.log(filtered);
-        //console.log('calling write');
-        //DummyEndpoint.write_to_student(this.data_id, this.comp_dict);
-        //console.log('done write');
-        this.performTableUpdate();
+      var d = new Date();
+
+      let current_comps = this.state.unevaluated_competencies;
+      let index = current_comps.findIndex(comp => comp.Id == id);
+
+      let new_eval = current_comps[index];
+      current_comps.splice(index, 1);
+
+      this.state.evaluated_competencies.push(new_eval);
+      this.setState({evaluated_competencies: this.state.evaluated_competencies });
+
+      this.setState({unevaluated_competencies: current_comps});
+
+      invokeApig({
+        path: ( '/evaluations'), 
+        method: "POST",
+        headers: {},
+        queryParams: {} ,
+        body:  {
+          "UserId": this.state.student_id,
+          "CompetencyId": id,
+          "Year": d.getFullYear(),
+          "Month": d.getMonth() + 1,
+          "Day": d.getDate,
+          "UserIdEvaluator": this.state.evaluator_id,
+          "EvaluationScore": new_eval["Evaluation"],
+          "Comments": new_eval["Comments"],
+          "Evidence": new_eval["Evidence"],
+          "Approved": "False"
+       }
+      });
+
     }
 
-    performTableUpdate() {
-        let competency= DummyEndpoint.get_list_of_comps(this.comp_dict.competencies, this.performEval, this.data_id);
-        console.log(competency);
-        let historic_competency = DummyEndpoint.get_list_of_comps(this.comp_dict.historic_competencies, null, this.data_id);
-        console.log('historic');
-        console.log(historic_competency);
-
-        this.state.comp_info.data.rows = competency;
-        this.state.comp_history_info.data.rows = historic_competency;
-        console.log(this.state.comp_info.data.rows);
-        console.log(this.state.comp_history_info.data.columns);
-        this.forceUpdate();
-    }
-
+    //once all of the components on the page load, this happens
+    //responsible for pulling att of the data from the database
     componentDidMount() {
-        if (this.comp_dict) {
-            console.log('component did mount')
-            this.performEval = this.performEval.bind(this);
-            this.state.comp_history_info.title = "Previously evaluated competencies: ";
-            this.state.comp_history_info.features.userConfiguration.columnsOrder.pop();
-            this.state.comp_history_info.data.columns.pop();
-            this.performTableUpdate();
+      invokeApig({
+        path: ( '/users/' + this.state.student_id), 
+        method: "GET",
+        headers: {},
+        queryParams: {} ,
+      }).then(response =>
+        this.setState(
+        {
+          student_name: response["Item"]["UserInfo"]["Name"],
+          student_role: response["Item"]["Role"],
+          student_cohort: response["Item"]["Cohort"],
         }
+      ));
+
+      
+      invokeApig({
+        path: ( '/users-to-tracking-location'), 
+        method: "GET",
+        headers: {},
+        queryParams: {} ,
+      }).then(response => {
+        let users = response['Items'];
+        //fix for more than one item in array
+        getUsername().then(username => {
+          this.setState( {evaluator_id: username} )
+          let myUser = users.find(user => user.UserId == username);
+          let locationId = myUser.LocationIds[0];
+          this.setState({classes: locationId})
+          invokeApig({
+            path: ( '/tracking-locations-to-competencies/' + encodeURIComponent(this.state.classes)), 
+            method: "GET",
+            headers: {},
+            queryParams: {} ,
+          }).then(response => {
+            let c = response["Item"]["CompetencyIds"]
+            invokeApig({
+              path: ( '/competencies'), 
+              method: "GET",
+              headers: {},
+              queryParams: {} ,
+            }).then(data => {
+              let allComps = data["Items"];
+              let comps = []
+              for(var i = 0; i < c.length; ++i){
+                comps.push(allComps.find(allComp => allComp.CompetencyId == c[i]));
+                var cmp = comps.map((comp) => ({
+                  Competency: comp.CompetencyTitle,
+                  Evaluation: "N",
+                  Class: locationId,
+                  Evidence: "Assesment",
+                  Comments: "",
+                  FreqOfTrack: comp.EvaluationFrequency,
+                  clickButton: <button onClick={() => this.performEval(comp.CompetencyId)}>Submit</button>,
+                  Id: comp.CompetencyId
+                }));
+              }
+              this.setState({unevaluated_competencies: cmp});
+            });
+          });
+        });
+      });
+
     }
 
+    //brings users to the class details page
+    //not sure if this is needed 
+    bringToLocation(classId) {
+      this.props.history.push(
+        {
+          pathname: '/classDetails',
+          data: {classId}
+        }
+      );
+    }
+
+    
+    //responsible for rendering everything on the page
+    //you want to put your state variables in here so they automatically update
     render() {
-        console.log('yes');
-        console.log(this.student_data);
         const { classes } = this.props;
-        const list_of_locations = this.data_id ? this.comp_dict.locations.map((loc) =>
-            <LocationItem name={loc[1]} endpoint='/classDetails' sub_id={loc[0]} history={this.props.history} location={this.props.location}/>
-        ): <ListItem />;
-        const list_of_details = this.comp_dict ? Object.keys(this.comp_dict.sub_details).map((key) => {
-            return(
-                <List>
-                    <ListItem>
-                        <ListItemText>
-                            {markup[key]} : {this.comp_dict.sub_details[key]}
-                        </ListItemText>
-                    </ListItem>
-                </List>
-            )
-        })
-        : <ListItem />;
         return (
-            <Container>
-                <div className={classes.comp_text}>
-                <StudentName name={(this.comp_dict ? this.comp_dict.name : null)} exist={this.props.location.data == null} />
-
-                    <div className={classes.column_view}>
-                        {/* <h2>Student Details</h2> */}
-                        <List style={flexContainer}>
-                          {list_of_details}
-                        </List>
-                    </div>
-
-                    <ListItemText> <b>Classes</b> :</ListItemText>
-                    <List className={classes.column_view}>
-                        {list_of_locations}
+        <Container>
+            <div className={classes.comp_text}>
+            <Typography variant="h5">
+              Student: {this.state.student_name}
+            </Typography>
+              <div className={classes.column_view}>
+                  {/* <h2>Student Details</h2> */}
+                  <List style={flexContainer}>
+                    <List>
+                      <ListItem>
+                          <ListItemText>
+                              <b>Username</b>: {this.state.student_id}
+                          </ListItemText>
+                      </ListItem>
                     </List>
+                    <List>
+                      <ListItem>
+                          <ListItemText>
+                            <b>Role</b>: {this.state.student_role}
+                          </ListItemText>
+                      </ListItem>
+                    </List>
+                    <List>
+                      <ListItem>
+                          <ListItemText>
+                              <b>Cohort</b>: {this.state.student_cohort}
+                          </ListItemText>
+                      </ListItem>
+                    </List>
+                  </List>
+              </div>
 
-                <div className={classes.content_displays}>
-                    <Datatable options={this.state.comp_info} refreshRows={() => this.refreshRows(this.state.comp_info)} actions={this.actionsRow}/>
-                </div>
-                <div className={classes.content_displays}>
-                    <Datatable options={this.state.comp_history_info} refreshRows={() => this.refreshRows(this.state.comp_history_info)} actions={this.actionsRow}/>
-                </div>
-                </div>
+              <ListItemText> <b>Classes</b>:</ListItemText>
+              <List className={classes.column_view}>
+                {/* need to make this show multiple buttons when needed */}
+                <ListItem button style={listbutton}>
+                  <ListItemText primary={this.state.classes}/>
+                </ListItem>
+              </List>
+
+            <div className={classes.content_displays}>
+                <Datatable options={
+                  {
+                    title: "Competencies that need evaluating:",
+                    dimensions: {
+                      datatable: {
+                        width: "100%",
+                        height: "100%"
+                      },
+                      row: {
+                        height: "60px"
+                      }
+                    },
+                    keyColumn: "Competency",
+                    font: "Arial",
+                    data: {
+                      columns: [
+                        {
+                          id: "Competency",
+                          label: "Competency",
+                          colSize: "350px",
+                          editable: false
+                        },
+                        {
+                          id: "Evaluation",
+                          label: "Evaluation",
+                          colSize: "50px",
+                          editable: true,
+                          inputType: "select",
+                          values: ["N", "0", "1", "2", "3", "4"]
+                        },
+                        {
+                          id: "Evidence",
+                          label: "Evidence",
+                          colSize: "150px",
+                          editable: true,
+                          inputType: "select",
+                          values: ["Direct observation", "Assessment", "Report from employer", "Report from coach"]
+                        },
+                        {
+                          id: "Class",
+                          label: "Class",
+                          colSize: "150px",
+                          editable: false,
+                          inputType: "input",
+                        },
+                        {
+                          id: "Comments",
+                          label: "Comments",
+                          colSize: "200px",
+                          editable: true,
+                          inputType: "input",
+                        },
+                        {
+                          id: "FreqOfTrack" ,
+                          label: "Tracking Frequency",
+                          colSize: "80px",
+                          editable: false,
+                          inputType: "select",
+                          values: ["Year", "Semester", "Month"]
+                        },
+                        {
+                            id: "clickButton",
+                            label: "Submit",
+                            colSize: "70px",
+                            editable: false
+                          }
+                      ],
+                      rows: this.state.unevaluated_competencies
+                    },
+                    features: {
+                      canEdit: true,
+                      canPrint: true,
+                      canDownload: true,
+                      canSearch: true,
+                      canOrderColumns: true,
+                      canSaveUserConfiguration: true,
+                      isUpdatingRows: true,
+                      userConfiguration: {
+                        columnsOrder: ["Competency", "Evaluation" ,"FreqOfTrack", "Class", "Evidence", "Comments", "clickButton"],
+                      },
+                      rowsPerPage: {
+                        available: [10, 25, 50, 100],
+                        selected: 10
+                      },
+                    },
+                  }
+                } refreshRows={() => this.refreshRows(this.state.comp_info)} actions={this.actionsRow}/>
+            </div>
+            <div className={classes.content_displays}>
+                <Datatable options={
+                  {
+                    title: "Previously evaluated competencies",
+                    dimensions: {
+                      datatable: {
+                        width: "100%",
+                        height: "100%"
+                      },
+                      row: {
+                        height: "60px"
+                      }
+                    },
+                    keyColumn: "Competency",
+                    font: "Arial",
+                    data: {
+                      columns: [
+                        {
+                          id: "Competency",
+                          label: "Competency",
+                          colSize: "350px",
+                          editable: false
+                        },
+                        {
+                          id: "Evaluation",
+                          label: "Evaluation",
+                          colSize: "50px",
+                          editable: true,
+                          inputType: "select",
+                          values: ["N", "0", "1", "2", "3", "4"]
+                        },
+                        {
+                          id: "Evidence",
+                          label: "Evidence",
+                          colSize: "50px",
+                          editable: true,
+                          inputType: "select",
+                          values: ["Direct observation", "Assessment", "Report from employer", "Report from coach"]
+                        },
+                        {
+                          id: "Class",
+                          label: "Class",
+                          colSize: "200px",
+                          editable: false,
+                          inputType: "input",
+                        },
+                        {
+                          id: "Comments",
+                          label: "Comments",
+                          colSize: "200px",
+                          editable: true,
+                          inputType: "input",
+                        },
+                        {
+                          id: "FreqOfTrack" ,
+                          label: "Tracking Frequency",
+                          colSize: "80px",
+                          editable: false,
+                          inputType: "select",
+                          values: ["Year", "Semester", "Month"]
+                        },
+                      ],
+                      rows: this.state.evaluated_competencies
+                    },
+                    features: {
+                      canEdit: false,
+                      canPrint: true,
+                      canDownload: true,
+                      canSearch: true,
+                      canOrderColumns: true,
+                      canSaveUserConfiguration: true,
+                      isUpdatingRows: true,
+                      userConfiguration: {
+                        columnsOrder: ["Competency", "Evaluation", "FreqOfTrack", "Class", "Evidence" ,"Comments"],
+                      },
+                      rowsPerPage: {
+                        available: [10, 25, 50, 100],
+                        selected: 10
+                      },
+                    },
+
+                  }
+                } refreshRows={() => this.refreshRows(this.state.comp_history_info)} actions={this.actionsRow}/>
+            </div>
+            </div>
 
             </Container>
         );

@@ -64,7 +64,6 @@ const styles = theme => ({
   }
 });
 
-
 class login extends React.Component {
     constructor(props) {
       super(props);
@@ -86,26 +85,6 @@ class login extends React.Component {
       event.preventDefault();
       this.signIn(this.state.email, this.state.password);
     }
-
-    // async login(username, password) {
-    //   let currentUser = await Auth.currentUserPoolUser();
-    //   console.log(currentUser);
-    //   const userPool = new CognitoUserPool({
-    //     UserPoolId: 'us-east-1_ukWqeyhM4',
-    //     ClientId: '1lr290tbgl9c533rklc7ncgvhg'
-    //   });
-    //   const user = new CognitoUser({ Username: username, Pool: userPool });
-    //   const authenticationData = { Username: username, Password: password };
-    //   const authenticationDetails = new AuthenticationDetails(authenticationData);
-
-    //   //this.props.history.push('/homescreen');
-    //   return new Promise((resolve, reject) =>
-    //     user.authenticateUser(authenticationDetails, {
-    //       onSuccess: result => resolve(),
-    //       onFailure: err => reject(err)
-    //     })
-    //   );
-  //}
 
     async signIn(username, password) {
       try {
@@ -141,24 +120,11 @@ class login extends React.Component {
             d.setTime(d.getTime() + (1 * 60 * 60 * 1000));
             let extime = d.getTime();
 
-            setCookie('accesskey', AWS.config.credentials.accessKeyId, extime);
-            setCookie('secretkey', AWS.config.credentials.secretAccessKey, extime);
-            setCookie('sessiontoken', AWS.config.credentials.sessionToken, extime);
-
-            // creds.get(function(){
-            //   // Credentials will be available when this function is called.
-            //   var accessKeyId = AWS.config.credentials.accessKeyId;
-            //   var secretAccessKey = AWS.config.credentials.secretAccessKey;
-            //   var sessionToken = AWS.config.credentials.sessionToken;
-            //   //console.log(AWS.config.credentials);
-            // });
-
-            //creds.getPromise()
-
             console.log(AWS.config.credentials);
 
             this.props.history.push('/homescreen');
           });
+
         });
       } catch (error) {
         console.error('Error signing in:', error);
@@ -167,6 +133,7 @@ class login extends React.Component {
     }
 
     render() {
+
         const { classes } = this.props;
 
         return (
