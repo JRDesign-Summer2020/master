@@ -72,6 +72,7 @@ class Students extends Component {
     window.alert(JSON.stringify(item, null, 2));
   };
 
+  //get your students based on role
   componentDidMount() {
     getRole().then(role => {
         if (role == 'Admins' || role == "PeerMentorCoordinators") {
@@ -104,14 +105,6 @@ class Students extends Component {
           });
         }
     });
-    
-
-    // this.toStudent = this.toStudent.bind(this);
-    // let stud_list = DummyEndpoint.get_all_students_list(this.toStudent);
-    // //console.log(stud_list);
-    // this.options.data.rows = stud_list;
-    // //console.log(this.options);
-    // this.setState({updated: 1})
   }
 
 
@@ -152,15 +145,10 @@ class Students extends Component {
                     }
                   ],
                   rows: this.state.data
-                    // {
-                    //   allStudents: "John Doe",
-                    //   id: 'jdoe3',
-                    //   clickButton: <button onClick={() => this.toStudent(5)}>Evaluate</button>,
-                    // },
                 },
                 features: {
-                  canEdit: true,
-                  canDelete: true,
+                  canEdit: false,
+                  canDelete: false,
                   canPrint: true,
                   canDownload: true,
                   canSearch: true,
