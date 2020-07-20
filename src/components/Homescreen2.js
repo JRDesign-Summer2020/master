@@ -29,8 +29,8 @@ import { StepIcon } from '@material-ui/core';
 import {BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,} from 'recharts';
 
 import './login.js';
-import { API, Auth } from 'aws-amplify';
-import { invokeApig, getCreds, getRole } from '../helpers/utils.js';
+import { API } from 'aws-amplify';
+import { invokeApig } from '../helpers/utils';
 
 const styles = theme => ({
     side: {

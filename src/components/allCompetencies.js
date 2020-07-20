@@ -4,7 +4,7 @@ import { chunk } from "lodash";
 import Container from '@material-ui/core/Container';
 import Sidebar from "./Sidebar";
 import {withStyles} from "@material-ui/core/styles";
-import { invokeApig } from '../helpers/utils.js';
+import { invokeApig } from '../helpers/utils';
 import AddIcon from '@material-ui/icons/Add';
 
 const styles = theme => ({
@@ -118,7 +118,7 @@ class allCompetencies extends Component {
     });
 
     let items = response["Items"];
-    
+
     return items.map(item => ({
       allCompetencies: item['CompetencyTitle'],
       id: item['CompetencyId'],
@@ -135,7 +135,7 @@ class allCompetencies extends Component {
   componentDidMount() {
     console.log("then this");
     invokeApig({
-      path: ( '/competencies'), 
+      path: ( '/competencies'),
       method: "GET",
       headers: {},
       queryParams: {} ,
