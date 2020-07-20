@@ -57,6 +57,25 @@ const styles = theme => ({
 class homescreen extends React.Component {
     constructor(props) {
         super(props);
+
+        // Auth.currentAuthenticatedUser().then(user => user.signInUserSession.accessToken.payload['cognito:groups'][0])
+        // .then(data => console.log(data));
+
+        // invokeApig({
+        //     path: ( '/competencies'), 
+        //     method: 'GET',
+        //     headers: {},
+        //     queryParams: {},
+        // });
+
+        // let userId = 'test2'
+        // invokeApig({
+        //     path: ( '/users-to-tracking-location/users/' + userId), 
+        //     method: "DELETE",
+        //     headers: {},
+        //     queryParams: {} ,
+        // });
+
          /**
         invokeApig({
             path: ( '/evaluations'),

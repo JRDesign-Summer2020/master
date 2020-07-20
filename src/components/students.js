@@ -5,6 +5,7 @@ import Container from '@material-ui/core/Container';
 import Sidebar from "./Sidebar";
 import {withStyles} from "@material-ui/core/styles";
 import DummyEndpoint from '../legacy/dummy_endpoint';
+import { getRole, getUsername, invokeApig } from '../helpers/utils.js';
 
 const styles = () => ({
   side: {
@@ -37,61 +38,16 @@ class Students extends Component {
     );
   }
 
-  options = {
-    title: "Students assigned to compentencies",
-    dimensions: {
-      datatable: {
-        width: "100%",
-        height: "80%"
-      },
-      row: {
-        height: "60px"
-      }
-    },
-    keyColumn: "allStudents",
-    font: "Arial",
-    data: {
-      columns: [
-        {
-          id: "allStudents",
-          label: "Students",
-          colSize: "150px",
-          editable: false
-        },
-        {
-          id: "clickButton",
-          label: "View",
-          colSize: "20px",
-          editable: false
-        }
-      ],
-      rows: [
-        // {
-        //   allStudents: "John Doe",
-        //   id: 'jdoe3',
-        //   clickButton: <button onClick={() => this.toStudent(5)}>Evaluate</button>,
-        // },
-      ]
-    },
-    features: {
-      canEdit: true,
-      canDelete: true,
-      canPrint: true,
-      canDownload: true,
-      canSearch: true,
-      canRefreshRows: true,
-      canOrderColumns: true,
-      canSaveUserConfiguration: true,
-      userConfiguration: {
-        columnsOrder: ["allStudents", "clickButton"],
-        copyToClipboard: true
-      },
-      rowsPerPage: {
-        available: [10, 25, 50, 100],
-        selected: 50
-      },
-    }
-  };
+  
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: []
+    };
+
+  }
+
   actionsRow = ({ type, payload }) => {
     console.log(type);
     console.log(payload);
@@ -115,14 +71,47 @@ class Students extends Component {
   onClick2  = (e, item) => {
     window.alert(JSON.stringify(item, null, 2));
   };
-  state = {updated: 0};
+
   componentDidMount() {
-    this.toStudent = this.toStudent.bind(this);
-    let stud_list = DummyEndpoint.get_all_students_list(this.toStudent);
-    console.log(stud_list);
-    this.options.data.rows = stud_list;
-    console.log(this.options);
-    this.setState({updated: 1});
+    getRole().then(role => {
+        if (role == 'Admins' || role == "PeerMentorCoordinators") {
+          invokeApig({
+            path: ( '/users/students'), 
+            method: "GET",
+            headers: {},
+            queryParams: {} ,
+          }).then(response => response["Items"].map(item => ({
+            allStudents: item['UserInfo']['Name'],
+            id: item['UserId'],
+            clickButton: <button onClick={() => this.toStudent(item.UserId)}>Evaluations</button>,
+            }))).then(students => {
+            this.setState({ data: students });
+            });
+        } else if(role == "FacultyStaff" || role == "Mentors" || role == "Coaches") {
+          getUsername().then(userId => {
+            invokeApig({
+              path: ( '/users/mentors/' + userId +'/students'), 
+              method: "GET",
+              headers: {},
+              queryParams: {} ,
+            }).then(items => items.map(item => ({
+              allStudents: item['UserInfo']['Name'],
+              id: item['UserId'],
+              clickButton: <button onClick={() => this.toStudent(item.UserId)}>Evaluations</button>,
+              }))).then(students => {
+              this.setState({ data: students });
+              });
+          });
+        }
+    });
+    
+
+    // this.toStudent = this.toStudent.bind(this);
+    // let stud_list = DummyEndpoint.get_all_students_list(this.toStudent);
+    // //console.log(stud_list);
+    // this.options.data.rows = stud_list;
+    // //console.log(this.options);
+    // this.setState({updated: 1})
   }
 
 
@@ -133,7 +122,62 @@ class Students extends Component {
       <Container>
         <div className={classes.content}>
           <Datatable
-            options={this.options}
+            options= {
+              {
+                title: "Students assigned to you",
+                dimensions: {
+                  datatable: {
+                    width: "100%",
+                    height: "80%"
+                  },
+                  row: {
+                    height: "60px"
+                  }
+                },
+                keyColumn: "allStudents",
+                font: "Arial",
+                data: {
+                  columns: [
+                    {
+                      id: "allStudents",
+                      label: "Students",
+                      colSize: "150px",
+                      editable: false
+                    },
+                    {
+                      id: "clickButton",
+                      label: "View",
+                      colSize: "20px",
+                      editable: false
+                    }
+                  ],
+                  rows: this.state.data
+                    // {
+                    //   allStudents: "John Doe",
+                    //   id: 'jdoe3',
+                    //   clickButton: <button onClick={() => this.toStudent(5)}>Evaluate</button>,
+                    // },
+                },
+                features: {
+                  canEdit: true,
+                  canDelete: true,
+                  canPrint: true,
+                  canDownload: true,
+                  canSearch: true,
+                  canRefreshRows: true,
+                  canOrderColumns: true,
+                  canSaveUserConfiguration: true,
+                  userConfiguration: {
+                    columnsOrder: ["allStudents", "clickButton"],
+                    copyToClipboard: true
+                  },
+                  rowsPerPage: {
+                    available: [10, 25, 50, 100],
+                    selected: 50
+                  },
+                }
+              }
+            }
             refreshRows={this.refreshRows}
             actions={this.actionsRow}
           />

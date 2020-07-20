@@ -96,11 +96,11 @@ class allCompetencies extends Component {
       },
       additionalIcons: [
         {
-            tooltip: 'Add',
-            icon: <AddIcon/>,
-            onClick: () => alert('Add!')
+          tooltip: 'Add',
+          icon: <AddIcon/>,
+          onClick: () => alert('Add!')
         }
-    ],
+      ],
     }
   };
 
