@@ -1,21 +1,11 @@
 import React, { Component } from "react";
 import { Datatable } from "@o2xp/react-datatable";
-import { chunk } from "lodash";
 import Container from '@material-ui/core/Container';
-import Sidebar from "./Sidebar";
 import {withStyles} from "@material-ui/core/styles";
 import { invokeApig } from '../helpers/utils';
 import AddIcon from '@material-ui/icons/Add';
 
 const styles = theme => ({
-  side: {
-    margin: 0,
-    padding: 0,
-    width: '200px',
-    backgroundColor : '#f1f1f1',
-    position: 'fixed',
-    height: '100%',
-  },
   content: {
     height: '1000px',
   }

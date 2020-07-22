@@ -2,31 +2,15 @@ import React, { Component } from "react";
 import { Datatable } from "@o2xp/react-datatable";
 import { chunk } from "lodash";
 import Container from '@material-ui/core/Container';
-import Sidebar from "./Sidebar";
 import {withStyles} from "@material-ui/core/styles";
 import DummyEndpoint from '../legacy/dummy_endpoint';
 import { getRole, getUsername, invokeApig } from '../helpers/utils.js';
 
 const styles = () => ({
-  side: {
-    margin: 0,
-    padding: 0,
-    width: '200px',
-    backgroundColor : '#f1f1f1',
-    position: 'fixed',
-    height: '100%',
-  },
   content: {
     height: '1000px',
   }
 });
-
-// const styles = theme => ({
-//   sideB: {
-//     float: left,
-//   },
-// });
-
 
 class Students extends Component {
   toStudent(id) {
@@ -37,7 +21,7 @@ class Students extends Component {
     );
   }
 
-  
+
 
   constructor(props) {
     super(props);
@@ -67,16 +51,12 @@ class Students extends Component {
     });
   };
 
-  onClick2  = (e, item) => {
-    window.alert(JSON.stringify(item, null, 2));
-  };
-
   //get your students based on role
   componentDidMount() {
     getRole().then(role => {
-        if (role == 'Admins' || role == "PeerMentorCoordinators") {
+        if (role === 'Admins' || role === "PeerMentorCoordinators") {
           invokeApig({
-            path: ( '/users/students'), 
+            path: ( '/users/students'),
             method: "GET",
             headers: {},
             queryParams: {} ,
@@ -87,10 +67,10 @@ class Students extends Component {
             }))).then(students => {
             this.setState({ data: students });
             });
-        } else if(role == "FacultyStaff" || role == "Mentors" || role == "Coaches") {
+        } else if(role === "FacultyStaff" || role === "Mentors" || role === "Coaches") {
           getUsername().then(userId => {
             invokeApig({
-              path: ( '/users/mentors/' + userId +'/students'), 
+              path: ( '/users/mentors/' + userId +'/students'),
               method: "GET",
               headers: {},
               queryParams: {} ,
@@ -105,7 +85,6 @@ class Students extends Component {
         }
     });
   }
-
 
   render() {
     const { classes } = this.props;

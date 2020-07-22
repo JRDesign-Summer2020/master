@@ -2,25 +2,14 @@ import React, { Component } from "react";
 import { Datatable } from "@o2xp/react-datatable";
 import { chunk } from "lodash";
 import Container from '@material-ui/core/Container';
-import Sidebar from "./Sidebar";
 import {withStyles} from "@material-ui/core/styles";
 import { invokeApig } from '../helpers/utils.js';
 
 
 const styles = theme => ({
-  side: {
-    margin: 0,
-    padding: 0,
-    width: '200px',
-    backgroundColor : '#f1f1f1',
-    position: 'fixed',
-    height: '100%',
-  },
   content: {
-  // marginLeft: '200px',
-  padding: '1px 16px',
   height: '1000px',
-}
+  }
 });
 
 
@@ -57,21 +46,22 @@ class Users extends Component {
   }
 
   componentWillMount() {
-    invokeApig({
-        path: ( '/users'), 
-        method: 'GET',
-        headers: {},
-        queryParams: {},
-    }).then(response => {
-      let items = response["Items"];
-      console.log(items);
-      items.map(item => ({
-        UserID: item['UserId'],
-        UserInfo: item['UserInfo']['Name'],
-        Role: '',
-        Cohort: ''
-      }));
-    })
+    //TODO: Fix user API lambda function
+    // invokeApig({
+    //     path: ( '/users'), 
+    //     method: 'GET',
+    //     headers: {},
+    //     queryParams: {},
+    // }).then(response => {
+    //   let items = response["Items"];
+    //   console.log(items);
+    //   items.map(item => ({
+    //     UserID: item['UserId'],
+    //     UserInfo: item['UserInfo']['Name'],
+    //     Role: '',
+    //     Cohort: ''
+    //   }));
+    // })
   }
 
 

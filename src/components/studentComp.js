@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import Container from '@material-ui/core/Container';
-import Sidebar from "./Sidebar";
 import {withStyles} from "@material-ui/core/styles";
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
@@ -16,14 +15,6 @@ import competency from "./competency";
 import { useParams } from "react-router";
 
 const styles = () => ({
-  side: {
-    margin: 0,
-    padding: 0,
-    width: '200px',
-    backgroundColor : '#f1f1f1',
-    position: 'fixed',
-    height: '100%',
-  },
   content: {
     display: 'fixed',
     marginBottom: 'inherit',
@@ -72,6 +63,48 @@ const listbutton = {
   width: '300px',
 };
 
+function StudentName(props){
+  return(!props.exist ?
+      <Typography variant="h5">
+        Student: {props.name}
+      </Typography>
+      : <Typography/>
+  )
+}
+
+class LocationItem extends Component {
+  listbutton = {
+    border: '2px',
+    background: '#CFCFCF',
+    transition: "#efefef",
+    color: 'solid black',
+    textAlign: 'center',
+    borderRadius: '5px',
+    height: '30px',
+    margin: '0 0 3px 0',
+    width: '300px',
+  };
+  bringToLocation = () => {
+    console.log('name: ' + this.props.name);
+    console.log('sub: ' + this.props.sub_id);
+    const goTo = this.props.endpoint;
+    const id = this.props.sub_id;
+    console.log(this.props.location.pathname);
+    this.props.history.push(
+        {
+          pathname: goTo,
+          data: {id}
+        }
+      );
+};
+  render(){
+    return(
+      <ListItem button onClick={this.bringToLocation} style={this.listbutton}>
+        <ListItemText primary={this.props.name}/>
+      </ListItem>
+    )
+  }
+}
 
 class StudentComp extends Component {
     constructor(props) {
@@ -143,7 +176,7 @@ class StudentComp extends Component {
       this.setState({unevaluated_competencies: current_comps});
 
       invokeApig({
-        path: ( '/evaluations'), 
+        path: ( '/evaluations'),
         method: "POST",
         headers: {},
         queryParams: {} ,
@@ -178,7 +211,7 @@ class StudentComp extends Component {
     //responsible for pulling att of the data from the database
     componentDidMount() {
       invokeApig({
-        path: ( '/users/' + this.state.student_id), 
+        path: ( '/users/' + this.state.student_id),
         method: "GET",
         headers: {},
         queryParams: {} ,
@@ -368,7 +401,7 @@ class StudentComp extends Component {
     }
 
     //brings users to the class details page
-    //not sure if this is needed 
+    //not sure if this is needed
     bringToLocation(classId) {
       this.props.history.push(
         {
@@ -378,7 +411,7 @@ class StudentComp extends Component {
       );
     }
 
-    
+
     //responsible for rendering everything on the page
     //you want to put your state variables in here so they automatically update
     render() {
@@ -571,7 +604,7 @@ class StudentComp extends Component {
             </div>
             </div>
 
-        </Container>
+            </Container>
         );
     }
 }

@@ -2,31 +2,13 @@ import React, { Component } from "react";
 import { Datatable } from "@o2xp/react-datatable";
 import { chunk } from "lodash";
 import Container from '@material-ui/core/Container';
-import Sidebar from "./Sidebar";
 import {withStyles} from "@material-ui/core/styles";
 
-
-
 const styles = theme => ({
-  side: {
-    margin: 0,
-    padding: 0,
-    width: '200px',
-    backgroundColor : '#f1f1f1',
-    position: 'fixed',
-    height: '100%',
-  },
   content: {
-  height: '1000px',
-}
+    height: '1000px',
+  }
 });
-
-// const styles = theme => ({
-//   sideB: {
-//     float: left,
-//   },
-// });
-
 
 class Locations extends Component {
   toClass(id) {
@@ -111,7 +93,7 @@ class Locations extends Component {
       canSaveUserConfiguration: true,
       userConfiguration: {
         columnsOrder: ["LocationName", "PhysicalLocation", "MeetingTime", "Faculty", "clickButton"],
-        copyToClipboard: true
+        copyToClipboard: false
       },
       rowsPerPage: {
         available: [10, 25, 50, 100],
@@ -140,11 +122,6 @@ class Locations extends Component {
     });
   };
 
-  onClick2  = (e, item) => {
-    window.alert(JSON.stringify(item, null, 2));
-  }
-
-
   render() {
     const { classes } = this.props;
 
@@ -157,13 +134,6 @@ class Locations extends Component {
                      actions={this.actionsRow}
           />
         </div>
-
-
-
-
-
-
-
       </Container>
     );
   }

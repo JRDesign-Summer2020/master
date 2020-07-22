@@ -1,41 +1,20 @@
 import React, { Component } from "react";
-import { Datatable } from "@o2xp/react-datatable";
-import { chunk } from "lodash";
-import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
-import Sidebar from "./Sidebar";
-import HomeIcon from "@material-ui/icons/Home";
-import Dashboard from "@material-ui/icons/Dashboard";
-import PeopleIcon from "@material-ui/icons/People";
-import CheckBoxIcon from "@material-ui/icons/CheckBox";
-import SettingsIcon from "@material-ui/icons/Settings";
-import color from "@material-ui/core/colors/red";
 import {withStyles} from "@material-ui/core/styles";
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Divider from "@material-ui/core/Divider";
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 //DUMMY DATA
 import DummyEndpoint from '../legacy/dummy_endpoint';
 
 const styles = theme => ({
-  side: {
-    margin: 0,
-    padding: 0,
-    width: '200px',
-    backgroundColor : '#f1f1f1',
-    position: 'fixed',
-    height: '100%',
-  },
   content: {
   height: '1000px',
   display: 'flex',
   flexDirection: 'row',
-},
-comp_text: {
+  },
+  comp_text: {
     height: '1000px',
     display: 'flex',
     flexDirection: 'column',
@@ -47,35 +26,12 @@ comp_text: {
   },
 });
 
-
-//gonna have to make API call to get comp ID then another to get comp name
-// const details = {
-//     '13':
-//     {
-//         name: 'Transportation 1',
-//         competencies:[
-//             [1283, 'Crossing street without guidance.'],
-//             [837, 'Calling an Uber without guidance.' ],
-//         ]
-//         ,
-//         profs: [
-//             'Dr. John Doe',
-//             'Prof. Nathan Heald'
-//         ],
-//         students: [
-//           [5, 'John Doe'],
-//           [928, 'Bobby Bobberson'],
-//         ]
-//     }
-// };
-
-
 function LocationName(props){
     console.log(props.exist);
     return(!props.exist ?
             <Typography variant="h5">
                 Class: {props.name}
-            </Typography> : <Typography></Typography>
+            </Typography> : <Typography />
     )
 }
 
@@ -124,36 +80,55 @@ class ClassDetails extends Component {
     const competencies_tracked = details ? DummyEndpoint.get_simple_list_of_comps(details.competencies) : null;
     const comp_name = details ? details.name : null;
     const list_of_competencies = id ? competencies_tracked.map((comp) =>
-        <LocationItem name={comp["QuickName"]} sub_id={comp["id"]} endpoint = '/compDetails' history={this.props.history} location={this.props.location}/>
-    ): <ListItem></ListItem>;
+        <LocationItem key={comp.id}
+            name={comp["QuickName"]}
+            sub_id={comp["id"]}
+            endpoint = '/compDetails'
+            history={this.props.history}
+            location={this.props.location}
+        />
+    ): <ListItem />;
     console.log(details);
     // console.log(details["students"]);
     //DUMMY DATA
     console.log(details["students"].forEach((comp) => console.log(DummyEndpoint.get_student(comp))));
     //DUMMY DATA
     const list_of_students = id ? details["students"].map((comp) =>
-        <LocationItem name={DummyEndpoint.get_student(comp)["name"]} sub_id={comp} endpoint = '/studentComp' history={this.props.history} location={this.props.location}/>
-    ): <ListItem></ListItem>;
+        <LocationItem key={comp.id}
+            name={DummyEndpoint.get_student(comp)["name"]}
+            sub_id={comp}
+            endpoint = '/studentComp'
+            history={this.props.history}
+            location={this.props.location}
+        />
+    ): <ListItem />;
 
     const list_of_profs = id ? details.profs.map((prof) =>
-        <LocationItem name={prof} history={this.props.history} location={this.props.location}/>
-    ): <ListItem></ListItem>;
+        <LocationItem key={prof}
+            name={prof}
+            history={this.props.history}
+            location={this.props.location}
+        />
+    ): <ListItem />;
 
     return (
       <Container>
         <div className={classes.comp_text}>
-            <LocationName name={comp_name} exist={id == null}></LocationName>
+            <LocationName
+                name={comp_name}
+                exist={id == null}
+            />
             <div className={classes.content}>
                 <div className={classes.column_view}>
                     <h4>Competencies Tracked</h4>
                     <List>
-                    {list_of_competencies}
+                        {list_of_competencies}
                     </List>
                 </div>
                 <div className={classes.column_view}>
                     <h4> Professors</h4>
                     <List>
-                    {list_of_profs}
+                        {list_of_profs}
                     </List>
                 </div>
                 <div className={classes.column_view}>

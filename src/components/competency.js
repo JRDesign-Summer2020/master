@@ -1,13 +1,8 @@
 import React, { Component } from "react";
 import { Datatable } from "@o2xp/react-datatable";
 import { chunk } from "lodash";
-import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
-import Sidebar from "./Sidebar";
 import {withStyles} from "@material-ui/core/styles";
-import getEvaluations from "../legacy/getEvaluations";
-
-//const evaluationsFromApi = getEvaluations();
 
 const evalU  = {
   title: "Evaluation Scale",
@@ -194,23 +189,13 @@ const options = {
 };
 
 const styles = theme => ({
-  side: {
-    margin: 0,
-    padding: 0,
-    width: '200px',
-    backgroundColor : '#f1f1f1',
-    position: 'fixed',
-    height: '100%',
-  },
   content: {
-  marginLeft: '190px',
-  padding: '1px 16px',
   height: '1000px',
 }
 });
 
 
-class App extends Component {
+class Competency extends Component {
   actionsRow = ({ type, payload }) => {
     console.log(type);
     console.log(payload);
@@ -230,11 +215,6 @@ class App extends Component {
       }, randomTime);
     });
   };
-
-  onClick2  = (e, item) => {
-    window.alert(JSON.stringify(item, null, 2));
-  }
-
 
   render() {
     const { classes } = this.props;
@@ -257,4 +237,4 @@ class App extends Component {
   }
 }
 
-export default withStyles(styles)(App);
+export default withStyles(styles)(Competency);
