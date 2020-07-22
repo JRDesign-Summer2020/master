@@ -16,8 +16,7 @@ class Students extends Component {
   toStudent(id) {
     this.props.history.push(
       {
-        pathname: '/studentComp',
-        data: {id}
+        pathname: '/studentComp/' + id,
       }
     );
   }

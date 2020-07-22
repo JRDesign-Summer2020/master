@@ -78,7 +78,7 @@ const MainContainer = () => (
         <Route exact path = "/locationDetails" component = {locationDetails} />
         <Route exact path = "/compDetails" component = {competencyDetails} />
         <Route exact path = "/students" component={students} />
-        <Route exact path = "/studentComp" component={studentComp} />
+        <Route exact path = "/studentComp/:id" component={studentComp} />
         <Route exact path = "/classDetails" component = {classDetails}/>
         <Route exact path = "/facultystaff" component = {FacultyStaff} />
     </div>
