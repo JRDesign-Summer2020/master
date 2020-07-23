@@ -109,16 +109,14 @@ npm start
 1. Go to this link: [https://master.d19x1ye7qes4du.amplifyapp.com/](https://master.d19x1ye7qes4du.amplifyapp.com/)
 
 #### Back End (deployed API):
-1. To see the API, lambda functions, user permissions, etc. log in to the AWS Management Console with root access, use the credentials:
+1. To see the API, lambda functions, user permissions, etc. log in to the AWS Management Console with root access, use the credentials (Remember to change the billing method):
   * Email: Your Scheller email
   * Password: GTexcel2020
-  a. Remember to change the billing method
 
-2. If you are making ANY changes you should be using the Administrator account. On the AWS Management Console sign in page, choose IAM user. Input the credentials:
+2. If you are making ANY changes you should be using the Administrator account (Remember to change password). On the AWS Management Console sign in page, choose IAM user. Input the credentials:
   * Account ID: 340421050030
   * IAM user name: Administrator
-  * Password: GTexcel2020
-  a. Remember to change password
+  * Password: GTexcel2020 
   
  3. If you want your own version of the API (not recommended) you can download an OpenApi 3.0 or Swagger yaml file from the API Gateway. In your own account AWS account, you can create a new REST API and use the downloaded yaml file. If you choose this method you will also have to export any lambda functions and roles/policies.
 
