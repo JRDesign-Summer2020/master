@@ -207,6 +207,7 @@ class StudentComp extends Component {
 
     }
 
+    //sorry for this mess
     //once all of the components on the page load, this happens
     //responsible for pulling att of the data from the database
     componentDidMount() {
@@ -226,7 +227,10 @@ class StudentComp extends Component {
 
       getRole().then(role => 
         {
+          //get students based on role - all students for admins and peer mentor coordinators
+          //only the students they teach/advise for other rolles
           if (role == 'Admins' || role == "PeerMentorCoordinators") {
+            //gets all users and their connected classes
             invokeApig({
               path: ( '/users-to-tracking-location'), 
               method: "GET",
@@ -234,16 +238,109 @@ class StudentComp extends Component {
               queryParams: {} ,
             }).then(response => {
               let users = response['Items'];
-              //fix for more than one item in array
+              //gets the username of the evaluator
               getUsername().then(username => {
                 this.setState( {evaluator_id: username} )
                 let myUser = users.find(user => user.UserId == this.state.student_id);
                 console.log(myUser)
+                //check if the user is connected to any classes, if not do nothing
                 if(myUser != undefined) {
-                  let locationId = myUser.LocationIds[0];
-                  this.setState({classes: locationId})
+                  let locationIds = myUser.LocationIds;
+                  this.setState({classes: locationIds})
+                  locationIds.forEach(locationId => {
+                    //get the competency ids for each class they are in
+                    invokeApig({
+                      path: ( '/tracking-locations-to-competencies/' + encodeURIComponent(locationId)), 
+                      method: "GET",
+                      headers: {},
+                      queryParams: {} ,
+                    }).then(response => {
+                      let c = response["Item"]["CompetencyIds"]
+                      //pull all of the competency information from the competencies database
+                      invokeApig({
+                        path: ( '/competencies'), 
+                        method: "GET",
+                        headers: {},
+                        queryParams: {} ,
+                      }).then(data => {
+                        let allComps = data["Items"];
+                        let comps = []
+                        //see if they have any previously evaluated competencies
+                        invokeApig({
+                          path: ( '/evaluations/' + this.state.student_id), 
+                          method: "GET",
+                          headers: {},
+                          queryParams: {} ,
+                        }).then(response =>
+                          {
+                            let items = response["Items"]
+                            let evaluated_compIds = [];
+                            for(var j = 0; j < items.length; j++) {
+                              let competency_id = items[j]["CompetencyId_Timestamp"];
+                              competency_id = competency_id.substring(0, competency_id.indexOf('_'));
+                              evaluated_compIds.push(competency_id);
+                            }
+                            //getting all unevaluated comps
+                            if(c.length != 0) {
+                              for(var i = 0; i < c.length; ++i){
+                                comps.push(allComps.find(allComp => allComp.CompetencyId == c[i]));
+                                var cmp = comps.map((comp) => ({
+                                  Competency: comp.CompetencyTitle,
+                                  Evaluation: "N",
+                                  Class: locationId,
+                                  Evidence: "Assesment",
+                                  Comments: "",
+                                  FreqOfTrack: comp.EvaluationFrequency,
+                                  clickButton: "You must edit before submitting",
+                                  Id: comp.CompetencyId
+                                }));
+                              }
+                            }
+                            //mapping all evaluted competencies
+                            let evaluated_comps = [];
+                            if (evaluated_compIds.length > 0) {
+                              for(var k = 0; k < evaluated_compIds.length; ++k) {
+                                let index = cmp.findIndex(comp => comp.Id == evaluated_compIds[k]);
+                                let new_eval = {
+                                  Competency: cmp[index].Competency,
+                                  Evaluation: items[k].EvaluationScore,
+                                  FreqOfTrack: cmp[index].FreqOfTrack,
+                                  Class: cmp[index].Class,
+                                  Evidence: items[k].Evidence,
+                                  Comments: items[k].Comments,
+                                  Id: cmp[index].Id,
+                                }
+                                cmp.splice(index, 1);
+                                evaluated_comps.push(new_eval);
+                              }
+                            }
+                            //set the state of unevaluated & evaluuated competencies so they auto-update the tables
+                            this.setState({evaluated_competencies: this.state.evaluated_competencies.concat(evaluated_comps)});
+                            this.setState({unevaluated_competencies: this.state.unevaluated_competencies.concat(cmp)});
+                          });
+                      });
+                    });
+                  });
+                }
+              });
+            });
+          } else {
+            //repeat from above but for only students they teach/advise
+            invokeApig({
+              path: ( '/users-to-tracking-location'), 
+              method: "GET",
+              headers: {},
+              queryParams: {} ,
+            }).then(response => {
+              let users = response['Items'];
+              getUsername().then(username => {
+                this.setState( {evaluator_id: username} )
+                let myUser = users.find(user => user.UserId == username);
+                let locationIds = myUser.LocationIds;
+                this.setState({classes: locationIds})
+                locationIds.forEach(locationId => {
                   invokeApig({
-                    path: ( '/tracking-locations-to-competencies/' + encodeURIComponent(this.state.classes)), 
+                    path: ( '/tracking-locations-to-competencies/' + encodeURIComponent(locationId)), 
                     method: "GET",
                     headers: {},
                     queryParams: {} ,
@@ -267,25 +364,25 @@ class StudentComp extends Component {
                           let items = response["Items"]
                           let evaluated_compIds = [];
                           for(var j = 0; j < items.length; j++) {
-                            let competency_id = items[j]["CompetencyId_Timestamp"];
-                            competency_id = competency_id.substring(0, competency_id.indexOf('_'));
-                            evaluated_compIds.push(competency_id);
+                            if(items[j].UserIdEvaluator == this.state.evaluator_id) {
+                              let competency_id = items[j]["CompetencyId_Timestamp"];
+                              competency_id = competency_id.substring(0, competency_id.indexOf('_'));
+                              evaluated_compIds.push(competency_id);
+                            }
                           }
                           //getting all unevaluated comps
-                          if(c.length != 0) {
-                            for(var i = 0; i < c.length; ++i){
-                              comps.push(allComps.find(allComp => allComp.CompetencyId == c[i]));
-                              var cmp = comps.map((comp) => ({
-                                Competency: comp.CompetencyTitle,
-                                Evaluation: "N",
-                                Class: locationId,
-                                Evidence: "Assesment",
-                                Comments: "",
-                                FreqOfTrack: comp.EvaluationFrequency,
-                                clickButton: "You must edit before submitting",
-                                Id: comp.CompetencyId
-                              }));
-                            }
+                          for(var i = 0; i < c.length; ++i){
+                            comps.push(allComps.find(allComp => allComp.CompetencyId == c[i]));
+                            var cmp = comps.map((comp) => ({
+                              Competency: comp.CompetencyTitle,
+                              Evaluation: "N",
+                              Class: locationId,
+                              Evidence: "Assesment",
+                              Comments: "",
+                              FreqOfTrack: comp.EvaluationFrequency,
+                              clickButton: "You must edit before submitting",
+                              Id: comp.CompetencyId
+                            }));
                           }
                           let evaluated_comps = [];
                           if (evaluated_compIds.length > 0) {
@@ -299,98 +396,16 @@ class StudentComp extends Component {
                                 Evidence: items[k].Evidence,
                                 Comments: items[k].Comments,
                                 Id: cmp[index].Id,
-                              }
+                              };
                               cmp.splice(index, 1);
                               evaluated_comps.push(new_eval);
                             }
                           }
-                          this.setState({evaluated_competencies: evaluated_comps})
-                          this.setState({unevaluated_competencies: cmp});
+
+                          this.setState({evaluated_competencies: this.state.evaluated_competencies.concat(evaluated_comps)});
+                          this.setState({unevaluated_competencies: this.state.unevaluated_competencies.concat(cmp)});
                         });
                     });
-                  });
-                } 
-              });
-            });
-          } else {
-            invokeApig({
-              path: ( '/users-to-tracking-location'), 
-              method: "GET",
-              headers: {},
-              queryParams: {} ,
-            }).then(response => {
-              let users = response['Items'];
-              //fix for more than one item in array
-              getUsername().then(username => {
-                this.setState( {evaluator_id: username} )
-                let myUser = users.find(user => user.UserId == username);
-                let locationId = myUser.LocationIds[0];
-                this.setState({classes: locationId})
-                invokeApig({
-                  path: ( '/tracking-locations-to-competencies/' + encodeURIComponent(this.state.classes)), 
-                  method: "GET",
-                  headers: {},
-                  queryParams: {} ,
-                }).then(response => {
-                  let c = response["Item"]["CompetencyIds"]
-                  invokeApig({
-                    path: ( '/competencies'), 
-                    method: "GET",
-                    headers: {},
-                    queryParams: {} ,
-                  }).then(data => {
-                    let allComps = data["Items"];
-                    let comps = []
-                    invokeApig({
-                      path: ( '/evaluations/' + this.state.student_id), 
-                      method: "GET",
-                      headers: {},
-                      queryParams: {} ,
-                    }).then(response =>
-                      {
-                        let items = response["Items"]
-                        let evaluated_compIds = [];
-                        for(var j = 0; j < items.length; j++) {
-                          if(items[j].UserIdEvaluator == this.state.evaluator_id) {
-                            let competency_id = items[j]["CompetencyId_Timestamp"];
-                            competency_id = competency_id.substring(0, competency_id.indexOf('_'));
-                            evaluated_compIds.push(competency_id);
-                          }
-                        }
-                        //getting all unevaluated comps
-                        for(var i = 0; i < c.length; ++i){
-                          comps.push(allComps.find(allComp => allComp.CompetencyId == c[i]));
-                          var cmp = comps.map((comp) => ({
-                            Competency: comp.CompetencyTitle,
-                            Evaluation: "N",
-                            Class: locationId,
-                            Evidence: "Assesment",
-                            Comments: "",
-                            FreqOfTrack: comp.EvaluationFrequency,
-                            clickButton: "You must edit before submitting",
-                            Id: comp.CompetencyId
-                          }));
-                        }
-                        let evaluated_comps = [];
-                        if (evaluated_compIds.length > 0) {
-                          for(var k = 0; k < evaluated_compIds.length; ++k) {
-                            let index = cmp.findIndex(comp => comp.Id == evaluated_compIds[k]);
-                            let new_eval = {
-                              Competency: cmp[index].Competency,
-                              Evaluation: items[k].EvaluationScore,
-                              FreqOfTrack: cmp[index].FreqOfTrack,
-                              Class: cmp[index].Class,
-                              Evidence: items[k].Evidence,
-                              Comments: items[k].Comments,
-                              Id: cmp[index].Id,
-                            }
-                            cmp.splice(index, 1);
-                            evaluated_comps.push(new_eval);
-                          }
-                        }
-                        this.setState({evaluated_competencies: evaluated_comps})
-                        this.setState({unevaluated_competencies: cmp});
-                      });
                   });
                 });
               });
@@ -497,6 +512,7 @@ class StudentComp extends Component {
                             editable: false
                         }
                       ],
+                      //state variable
                       rows: this.state.unevaluated_competencies
                     },
                     features: {
@@ -580,6 +596,7 @@ class StudentComp extends Component {
                           values: ["Year", "Semester", "Month"]
                         },
                       ],
+                      //state variable
                       rows: this.state.evaluated_competencies
                     },
                     features: {

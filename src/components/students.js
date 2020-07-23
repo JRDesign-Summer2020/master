@@ -12,6 +12,8 @@ const styles = () => ({
   }
 });
 
+//give a unique pathname to each user
+//would look like this .../studentComp/janedoe
 class Students extends Component {
   toStudent(id) {
     this.props.history.push(
@@ -22,7 +24,7 @@ class Students extends Component {
   }
 
 
-
+//initializes the state to have no data
   constructor(props) {
     super(props);
     this.state = {
@@ -51,8 +53,10 @@ class Students extends Component {
     });
   };
 
-  //get your students based on role
+  //once all of the tables have loaded, this will be called
+  //it will get the data from the api and map it to the columns of the table
   componentDidMount() {
+    //get your students based on role
     getRole().then(role => {
         if (role === 'Admins' || role === "PeerMentorCoordinators") {
           invokeApig({
@@ -86,6 +90,8 @@ class Students extends Component {
     });
   }
 
+  //responsible for rendering everything on the page
+  //you want to put your state variables in here so they automatically update
   render() {
     const { classes } = this.props;
 
@@ -122,7 +128,8 @@ class Students extends Component {
                       editable: false
                     }
                   ],
-                  rows: this.state.data
+                  //this is how the rows change dynamically (it does not seem to work outside of the render function)
+                  rows: this.state.data 
                 },
                 features: {
                   canEdit: false,
