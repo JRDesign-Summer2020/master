@@ -2,6 +2,7 @@ import SHA256 from "crypto-js/sha256";
 import encHex from "crypto-js/enc-hex";
 import HmacSHA256 from "crypto-js/hmac-sha256";
 
+//creates the signed header to make api calls 
 export const sigV4Client = {};
 sigV4Client.newClient = function(config) {
   const AWS_SHA_256 = "AWS4-HMAC-SHA256";
